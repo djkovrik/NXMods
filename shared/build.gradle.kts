@@ -48,9 +48,9 @@ kotlin {
 
 android {
     namespace = "com.sedsoftware.nxmods"
-    compileSdk = 32
+    compileSdk = 33
     defaultConfig {
-        minSdk = 24
-        targetSdk = 32
+        minSdk = 23
+        targetSdk = 33
     }
 }
