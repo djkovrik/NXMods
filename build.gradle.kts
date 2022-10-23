@@ -36,3 +36,9 @@ tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
 tasks.withType<io.gitlab.arturbosch.detekt.DetektCreateBaselineTask>().configureEach {
     jvmTarget = "1.8"
 }
+
+tasks.register("runOnGitHub") {
+    dependsOn(":detekt", ":android:lint")
+    group = "custom"
+    description = "./gradlew runOnGitHub # runs on GitHub Action"
+}
