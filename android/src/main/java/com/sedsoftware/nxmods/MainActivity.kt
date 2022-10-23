@@ -1,4 +1,6 @@
-package com.sedsoftware.nxmods.android
+@file:Suppress("MagicNumber")
+
+package com.sedsoftware.nxmods
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -71,7 +73,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Greeting(Greeting().greeting())
+                    Greeting(Greeting().greet())
                 }
             }
         }
