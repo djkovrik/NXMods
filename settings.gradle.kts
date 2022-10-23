@@ -15,4 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "NXMods"
 include(":android")
-include(":shared")
+include(":common:root")
