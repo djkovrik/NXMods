@@ -1,5 +1,6 @@
 plugins {
     `kotlin-dsl`
+    id("com.louiscad.complete-kotlin") version "1.1.0"
 }
 
 allprojects {
