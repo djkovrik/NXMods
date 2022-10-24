@@ -11,9 +11,16 @@ kotlin {
     iosSimulatorArm64()
 
     sourceSets {
-        val commonMain by getting
+        val commonMain by getting {
+            dependencies {
+                implementation(Deps.JetBrains.DateTime.dateTime)
+                implementation(Deps.Badoo.Reaktive.reaktive)
+            }
+        }
         val commonTest by getting {
             dependencies {
+                implementation(Deps.JetBrains.DateTime.dateTime)
+                implementation(Deps.Badoo.Reaktive.reaktive)
                 implementation(Deps.JetBrains.Kotlin.testCommon)
                 implementation(Deps.JetBrains.Kotlin.testAnnotationsCommon)
             }
