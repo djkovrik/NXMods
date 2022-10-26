@@ -1,5 +1,7 @@
 package com.sedsoftware.nxmods.domain.entity
 
+import com.sedsoftware.nxmods.domain.type.EndorseStatus
+
 class Endorsement(
     val endorseStatus: EndorseStatus,
     val timestamp: Long,

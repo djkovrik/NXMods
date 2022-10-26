@@ -1,4 +1,4 @@
-package com.sedsoftware.nxmods.domain.entity
+package com.sedsoftware.nxmods.domain.type
 
 enum class EndorseStatus(val label: String) {
     UNDEFINED("Undefined"), UNDECIDED("Undecided"), ENDORSED("Endorsed");
