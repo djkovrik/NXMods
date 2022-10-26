@@ -1,5 +1,6 @@
 plugins {
-    kotlin("multiplatform")
+    id("kotlin-multiplatform")
+    id("kotlinx-serialization")
     id("com.android.library")
 }
 
@@ -14,12 +15,14 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(Deps.JetBrains.DateTime.dateTime)
+                implementation(Deps.JetBrains.Serialization.core)
                 implementation(Deps.Badoo.Reaktive.reaktive)
             }
         }
         val commonTest by getting {
             dependencies {
                 implementation(Deps.JetBrains.DateTime.dateTime)
+                implementation(Deps.JetBrains.Serialization.core)
                 implementation(Deps.Badoo.Reaktive.reaktive)
                 implementation(Deps.JetBrains.Kotlin.testCommon)
                 implementation(Deps.JetBrains.Kotlin.testAnnotationsCommon)

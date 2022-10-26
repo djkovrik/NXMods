@@ -3,7 +3,7 @@
 object Deps {
     object JetBrains {
         object Kotlin {
-            private const val VERSION = "1.7.20"
+            const val VERSION = "1.7.20"
             const val gradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$VERSION"
             const val testCommon = "org.jetbrains.kotlin:kotlin-test-common:$VERSION"
             const val testJunit = "org.jetbrains.kotlin:kotlin-test-junit:$VERSION"
@@ -25,6 +25,12 @@ object Deps {
         object DateTime {
             private const val VERSION = "0.4.0"
             const val dateTime = "org.jetbrains.kotlinx:kotlinx-datetime:$VERSION"
+        }
+
+        object Serialization {
+            private const val VERSION = "1.4.1"
+            const val gradlePlugin = "org.jetbrains.kotlin:kotlin-serialization:${JetBrains.Kotlin.VERSION}"
+            const val core = "org.jetbrains.kotlinx:kotlinx-serialization-json:$VERSION"
         }
     }
 
