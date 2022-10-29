@@ -1,6 +1,7 @@
 package com.sedsoftware.nxmods.domain
 
 import com.badoo.reaktive.completable.Completable
+import com.badoo.reaktive.completable.doOnAfterComplete
 import com.badoo.reaktive.completable.subscribeOn
 import com.badoo.reaktive.scheduler.Scheduler
 import com.badoo.reaktive.scheduler.ioScheduler
@@ -21,9 +22,11 @@ class EndorsementsManager(
 
     fun endorse(domain: String, id: Long): Completable =
         api.endorse(domain, id)
+            .doOnAfterComplete { db.endorse(domain, id) }
             .subscribeOn(scheduler)
 
     fun unendorse(domain: String, id: Long): Completable =
         api.unendorse(domain, id)
+            .doOnAfterComplete { db.unendorse(domain, id) }
             .subscribeOn(scheduler)
 }

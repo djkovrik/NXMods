@@ -10,11 +10,10 @@ interface NxModsDatabase {
     fun saveGame(item: GameInfo): Completable
     fun saveGames(items: List<GameInfo>): Completable
     fun searchByName(name: String): Maybe<List<GameInfo>>
-    fun getByDomain(domain: String): Maybe<GameInfo>
     fun saveTracked(items: List<TrackedMod>): Completable
-    fun track(item: TrackedMod): Completable
-    fun untrack(item: TrackedMod): Completable
+    fun track(domain: String, id: Long): Completable
+    fun untrack(domain: String, id: Long): Completable
     fun saveEndorsed(items: List<GivenEndorsement>): Completable
-    fun endorse(id: Long, domain: String): Completable
-    fun unendorse(id: Long, domain: String): Completable
+    fun endorse(domain: String, id: Long): Completable
+    fun unendorse(domain: String, id: Long): Completable
 }

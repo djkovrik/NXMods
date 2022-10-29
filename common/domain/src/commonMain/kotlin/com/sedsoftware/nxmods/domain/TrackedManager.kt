@@ -1,6 +1,7 @@
 package com.sedsoftware.nxmods.domain
 
 import com.badoo.reaktive.completable.Completable
+import com.badoo.reaktive.completable.doOnAfterComplete
 import com.badoo.reaktive.completable.subscribeOn
 import com.badoo.reaktive.scheduler.Scheduler
 import com.badoo.reaktive.scheduler.ioScheduler
@@ -21,9 +22,11 @@ class TrackedManager(
 
     fun track(domain: String, id: Long): Completable =
         api.track(domain, id)
+            .doOnAfterComplete { db.track(domain, id) }
             .subscribeOn(scheduler)
 
     fun untrack(domain: String, id: Long): Completable =
         api.untrack(domain, id)
+            .doOnAfterComplete { db.untrack(domain, id) }
             .subscribeOn(scheduler)
 }

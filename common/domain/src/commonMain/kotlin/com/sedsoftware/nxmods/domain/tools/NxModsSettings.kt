@@ -7,4 +7,5 @@ interface NxModsSettings {
     var isSupporter: Boolean
     var apiKey: String
     var isProfileValid: Boolean
+    var currentDomain: String
 }

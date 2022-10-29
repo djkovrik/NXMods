@@ -12,9 +12,9 @@ import com.sedsoftware.nxmods.domain.entity.TrackedMod
 interface NxModsApi {
     // Mods
     fun getChangelog(domain: String, id: Long): Single<List<ChangelogItem>>
-    fun getLatestAdded(domain: String): Single<List<GameInfo>>
-    fun getLatestUpdated(domain: String): Single<List<GameInfo>>
-    fun getTrending(domain: String): Single<List<GameInfo>>
+    fun getLatestAdded(domain: String): Single<List<ModInfo>>
+    fun getLatestUpdated(domain: String): Single<List<ModInfo>>
+    fun getTrending(domain: String): Single<List<ModInfo>>
     fun getMod(domain: String, id: Long): Single<ModInfo>
     // Games
     fun getGame(domain: String): Single<GameInfo>
