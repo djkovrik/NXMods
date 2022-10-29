@@ -7,8 +7,10 @@ import com.sedsoftware.nxmods.domain.entity.GivenEndorsement
 import com.sedsoftware.nxmods.domain.entity.TrackedMod
 
 interface NxModsDatabase {
+    fun saveGame(item: GameInfo): Completable
     fun saveGames(items: List<GameInfo>): Completable
-    fun searchByName(query: String): Maybe<List<GameInfo>>
+    fun searchByName(name: String): Maybe<List<GameInfo>>
+    fun getByDomain(domain: String): Maybe<GameInfo>
     fun saveTracked(items: List<TrackedMod>): Completable
     fun track(item: TrackedMod): Completable
     fun untrack(item: TrackedMod): Completable

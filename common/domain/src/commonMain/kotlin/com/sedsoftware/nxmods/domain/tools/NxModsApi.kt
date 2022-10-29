@@ -6,6 +6,7 @@ import com.sedsoftware.nxmods.domain.entity.ChangelogItem
 import com.sedsoftware.nxmods.domain.entity.GameInfo
 import com.sedsoftware.nxmods.domain.entity.GivenEndorsement
 import com.sedsoftware.nxmods.domain.entity.ModInfo
+import com.sedsoftware.nxmods.domain.entity.OwnProfile
 import com.sedsoftware.nxmods.domain.entity.TrackedMod
 
 interface NxModsApi {
@@ -16,10 +17,10 @@ interface NxModsApi {
     fun getTrending(domain: String): Single<List<GameInfo>>
     fun getMod(domain: String, id: Long): Single<ModInfo>
     // Games
-    fun getGames(): Single<List<GameInfo>>
     fun getGame(domain: String): Single<GameInfo>
+    fun getGames(): Single<List<GameInfo>>
     // User
-    fun validateApiKey(): Completable
+    fun validateApiKey(): Single<OwnProfile>
     fun getTracked(): Single<List<TrackedMod>>
     fun track(domain: String, id: Long): Completable
     fun untrack(domain: String, id: Long): Completable
