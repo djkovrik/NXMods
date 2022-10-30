@@ -3,23 +3,34 @@
 object Deps {
     object JetBrains {
         object Kotlin {
-            private val VERSION get() = "1.7.20"
-            val gradlePlugin get() = "org.jetbrains.kotlin:kotlin-gradle-plugin:$VERSION"
-            val testCommon get() = "org.jetbrains.kotlin:kotlin-test-common:$VERSION"
-            val testJunit get() = "org.jetbrains.kotlin:kotlin-test-junit:$VERSION"
-            val testAnnotationsCommon get() = "org.jetbrains.kotlin:kotlin-test-annotations-common:$VERSION"
+            const val VERSION = "1.7.20"
+            const val gradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$VERSION"
+            const val testCommon = "org.jetbrains.kotlin:kotlin-test-common:$VERSION"
+            const val testJunit = "org.jetbrains.kotlin:kotlin-test-junit:$VERSION"
+            const val testAnnotationsCommon = "org.jetbrains.kotlin:kotlin-test-annotations-common:$VERSION"
         }
 
         object Compose {
-             private val VERSION get() = "1.2.0"
-             val gradlePlugin get() = "org.jetbrains.compose:compose-gradle-plugin:$VERSION"
+             private const val VERSION = "1.2.0"
+            const val gradlePlugin = "org.jetbrains.compose:compose-gradle-plugin:$VERSION"
         }
 
         object Ktor {
-            private val VERSION get() = "2.1.2"
-            val clientCore = "io.ktor:ktor-client-core:$VERSION"
-            val engineAndroid = "io.ktor:ktor-client-okhttp:$VERSION"
-            val engineIos = "io.ktor:ktor-client-darwin:$VERSION"
+            private const val VERSION = "2.1.2"
+            const val clientCore = "io.ktor:ktor-client-core:$VERSION"
+            const val engineAndroid = "io.ktor:ktor-client-okhttp:$VERSION"
+            const val engineIos = "io.ktor:ktor-client-darwin:$VERSION"
+        }
+
+        object DateTime {
+            private const val VERSION = "0.4.0"
+            const val dateTime = "org.jetbrains.kotlinx:kotlinx-datetime:$VERSION"
+        }
+
+        object Serialization {
+            private const val VERSION = "1.4.1"
+            const val gradlePlugin = "org.jetbrains.kotlin:kotlin-serialization:${JetBrains.Kotlin.VERSION}"
+            const val core = "org.jetbrains.kotlinx:kotlinx-serialization-json:$VERSION"
         }
     }
 
