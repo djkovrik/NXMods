@@ -10,7 +10,7 @@ import com.badoo.reaktive.single.flatMapCompletable
 import com.sedsoftware.nxmods.domain.tools.NxModsApi
 import com.sedsoftware.nxmods.domain.tools.NxModsSettings
 
-class ApiKeyManage(
+class ApiKeyManager(
     private val api: NxModsApi,
     private val settings: NxModsSettings,
     private val scheduler: Scheduler = ioScheduler
@@ -21,7 +21,7 @@ class ApiKeyManage(
             .subscribeOn(scheduler)
 
     fun validateApiKey(key: String): Completable =
-        api.validateApiKey()
+        api.validateApiKey(key)
             .doOnAfterError { settings.isProfileValid = false }
             .flatMapCompletable { profile ->
                 completableFromFunction {

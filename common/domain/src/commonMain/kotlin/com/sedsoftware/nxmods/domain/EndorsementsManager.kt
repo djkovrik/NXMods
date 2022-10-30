@@ -22,11 +22,11 @@ class EndorsementsManager(
 
     fun endorse(domain: String, id: Long): Completable =
         api.endorse(domain, id)
-            .doOnAfterComplete { db.endorse(domain, id) }
+            .doOnAfterComplete { db.endorse(domain, id, true) }
             .subscribeOn(scheduler)
 
     fun unendorse(domain: String, id: Long): Completable =
         api.unendorse(domain, id)
-            .doOnAfterComplete { db.unendorse(domain, id) }
+            .doOnAfterComplete { db.endorse(domain, id, false) }
             .subscribeOn(scheduler)
 }

@@ -22,11 +22,11 @@ class TrackedManager(
 
     fun track(domain: String, id: Long): Completable =
         api.track(domain, id)
-            .doOnAfterComplete { db.track(domain, id) }
+            .doOnAfterComplete { db.track(domain, id, true) }
             .subscribeOn(scheduler)
 
     fun untrack(domain: String, id: Long): Completable =
         api.untrack(domain, id)
-            .doOnAfterComplete { db.untrack(domain, id) }
+            .doOnAfterComplete { db.track(domain, id, false) }
             .subscribeOn(scheduler)
 }

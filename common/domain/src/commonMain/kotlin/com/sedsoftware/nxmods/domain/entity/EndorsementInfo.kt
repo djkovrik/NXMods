@@ -3,7 +3,7 @@ package com.sedsoftware.nxmods.domain.entity
 import com.sedsoftware.nxmods.domain.type.EndorseStatus
 import kotlinx.datetime.LocalDateTime
 
-class GivenEndorsement(
+class EndorsementInfo(
     val id: Long,
     val domain: String,
     val date: LocalDateTime,

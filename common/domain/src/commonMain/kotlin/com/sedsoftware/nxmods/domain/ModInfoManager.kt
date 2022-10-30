@@ -12,7 +12,6 @@ import com.sedsoftware.nxmods.domain.tools.NxModsSettings
 
 class ModInfoManager(
     private val api: NxModsApi,
-    private val db: NxModsDatabase,
     private val settings: NxModsSettings,
     private val scheduler: Scheduler = ioScheduler
 ) {
@@ -20,16 +19,16 @@ class ModInfoManager(
     private val domain: String
         get() = settings.currentDomain
 
-    fun getLatestAdded(): Single<List<ModInfo>> =
+    fun getLatestAddedMods(): Single<List<ModInfo>> =
         api.getLatestAdded(domain)
             .subscribeOn(scheduler)
 
-    fun getLatestUpdated(): Single<List<ModInfo>> =
+    fun getLatestUpdatedMods(): Single<List<ModInfo>> =
         api.getLatestUpdated(domain)
             .subscribeOn(scheduler)
 
-    fun getTrending(): Single<List<ModInfo>> =
-        api.getLatestUpdated(domain)
+    fun getTrendingMods(): Single<List<ModInfo>> =
+        api.getTrending(domain)
             .subscribeOn(scheduler)
 
     fun getModInfo(domain: String, id: Long): Single<ModInfo> =
