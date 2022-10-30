@@ -3,6 +3,8 @@ package com.sedsoftware.nxmods.domain.tools
 import com.badoo.reaktive.completable.Completable
 import com.badoo.reaktive.maybe.Maybe
 import com.badoo.reaktive.observable.Observable
+import com.badoo.reaktive.single.Single
+import com.sedsoftware.nxmods.domain.entity.CachedModData
 import com.sedsoftware.nxmods.domain.entity.EndorsementInfo
 import com.sedsoftware.nxmods.domain.entity.GameInfo
 import com.sedsoftware.nxmods.domain.entity.TrackingInfo
@@ -19,4 +21,5 @@ interface NxModsDatabase {
     fun track(domain: String, id: Long, track: Boolean): Completable
     fun saveEndorsed(items: List<EndorsementInfo>): Completable
     fun endorse(domain: String, id: Long, endorse: Boolean): Completable
+    fun getCachedModData(domain: String, id: Long): Single<CachedModData>
 }

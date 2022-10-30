@@ -2,7 +2,7 @@ package com.sedsoftware.nxmods.domain.entity
 
 import kotlinx.datetime.LocalDateTime
 
-class ModInfo(
+data class ModInfo(
     val modId: Long,
     val gameId: Long,
     val domainName: String,
@@ -28,5 +28,7 @@ class ModInfo(
     val status: String,
     val available: Boolean,
     val user: UserInfo,
+    val isTracked: Boolean,
+    val isEndorsed: Boolean,
     val endorsement: Endorsement
 )
