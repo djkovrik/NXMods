@@ -1,0 +1,31 @@
+-- noinspection UnusedColumn
+CREATE TABLE IF NOT EXISTS GameInfoEntity (
+    id INTEGER NOT NULL PRIMARY KEY,
+    name TEXT NOT NULL,
+    forumUrl TEXT NOT NULL,
+    nexusmodsUrl TEXT NOT NULL,
+    genre TEXT NOT NULL,
+    filesCount INTEGER NOT NULL,
+    downloadsCount INTEGER NOT NULL,
+    domain TEXT NOT NULL,
+    filesViews INTEGER NOT NULL,
+    authors INTEGER NOT NULL,
+    fileEndorsements INTEGER NOT NULL,
+    modsCount INTEGER NOT NULL,
+    categories TEXT
+);
+
+-- noinspection UnusedColumn
+CREATE TABLE IF NOT EXISTS TrackingInfoEntity (
+    id INTEGER NOT NULL PRIMARY KEY,
+    domain TEXT NOT NULL
+);
+
+-- noinspection UnusedColumn
+CREATE TABLE IF NOT EXISTS EndorsementInfoEntity (
+    id INTEGER NOT NULL PRIMARY KEY,
+    domain TEXT NOT NULL,
+    date TEXT NOT NULL,
+    version TEXT NOT NULL,
+    status TEXT NOT NULL
+);

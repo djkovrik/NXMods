@@ -15,6 +15,7 @@ kotlin {
         commonMain {
             dependencies {
                 implementation(Deps.JetBrains.DateTime.dateTime)
+                implementation(Deps.JetBrains.Serialization.core)
                 implementation(Deps.Badoo.Reaktive.reaktive)
             }
         }
