@@ -1,31 +1,88 @@
--- noinspection UnusedColumn
+---- GAME INFO
+
 CREATE TABLE IF NOT EXISTS GameInfoEntity (
     id INTEGER NOT NULL PRIMARY KEY,
     name TEXT NOT NULL,
+    bookmarked INTEGER NOT NULL,
     forumUrl TEXT NOT NULL,
     nexusmodsUrl TEXT NOT NULL,
     genre TEXT NOT NULL,
-    filesCount INTEGER NOT NULL,
+    fileCount INTEGER NOT NULL,
     downloadsCount INTEGER NOT NULL,
     domain TEXT NOT NULL,
-    filesViews INTEGER NOT NULL,
+    fileViews INTEGER NOT NULL,
     authors INTEGER NOT NULL,
     fileEndorsements INTEGER NOT NULL,
     modsCount INTEGER NOT NULL,
     categories TEXT
 );
 
--- noinspection UnusedColumn
+selectGame:
+SELECT *
+FROM GameInfoEntity
+WHERE domain = :domain;
+
+selectBookmarkedGame:
+SELECT *
+FROM GameInfoEntity
+WHERE bookmarked = 1;
+
+selectAllGames:
+SELECT * FROM GameInfoEntity;
+
+bookmarkGame:
+UPDATE GameInfoEntity
+SET bookmarked = :bookmarked
+WHERE domain = :domain;
+
+insertGame:
+INSERT INTO GameInfoEntity(id, name, bookmarked, forumUrl, nexusmodsUrl, genre, fileCount, downloadsCount, domain, fileViews, authors, fileEndorsements, modsCount, categories)
+VALUES(:id, :name, :bookmarked, :forumUrl, :nexusmodsUrl, :genre, :fileCount, :downloadsCount, :domain, :fileViews, :authors, :fileEndorsements, :modsCount, :categories);
+
+searchGame:
+SELECT *
+FROM GameInfoEntity
+WHERE name LIKE '%:query%';
+
+
+---- TRACKED INFO
+
 CREATE TABLE IF NOT EXISTS TrackingInfoEntity (
-    id INTEGER NOT NULL PRIMARY KEY,
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    modId INTEGER NOT NULL,
     domain TEXT NOT NULL
 );
 
--- noinspection UnusedColumn
+insertTracked:
+INSERT INTO TrackingInfoEntity(modId, domain)
+VALUES(:modId, :domain);
+
+deleteTracked:
+DELETE FROM TrackingInfoEntity
+WHERE modId = :modId AND domain = :domain;
+
+trackedExists:
+SELECT EXISTS
+(SELECT * FROM TrackingInfoEntity WHERE modId = :modId AND domain = :domain LIMIT 1);
+
+
+---- ENDORSED INFO
+
 CREATE TABLE IF NOT EXISTS EndorsementInfoEntity (
-    id INTEGER NOT NULL PRIMARY KEY,
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    modId INTEGER NOT NULL,
     domain TEXT NOT NULL,
-    date TEXT NOT NULL,
-    version TEXT NOT NULL,
     status TEXT NOT NULL
 );
+
+insertEndorsed:
+INSERT INTO EndorsementInfoEntity(modId, domain, status)
+VALUES(:modId, :domain, :status);
+
+deleteEndorsed:
+DELETE FROM EndorsementInfoEntity
+WHERE modId = :modId AND domain = :domain;
+
+endorsedExists:
+SELECT EXISTS
+(SELECT * FROM EndorsementInfoEntity WHERE modId = :modId AND domain = :domain LIMIT 1);
