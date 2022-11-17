@@ -5,7 +5,7 @@ plugins {
 }
 
 sqldelight {
-    database("NxModsDatabase") {
+    database("NexusDatabase") {
         packageName = "com.sedsoftware.nxmods.database"
     }
 }
