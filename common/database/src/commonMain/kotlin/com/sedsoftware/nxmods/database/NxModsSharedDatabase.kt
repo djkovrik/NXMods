@@ -41,7 +41,7 @@ class NxModsSharedDatabase(driver: Single<SqlDriver>): NxModsDatabase {
         TODO("Not yet implemented")
     }
 
-    override fun bookmark(domain: String, isAdded: Boolean): Completable {
+    override fun bookmark(domain: String, bookmark: Boolean): Completable {
         TODO("Not yet implemented")
     }
 
@@ -61,7 +61,7 @@ class NxModsSharedDatabase(driver: Single<SqlDriver>): NxModsDatabase {
         TODO("Not yet implemented")
     }
 
-    override fun track(domain: String, id: Long, track: Boolean): Completable {
+    override fun track(domain: String, modId: Long, track: Boolean): Completable {
         TODO("Not yet implemented")
     }
 
@@ -69,11 +69,11 @@ class NxModsSharedDatabase(driver: Single<SqlDriver>): NxModsDatabase {
         TODO("Not yet implemented")
     }
 
-    override fun endorse(domain: String, id: Long, endorse: Boolean): Completable {
+    override fun endorse(domain: String, modId: Long, endorse: Boolean): Completable {
         TODO("Not yet implemented")
     }
 
-    override fun getCachedModData(domain: String, id: Long): Single<CachedModData> {
+    override fun getCachedModData(domain: String, modId: Long): Single<CachedModData> {
         TODO("Not yet implemented")
     }
 }

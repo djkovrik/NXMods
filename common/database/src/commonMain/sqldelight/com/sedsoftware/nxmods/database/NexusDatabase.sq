@@ -22,7 +22,7 @@ SELECT *
 FROM GameInfoEntity
 WHERE domain = :domain;
 
-selectBookmarkedGame:
+selectBookmarkedGames:
 SELECT *
 FROM GameInfoEntity
 WHERE bookmarked = 1;
