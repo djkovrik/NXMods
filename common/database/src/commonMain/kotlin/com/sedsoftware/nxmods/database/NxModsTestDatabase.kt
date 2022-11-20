@@ -22,7 +22,6 @@ import com.sedsoftware.nxmods.domain.entity.EndorsementInfo
 import com.sedsoftware.nxmods.domain.entity.GameInfo
 import com.sedsoftware.nxmods.domain.entity.TrackingInfo
 import com.sedsoftware.nxmods.domain.tools.NxModsDatabase
-import com.sedsoftware.nxmods.domain.type.EndorseStatus
 
 class NxModsTestDatabase(
     private val scheduler: Scheduler
@@ -110,8 +109,7 @@ class NxModsTestDatabase(
                 addEndorsedInfo(
                     EndorsementInfo(
                         modId = modId,
-                        domain = domain,
-                        status = EndorseStatus.ENDORSED
+                        domain = domain
                     )
                 )
             } else {
@@ -150,8 +148,7 @@ class NxModsTestDatabase(
                 val item = EndorsementInfoEntity(
                     id = nextId,
                     modId = info.modId,
-                    domain = info.domain,
-                    status = info.status.label
+                    domain = info.domain
                 )
                 items + (nextId to item)
             }

@@ -6,6 +6,10 @@ import com.sedsoftware.nxmods.database.serialization.GameCategorySerializable.Co
 import com.sedsoftware.nxmods.domain.entity.GameInfo
 
 internal object GameInfoEntityMappers {
+    val gameInfoListToDomain: List<GameInfoEntity>.() -> List<GameInfo> = {
+        map { gameInfoToDomain(it) }
+    }
+
     val gameInfoToDomain: GameInfoEntity.() -> GameInfo = {
         GameInfo(
             id = id,
