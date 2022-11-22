@@ -99,12 +99,6 @@ class NxModsSharedDatabase(driver: Single<SqlDriver>) : NxModsDatabase {
             )
         }
 
-    override fun searchByName(name: String): Maybe<List<GameInfo>> =
-        query { it.searchGame(name = name) }
-            .mapNotNull { it.executeAsList() }
-            .map(gameInfoListToDomain)
-
-
     override fun saveTracked(items: List<TrackingInfo>): Completable =
         execute { query ->
             query.transaction {

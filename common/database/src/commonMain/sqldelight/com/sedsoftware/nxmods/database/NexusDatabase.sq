@@ -39,12 +39,6 @@ insertGame:
 INSERT INTO GameInfoEntity(id, name, bookmarked, forumUrl, nexusmodsUrl, genre, fileCount, downloadsCount, domain, fileViews, authors, fileEndorsements, modsCount, categories)
 VALUES(:id, :name, :bookmarked, :forumUrl, :nexusmodsUrl, :genre, :fileCount, :downloadsCount, :domain, :fileViews, :authors, :fileEndorsements, :modsCount, :categories);
 
--- TODO: FTS?
-searchGame:
-SELECT *
-FROM GameInfoEntity
-WHERE name = :name;
-
 
 ---- TRACKED INFO
 

@@ -16,7 +16,6 @@ interface NxModsDatabase {
     fun bookmark(domain: String, bookmark: Boolean): Completable
     fun saveGames(items: List<GameInfo>): Completable
     fun saveGame(item: GameInfo): Completable
-    fun searchByName(name: String): Maybe<List<GameInfo>>
     fun saveTracked(items: List<TrackingInfo>): Completable
     fun track(domain: String, modId: Long, track: Boolean): Completable
     fun saveEndorsed(items: List<EndorsementInfo>): Completable

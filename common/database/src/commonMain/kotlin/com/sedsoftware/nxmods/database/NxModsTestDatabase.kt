@@ -3,15 +3,12 @@ package com.sedsoftware.nxmods.database
 import com.badoo.reaktive.completable.Completable
 import com.badoo.reaktive.completable.completableFromFunction
 import com.badoo.reaktive.completable.observeOn
-import com.badoo.reaktive.maybe.Maybe
-import com.badoo.reaktive.maybe.observeOn
 import com.badoo.reaktive.observable.Observable
 import com.badoo.reaktive.observable.map
 import com.badoo.reaktive.observable.notNull
 import com.badoo.reaktive.observable.observeOn
 import com.badoo.reaktive.scheduler.Scheduler
 import com.badoo.reaktive.single.Single
-import com.badoo.reaktive.single.notNull
 import com.badoo.reaktive.single.observeOn
 import com.badoo.reaktive.single.singleFromFunction
 import com.badoo.reaktive.subject.behavior.BehaviorSubject
@@ -69,11 +66,6 @@ class NxModsTestDatabase(
 
     override fun saveGame(item: GameInfo): Completable =
         execute { testing.addGameInfo(item) }
-
-    override fun searchByName(name: String): Maybe<List<GameInfo>> =
-        singleFromFunction { testing.getByName(name)?.map(gameInfoToDomain) }
-            .notNull()
-            .observeOn(scheduler)
 
     override fun saveTracked(items: List<TrackingInfo>): Completable =
         execute { items.forEach { testing.addTrackedInfo(it) } }
