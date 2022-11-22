@@ -13,5 +13,6 @@ class GameInfo(
     val authors: Long,
     val fileEndorsements: Long,
     val modsCount: Long,
+    val isBookmarked: Boolean,
     val categories: List<GameCategory>
 )

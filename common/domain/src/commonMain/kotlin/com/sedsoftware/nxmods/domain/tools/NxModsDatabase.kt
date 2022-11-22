@@ -13,13 +13,12 @@ interface NxModsDatabase {
     fun observeGamesList(): Observable<List<GameInfo>>
     fun observeGame(domain: String): Observable<GameInfo>
     fun observeBookmarkedGames(): Observable<List<GameInfo>>
-    fun bookmark(domain: String, isAdded: Boolean): Completable
+    fun bookmark(domain: String, bookmark: Boolean): Completable
     fun saveGames(items: List<GameInfo>): Completable
     fun saveGame(item: GameInfo): Completable
-    fun searchByName(name: String): Maybe<List<GameInfo>>
     fun saveTracked(items: List<TrackingInfo>): Completable
-    fun track(domain: String, id: Long, track: Boolean): Completable
+    fun track(domain: String, modId: Long, track: Boolean): Completable
     fun saveEndorsed(items: List<EndorsementInfo>): Completable
-    fun endorse(domain: String, id: Long, endorse: Boolean): Completable
-    fun getCachedModData(domain: String, id: Long): Single<CachedModData>
+    fun endorse(domain: String, modId: Long, endorse: Boolean): Completable
+    fun getCachedModData(domain: String, modId: Long): Single<CachedModData>
 }

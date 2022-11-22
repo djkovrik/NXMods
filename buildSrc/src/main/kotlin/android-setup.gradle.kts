@@ -3,8 +3,6 @@ plugins {
 }
 
 android {
-    namespace = "com.sedsoftware.nxmods"
-
     compileSdk = 33
 
     defaultConfig {

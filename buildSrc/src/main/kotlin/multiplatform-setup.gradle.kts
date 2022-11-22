@@ -14,9 +14,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(Deps.JetBrains.DateTime.dateTime)
-                implementation(Deps.JetBrains.Serialization.core)
-                implementation(Deps.Badoo.Reaktive.reaktive)
+
             }
         }
         val commonTest by getting {
