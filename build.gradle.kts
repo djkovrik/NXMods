@@ -38,7 +38,7 @@ tasks.withType<io.gitlab.arturbosch.detekt.DetektCreateBaselineTask>().configure
 }
 
 tasks.register("runOnGitHub") {
-    dependsOn(":assembleDebug", ":detekt", ":common:database:testDebugUnitTest", ":android:lint")
+    dependsOn(":detekt", ":common:database:testDebugUnitTest", ":android:lint")
     group = "custom"
     description = "./gradlew runOnGitHub # runs on GitHub Action"
 }
