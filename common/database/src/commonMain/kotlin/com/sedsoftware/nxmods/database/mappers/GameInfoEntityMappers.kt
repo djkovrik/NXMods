@@ -1,8 +1,8 @@
 package com.sedsoftware.nxmods.database.mappers
 
 import com.sedsoftware.nxmods.database.GameInfoEntity
-import com.sedsoftware.nxmods.database.serialization.GameCategorySerializable.Companion.asGameCategories
-import com.sedsoftware.nxmods.database.serialization.GameCategorySerializable.Companion.asString
+import com.sedsoftware.nxmods.database.serializer.GameCategorySerializable.Companion.asGameCategories
+import com.sedsoftware.nxmods.database.serializer.GameCategorySerializable.Companion.asString
 import com.sedsoftware.nxmods.domain.entity.GameInfo
 
 internal object GameInfoEntityMappers {
