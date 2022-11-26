@@ -1,4 +1,4 @@
-package com.sedsoftware.nxmods.stubs
+package com.sedsoftware.nxmods.network.stubs
 
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
