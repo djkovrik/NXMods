@@ -29,6 +29,5 @@ data class ModInfo(
     val available: Boolean,
     val user: UserInfo,
     val isTracked: Boolean,
-    val isEndorsed: Boolean,
-    val endorsement: Endorsement
+    val isEndorsed: Boolean
 )

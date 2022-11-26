@@ -132,7 +132,7 @@ complexity:
     ignoreDefaultParameters: false
     ignoreDataClasses: true
     ignoreAnnotatedParameter: []
-    excludes: ['**/domain/entity/**', '**/generated/**']
+    excludes: ['**/domain/entity/**', '**/generated/**', '**Model.kt']
   MethodOverloading:
     active: false
     threshold: 6
