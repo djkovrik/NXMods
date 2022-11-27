@@ -4,7 +4,6 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-class TrackingInfoModel(
-    @SerialName("mod_id") val modId: Long,
-    @SerialName("domain_name") val domain: String
+class ModEndorsementInfoModel(
+    @SerialName("endorse_status") val status: String,
 )

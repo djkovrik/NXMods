@@ -11,7 +11,7 @@ internal object ValidateApiKey {
     private val json = """
         {
             "user_id": 100354,
-            "key": "QcqkPUMxRUv717ge0pJNB8h0iA+43QcMaylKXw60X3ue--4W/d9AsDEjrpPvmQ--migB3fb62BgDa1/QNZL40g==",
+            "key": "thisissomeapikey",
             "name": "djkovrik",
             "is_premium?": true,
             "is_supporter?": true,

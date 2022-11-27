@@ -122,6 +122,7 @@ complexity:
   LargeClass:
     active: true
     threshold: 600
+    excludes: [ '**/stubs/**' ]
   LongMethod:
     active: true
     threshold: 60

@@ -1,6 +1,5 @@
 package com.sedsoftware.nxmods.network.models
 
-import kotlinx.datetime.LocalDateTime
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -21,9 +20,7 @@ class ModInfoModel(
     @SerialName("category_id") val categoryId: Long,
     @SerialName("endorsement_count") val endorsementCount: Long,
     @SerialName("created_timestamp") val createdTimestamp: Long,
-    @SerialName("created_time") val createdTime: LocalDateTime,
     @SerialName("updated_timestamp") val updatedTimestamp: Long,
-    @SerialName("updated_time") val updatedTime: LocalDateTime,
     @SerialName("author") val author: String,
     @SerialName("uploaded_by") val uploadedBy: String,
     @SerialName("uploaded_users_profile_url") val uploaderProfileUrl: String,
@@ -31,5 +28,5 @@ class ModInfoModel(
     @SerialName("status") val status: String,
     @SerialName("available") val available: Boolean,
     @SerialName("user") val user: UserInfoModel,
-    @SerialName("endorsement") val endorsement: EndorsementInfoModel? = null
+    @SerialName("endorsement") val endorsement: ModEndorsementInfoModel? = null
 )
