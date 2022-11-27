@@ -28,9 +28,9 @@ internal object ModInfoModelMapper {
             categoryId = categoryId,
             endorsementCount = endorsementCount,
             createdTimestamp = createdTimestamp,
-            createdTime = Instant.fromEpochMilliseconds(createdTimestamp).toLocalDateTime(timeZone = TimeZone.currentSystemDefault()),
+            createdTime = Instant.fromEpochSeconds(createdTimestamp).toLocalDateTime(timeZone = TimeZone.currentSystemDefault()),
             updatedTimestamp = updatedTimestamp,
-            updatedTime = Instant.fromEpochMilliseconds(updatedTimestamp).toLocalDateTime(timeZone = TimeZone.currentSystemDefault()),
+            updatedTime = Instant.fromEpochSeconds(updatedTimestamp).toLocalDateTime(timeZone = TimeZone.currentSystemDefault()),
             author = author,
             uploadedBy = uploadedBy,
             uploaderProfileUrl = uploaderProfileUrl,
@@ -39,7 +39,7 @@ internal object ModInfoModelMapper {
             available = available,
             user = mapUserInfo(user),
             isTracked = false,
-            isEndorsed = endorsement?.let { EndorseStatus.fromStr(status) } == EndorseStatus.ENDORSED
+            isEndorsed = EndorseStatus.fromStr(endorsement?.status) == EndorseStatus.ENDORSED
         )
     }
 

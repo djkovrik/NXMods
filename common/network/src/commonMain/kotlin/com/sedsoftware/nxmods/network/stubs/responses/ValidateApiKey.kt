@@ -15,7 +15,7 @@ internal object ValidateApiKey {
             "name": "djkovrik",
             "is_premium?": true,
             "is_supporter?": true,
-            "email": "djkovrik@gmail.com",
+            "email": "myemail@mail.com",
             "profile_url": "https://forums.nexusmods.com/uploads/profile/photo-100354.jpg",
             "is_supporter": true,
             "is_premium": true

@@ -4,7 +4,9 @@ enum class EndorseStatus(val label: String) {
     UNDEFINED("Undefined"), UNDECIDED("Undecided"), ENDORSED("Endorsed");
 
     companion object {
-        fun fromStr(str: String): EndorseStatus =
-            values().firstOrNull { it.label == str } ?: UNDEFINED
+        fun fromStr(str: String?): EndorseStatus =
+            str?.let {
+                values().firstOrNull { it.label == str } ?: UNDEFINED
+            } ?: UNDEFINED
     }
 }
