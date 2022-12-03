@@ -56,6 +56,10 @@ object Deps {
         object Activity {
             const val activityCompose = "androidx.activity:activity-compose:1.6.0"
         }
+
+        object Preferences {
+            const val preferences = "androidx.preference:preference-ktx:1.2.0"
+        }
     }
 
     object ArkIvanov {
@@ -104,6 +108,10 @@ object Deps {
     }
 
     object KMM {
-
+        object Settings {
+            private const val VERSION = "1.0.0-RC"
+            const val settings = "com.russhwolf:multiplatform-settings:$VERSION"
+            const val settingsTest = "com.russhwolf:multiplatform-settings-test:$VERSION"
+        }
     }
 }

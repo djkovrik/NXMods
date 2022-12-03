@@ -13,6 +13,7 @@ import com.sedsoftware.nxmods.domain.entity.ModInfo
 import com.sedsoftware.nxmods.domain.entity.OwnProfile
 import com.sedsoftware.nxmods.domain.entity.TrackingInfo
 import com.sedsoftware.nxmods.domain.tools.NxModsApi
+import com.sedsoftware.nxmods.domain.tools.NxModsSettings
 import com.sedsoftware.nxmods.network.mappers.ChangelogMapper.changelogToDomain
 import com.sedsoftware.nxmods.network.mappers.EndorsementInfoMapper.endorsementInfoListToDomain
 import com.sedsoftware.nxmods.network.mappers.GameInfoModelMapper.gameInfoModelListToDomain
@@ -33,11 +34,12 @@ import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
-class NxModsSharedApi : NxModsApi {
+class NxModsSharedApi(
+    private val settings: NxModsSettings
+) : NxModsApi {
 
-    // TODO get from settings
     internal val apiKey: String
-        get() = ""
+        get() = settings.apiKey
 
     internal val httpClient = HttpClient() {
         install(ContentNegotiation) {
