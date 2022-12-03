@@ -2,12 +2,14 @@ package com.sedsoftware.nxmods.database.mappers
 
 import com.sedsoftware.nxmods.database.EndorsementInfoEntity
 import com.sedsoftware.nxmods.domain.entity.EndorsementInfo
+import com.sedsoftware.nxmods.domain.type.EndorseStatus
 
 internal object EndorsementInfoEntityMappers {
     val endorseInfoToDomain: EndorsementInfoEntity.() -> EndorsementInfo = {
         EndorsementInfo(
             modId = modId,
-            domain = domain
+            domain = domain,
+            status = EndorseStatus.ENDORSED
         )
     }
 

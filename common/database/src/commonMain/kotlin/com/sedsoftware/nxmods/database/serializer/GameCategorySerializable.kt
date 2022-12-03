@@ -1,4 +1,4 @@
-package com.sedsoftware.nxmods.database.serialization
+package com.sedsoftware.nxmods.database.serializer
 
 import com.sedsoftware.nxmods.domain.entity.GameCategory
 import kotlinx.serialization.SerialName

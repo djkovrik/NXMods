@@ -13,12 +13,13 @@ import com.badoo.reaktive.single.observeOn
 import com.badoo.reaktive.single.singleFromFunction
 import com.badoo.reaktive.subject.behavior.BehaviorSubject
 import com.sedsoftware.nxmods.database.mappers.GameInfoEntityMappers.gameInfoToDomain
-import com.sedsoftware.nxmods.database.serialization.GameCategorySerializable.Companion.asString
+import com.sedsoftware.nxmods.database.serializer.GameCategorySerializable.Companion.asString
 import com.sedsoftware.nxmods.domain.entity.CachedModData
 import com.sedsoftware.nxmods.domain.entity.EndorsementInfo
 import com.sedsoftware.nxmods.domain.entity.GameInfo
 import com.sedsoftware.nxmods.domain.entity.TrackingInfo
 import com.sedsoftware.nxmods.domain.tools.NxModsDatabase
+import com.sedsoftware.nxmods.domain.type.EndorseStatus
 
 class NxModsTestDatabase(
     private val scheduler: Scheduler
@@ -101,7 +102,8 @@ class NxModsTestDatabase(
                 addEndorsedInfo(
                     EndorsementInfo(
                         modId = modId,
-                        domain = domain
+                        domain = domain,
+                        status = EndorseStatus.ENDORSED
                     )
                 )
             } else {

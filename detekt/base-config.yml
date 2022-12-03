@@ -122,6 +122,7 @@ complexity:
   LargeClass:
     active: true
     threshold: 600
+    excludes: [ '**/stubs/**' ]
   LongMethod:
     active: true
     threshold: 60
@@ -132,7 +133,7 @@ complexity:
     ignoreDefaultParameters: false
     ignoreDataClasses: true
     ignoreAnnotatedParameter: []
-    excludes: ['**/domain/entity/**', '**/generated/**']
+    excludes: ['**/domain/entity/**', '**/generated/**', '**Model.kt']
   MethodOverloading:
     active: false
     threshold: 6
