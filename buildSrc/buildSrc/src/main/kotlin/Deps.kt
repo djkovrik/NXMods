@@ -16,8 +16,10 @@ object Deps {
         }
 
         object Ktor {
-            private const val VERSION = "2.1.2"
+            private const val VERSION = "2.1.3"
             const val clientCore = "io.ktor:ktor-client-core:$VERSION"
+            const val clientNegotiation = "io.ktor:ktor-client-content-negotiation:$VERSION"
+            const val serialization = "io.ktor:ktor-serialization-kotlinx-json:$VERSION"
             const val engineAndroid = "io.ktor:ktor-client-okhttp:$VERSION"
             const val engineIos = "io.ktor:ktor-client-darwin:$VERSION"
         }
