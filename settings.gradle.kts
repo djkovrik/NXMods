@@ -5,5 +5,6 @@ include(
     ":common:root",
     ":common:database",
     ":common:network",
+    ":common:settings",
     ":common:domain"
 )
