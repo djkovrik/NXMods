@@ -20,13 +20,13 @@ class EndorsementsManager(
             .flatMapCompletable(db::saveEndorsed)
             .subscribeOn(scheduler)
 
-    fun endorse(domain: String, id: Long): Completable =
-        api.endorse(domain, id)
+    fun endorse(domain: String, id: Long, version: String): Completable =
+        api.endorse(domain, id, version)
             .doOnAfterComplete { db.endorse(domain, id, true) }
             .subscribeOn(scheduler)
 
-    fun unendorse(domain: String, id: Long): Completable =
-        api.unendorse(domain, id)
+    fun unendorse(domain: String, id: Long, version: String): Completable =
+        api.unendorse(domain, id, version)
             .doOnAfterComplete { db.endorse(domain, id, false) }
             .subscribeOn(scheduler)
 }

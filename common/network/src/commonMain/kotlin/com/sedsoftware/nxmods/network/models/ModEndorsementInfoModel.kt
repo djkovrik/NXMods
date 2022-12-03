@@ -4,6 +4,6 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-class ModEndorsementInfoModel(
+internal class ModEndorsementInfoModel(
     @SerialName("endorse_status") val status: String,
 )

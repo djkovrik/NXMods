@@ -97,11 +97,11 @@ class NxModsTestApi(
             .observeOn(scheduler)
             .map(endorsementInfoListToDomain)
 
-    override fun endorse(domain: String, id: Long): Completable =
+    override fun endorse(domain: String, id: Long, version: String): Completable =
         endorseSubject
             .observeOn(scheduler)
 
-    override fun unendorse(domain: String, id: Long): Completable =
+    override fun unendorse(domain: String, id: Long, version: String): Completable =
         endorseSubject
             .observeOn(scheduler)
 }

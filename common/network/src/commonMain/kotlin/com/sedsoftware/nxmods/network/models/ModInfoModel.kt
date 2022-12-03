@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-class ModInfoModel(
+internal class ModInfoModel(
     @SerialName("mod_id") val modId: Long,
     @SerialName("game_id") val gameId: Long,
     @SerialName("domain_name") val domainName: String,

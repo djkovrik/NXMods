@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-class OwnProfileModel(
+internal class OwnProfileModel(
     @SerialName("user_id") val userId: Long,
     @SerialName("key") val key: String,
     @SerialName("name") val name: String,

@@ -25,6 +25,6 @@ interface NxModsApi {
     fun track(domain: String, id: Long): Completable
     fun untrack(domain: String, id: Long): Completable
     fun getEndorsed(): Single<List<EndorsementInfo>>
-    fun endorse(domain: String, id: Long): Completable
-    fun unendorse(domain: String, id: Long): Completable
+    fun endorse(domain: String, id: Long, version: String): Completable
+    fun unendorse(domain: String, id: Long, version: String): Completable
 }
