@@ -1,8 +1,9 @@
-package com.sedsoftware.nxmods.network
+package com.sedsoftware.nxmods.network.internal
 
 import com.badoo.reaktive.completable.Completable
 import com.badoo.reaktive.completable.observeOn
 import com.badoo.reaktive.scheduler.Scheduler
+import com.badoo.reaktive.scheduler.trampolineScheduler
 import com.badoo.reaktive.single.Single
 import com.badoo.reaktive.single.map
 import com.badoo.reaktive.single.observeOn
@@ -13,8 +14,8 @@ import com.sedsoftware.nxmods.domain.entity.GameInfo
 import com.sedsoftware.nxmods.domain.entity.ModInfo
 import com.sedsoftware.nxmods.domain.entity.OwnProfile
 import com.sedsoftware.nxmods.domain.entity.TrackingInfo
+import com.sedsoftware.nxmods.domain.framework.CompletableSubject
 import com.sedsoftware.nxmods.domain.tools.NxModsApi
-import com.sedsoftware.nxmods.network.framework.CompletableSubject
 import com.sedsoftware.nxmods.network.mappers.ChangelogMapper.changelogToDomain
 import com.sedsoftware.nxmods.network.mappers.EndorsementInfoMapper.endorsementInfoListToDomain
 import com.sedsoftware.nxmods.network.mappers.GameInfoModelMapper.gameInfoModelListToDomain
@@ -32,12 +33,11 @@ import com.sedsoftware.nxmods.network.stubs.responses.GetModsList
 import com.sedsoftware.nxmods.network.stubs.responses.GetTracked
 import com.sedsoftware.nxmods.network.stubs.responses.ValidateApiKey
 
-class NxModsTestApi(
-    private val scheduler: Scheduler
+internal class NxModsTestApi(
+    private val endorseSubject: CompletableSubject,
+    private val trackSubject: CompletableSubject,
+    private val scheduler: Scheduler = trampolineScheduler
 ) : NxModsApi {
-
-    val endorseSubject: CompletableSubject = CompletableSubject()
-    val trackSubject: CompletableSubject = CompletableSubject()
 
     override fun getGames(): Single<List<GameInfo>> =
         singleOf(GetGames.response)

@@ -1,4 +1,4 @@
-package com.sedsoftware.nxmods.database
+package com.sedsoftware.nxmods.database.internal
 
 import com.badoo.reaktive.base.setCancellable
 import com.badoo.reaktive.completable.Completable
@@ -13,6 +13,7 @@ import com.badoo.reaktive.single.doOnBeforeSuccess
 import com.badoo.reaktive.single.flatMapObservable
 import com.badoo.reaktive.single.map
 import com.badoo.reaktive.single.observeOn
+import com.sedsoftware.nxmods.database.NexusDatabaseQueries
 import com.squareup.sqldelight.Query
 import com.squareup.sqldelight.Query.Listener
 

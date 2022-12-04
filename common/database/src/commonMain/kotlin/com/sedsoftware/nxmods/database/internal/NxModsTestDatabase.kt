@@ -1,4 +1,4 @@
-package com.sedsoftware.nxmods.database
+package com.sedsoftware.nxmods.database.internal
 
 import com.badoo.reaktive.completable.Completable
 import com.badoo.reaktive.completable.completableFromFunction
@@ -8,10 +8,14 @@ import com.badoo.reaktive.observable.map
 import com.badoo.reaktive.observable.notNull
 import com.badoo.reaktive.observable.observeOn
 import com.badoo.reaktive.scheduler.Scheduler
+import com.badoo.reaktive.scheduler.trampolineScheduler
 import com.badoo.reaktive.single.Single
 import com.badoo.reaktive.single.observeOn
 import com.badoo.reaktive.single.singleFromFunction
 import com.badoo.reaktive.subject.behavior.BehaviorSubject
+import com.sedsoftware.nxmods.database.EndorsementInfoEntity
+import com.sedsoftware.nxmods.database.GameInfoEntity
+import com.sedsoftware.nxmods.database.TrackingInfoEntity
 import com.sedsoftware.nxmods.database.mappers.GameInfoEntityMappers.gameInfoToDomain
 import com.sedsoftware.nxmods.database.serializer.GameCategorySerializable.Companion.asString
 import com.sedsoftware.nxmods.domain.entity.CachedModData
@@ -21,8 +25,8 @@ import com.sedsoftware.nxmods.domain.entity.TrackingInfo
 import com.sedsoftware.nxmods.domain.tools.NxModsDatabase
 import com.sedsoftware.nxmods.domain.type.EndorseStatus
 
-class NxModsTestDatabase(
-    private val scheduler: Scheduler
+internal class NxModsTestDatabase(
+    private val scheduler: Scheduler = trampolineScheduler
 ) : NxModsDatabase {
 
     private val gameInfoSubject: BehaviorSubject<Map<Long, GameInfoEntity>> = BehaviorSubject(emptyMap())

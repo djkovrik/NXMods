@@ -1,4 +1,4 @@
-package com.sedsoftware.nxmods.network.framework
+package com.sedsoftware.nxmods.domain.framework
 
 import com.badoo.reaktive.completable.Completable
 import com.badoo.reaktive.completable.CompletableCallbacks

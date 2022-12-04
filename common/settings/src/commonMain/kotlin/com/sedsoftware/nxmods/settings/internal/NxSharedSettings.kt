@@ -1,9 +1,9 @@
-package com.sedsoftware.nxmods.settings
+package com.sedsoftware.nxmods.settings.internal
 
 import com.russhwolf.settings.Settings
 import com.sedsoftware.nxmods.domain.tools.NxModsSettings
 
-class NxSharedSettings(
+internal class NxSharedSettings(
     private val settings: Settings
 ) : NxModsSettings {
 
