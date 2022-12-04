@@ -1,4 +1,4 @@
-package com.sedsoftware.nxmods
+package com.sedsoftware.nxmods.root
 
 class Greeting {
     private val platform: Platform = getPlatform()

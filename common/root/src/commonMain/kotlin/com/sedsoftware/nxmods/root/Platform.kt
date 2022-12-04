@@ -1,4 +1,4 @@
-package com.sedsoftware.nxmods
+package com.sedsoftware.nxmods.root
 
 interface Platform {
     val name: String
