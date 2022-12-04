@@ -1,8 +1,6 @@
-package com.sedsoftware.nxmods.database
+package com.sedsoftware.nxmods.database.internal
 
 import com.badoo.reaktive.completable.Completable
-import com.badoo.reaktive.maybe.Maybe
-import com.badoo.reaktive.maybe.map
 import com.badoo.reaktive.observable.Observable
 import com.badoo.reaktive.observable.autoConnect
 import com.badoo.reaktive.observable.combineLatest
@@ -13,8 +11,9 @@ import com.badoo.reaktive.observable.replay
 import com.badoo.reaktive.single.Single
 import com.badoo.reaktive.single.asObservable
 import com.badoo.reaktive.single.map
-import com.badoo.reaktive.single.mapNotNull
 import com.badoo.reaktive.single.singleOf
+import com.sedsoftware.nxmods.database.NexusDatabase
+import com.sedsoftware.nxmods.database.NexusDatabaseQueries
 import com.sedsoftware.nxmods.database.mappers.GameInfoEntityMappers.gameInfoListToDomain
 import com.sedsoftware.nxmods.database.mappers.GameInfoEntityMappers.gameInfoToDomain
 import com.sedsoftware.nxmods.database.serializer.GameCategorySerializable.Companion.asString
@@ -25,7 +24,7 @@ import com.sedsoftware.nxmods.domain.entity.TrackingInfo
 import com.sedsoftware.nxmods.domain.tools.NxModsDatabase
 import com.squareup.sqldelight.db.SqlDriver
 
-class NxModsSharedDatabase(driver: Single<SqlDriver>) : NxModsDatabase {
+internal class NxModsSharedDatabase(driver: Single<SqlDriver>) : NxModsDatabase {
 
     constructor(driver: SqlDriver) : this(singleOf(driver))
 

@@ -1,4 +1,4 @@
-package com.sedsoftware.nxmods.network
+package com.sedsoftware.nxmods.network.internal
 
 import com.badoo.reaktive.completable.Completable
 import com.badoo.reaktive.completable.observeOn
@@ -34,7 +34,7 @@ import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
-class NxModsSharedApi(
+internal class NxModsSharedApi(
     private val settings: NxModsSettings
 ) : NxModsApi {
 

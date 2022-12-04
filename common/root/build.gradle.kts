@@ -1,58 +1,61 @@
-@file:Suppress("UnstableApiUsage")
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+import org.jetbrains.kotlin.konan.target.Family
 
 plugins {
-    kotlin("multiplatform")
-    id("com.android.library")
+    id("multiplatform-setup")
+    id("android-setup")
+    id("kotlin-parcelize")
 }
 
 kotlin {
-    android()
-    
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64()
-    ).forEach {
-        it.binaries.framework {
-            baseName = "shared"
+    targets
+        .filterIsInstance<KotlinNativeTarget>()
+        .filter { it.konanTarget.family == Family.IOS }
+        .forEach { target ->
+            target.binaries {
+                framework {
+                    baseName = "shared"
+                    linkerOpts.add("-lsqlite3")
+                    export(project(":common:database"))
+                    export(project(":common:network"))
+                    export(project(":common:settings"))
+                    export(project(":common:domain"))
+                    export(Deps.ArkIvanov.Decompose.decompose)
+                    export(Deps.ArkIvanov.MVIKotlin.mvikotlinMain)
+                    export(Deps.ArkIvanov.Essenty.lifecycle)
+                }
+            }
+        }
+
+    sourceSets {
+        named("commonMain") {
+            dependencies {
+                implementation(project(":common:database"))
+                implementation(project(":common:network"))
+                implementation(project(":common:settings"))
+                implementation(project(":common:domain"))
+                implementation(Deps.ArkIvanov.MVIKotlin.mvikotlin)
+                implementation(Deps.ArkIvanov.Decompose.decompose)
+                implementation(Deps.Badoo.Reaktive.reaktive)
+            }
         }
     }
 
     sourceSets {
-        val commonMain by getting
-        val commonTest by getting {
+        named("iosMain") {
             dependencies {
-                implementation(kotlin("test"))
+                api(project(":common:database"))
+                api(project(":common:network"))
+                api(project(":common:settings"))
+                api(project(":common:domain"))
+                api(Deps.ArkIvanov.Decompose.decompose)
+                api(Deps.ArkIvanov.MVIKotlin.mvikotlinMain)
+                api(Deps.ArkIvanov.Essenty.lifecycle)
             }
-        }
-        val androidMain by getting
-        val androidTest by getting
-        val iosX64Main by getting
-        val iosArm64Main by getting
-        val iosSimulatorArm64Main by getting
-        val iosMain by creating {
-            dependsOn(commonMain)
-            iosX64Main.dependsOn(this)
-            iosArm64Main.dependsOn(this)
-            iosSimulatorArm64Main.dependsOn(this)
-        }
-        val iosX64Test by getting
-        val iosArm64Test by getting
-        val iosSimulatorArm64Test by getting
-        val iosTest by creating {
-            dependsOn(commonTest)
-            iosX64Test.dependsOn(this)
-            iosArm64Test.dependsOn(this)
-            iosSimulatorArm64Test.dependsOn(this)
         }
     }
 }
 
 android {
-    namespace = "com.sedsoftware.nxmods"
-    compileSdk = 33
-    defaultConfig {
-        minSdk = 23
-        targetSdk = 33
-    }
+    namespace = "com.sedsoftware.nxmods.root"
 }

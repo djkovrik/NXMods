@@ -1,4 +1,4 @@
-package com.sedsoftware.nxmods.network
+package com.sedsoftware.nxmods.network.internal
 
 import com.badoo.reaktive.completable.Completable
 import com.badoo.reaktive.coroutinesinterop.completableFromCoroutine

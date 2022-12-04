@@ -23,7 +23,6 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.sedsoftware.nxmods.Greeting
 
 @Composable
 fun MyApplicationTheme(
@@ -73,14 +72,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Greeting(Greeting().greet())
+                    Text(text = "Hello world")
                 }
             }
         }
     }
-}
-
-@Composable
-fun Greeting(text: String) {
-    Text(text = text)
 }
