@@ -1,8 +1,5 @@
 <?xml version="1.0" ?>
 <SmellBaseline>
   <ManuallySuppressedIssues></ManuallySuppressedIssues>
-  <CurrentIssues>
-    <ID>MatchingDeclarationName:Platform.kt$AndroidPlatform : Platform</ID>
-    <ID>MatchingDeclarationName:Platform.kt$IOSPlatform : Platform</ID>
-  </CurrentIssues>
+  <CurrentIssues></CurrentIssues>
 </SmellBaseline>

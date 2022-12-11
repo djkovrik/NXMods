@@ -126,6 +126,7 @@ complexity:
   LongMethod:
     active: true
     threshold: 60
+    excludes: ['**Provider.kt']
   LongParameterList:
     active: true
     functionThreshold: 6
