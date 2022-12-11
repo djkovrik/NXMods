@@ -121,6 +121,7 @@ object Deps {
         const val network = ":common:network"
         const val settings = ":common:settings"
         const val domain = ":common:domain"
+        const val utils = ":common:utils"
 
         object Component {
             const val auth = ":common:component:auth"

@@ -7,5 +7,6 @@ include(
     ":common:network",
     ":common:settings",
     ":common:domain",
+    ":common:utils",
     ":common:component:auth",
 )
