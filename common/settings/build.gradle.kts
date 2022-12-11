@@ -11,7 +11,7 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                implementation(project(":common:domain"))
+                implementation(project(Deps.Module.domain))
 
                 implementation(Deps.KMM.Settings.settings)
             }

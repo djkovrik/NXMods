@@ -16,10 +16,10 @@ kotlin {
                 framework {
                     baseName = "shared"
                     linkerOpts.add("-lsqlite3")
-                    export(project(":common:database"))
-                    export(project(":common:network"))
-                    export(project(":common:settings"))
-                    export(project(":common:domain"))
+                    export(project(Deps.Module.database))
+                    export(project(Deps.Module.network))
+                    export(project(Deps.Module.settings))
+                    export(project(Deps.Module.domain))
                     export(Deps.ArkIvanov.Decompose.decompose)
                     export(Deps.ArkIvanov.MVIKotlin.mvikotlinMain)
                     export(Deps.ArkIvanov.Essenty.lifecycle)
@@ -30,10 +30,10 @@ kotlin {
     sourceSets {
         named("commonMain") {
             dependencies {
-                implementation(project(":common:database"))
-                implementation(project(":common:network"))
-                implementation(project(":common:settings"))
-                implementation(project(":common:domain"))
+                implementation(project(Deps.Module.database))
+                implementation(project(Deps.Module.network))
+                implementation(project(Deps.Module.settings))
+                implementation(project(Deps.Module.domain))
                 implementation(Deps.ArkIvanov.MVIKotlin.mvikotlin)
                 implementation(Deps.ArkIvanov.Decompose.decompose)
                 implementation(Deps.Badoo.Reaktive.reaktive)
@@ -44,10 +44,10 @@ kotlin {
     sourceSets {
         named("iosMain") {
             dependencies {
-                api(project(":common:database"))
-                api(project(":common:network"))
-                api(project(":common:settings"))
-                api(project(":common:domain"))
+                api(project(Deps.Module.database))
+                api(project(Deps.Module.network))
+                api(project(Deps.Module.settings))
+                api(project(Deps.Module.domain))
                 api(Deps.ArkIvanov.Decompose.decompose)
                 api(Deps.ArkIvanov.MVIKotlin.mvikotlinMain)
                 api(Deps.ArkIvanov.Essenty.lifecycle)

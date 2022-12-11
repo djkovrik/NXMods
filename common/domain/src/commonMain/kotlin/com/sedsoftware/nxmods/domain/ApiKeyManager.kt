@@ -16,10 +16,6 @@ class ApiKeyManager(
     private val scheduler: Scheduler = ioScheduler
 ) {
 
-    fun storeApiKey(key: String): Completable =
-        completableFromFunction { settings.apiKey = key }
-            .subscribeOn(scheduler)
-
     fun validateApiKey(key: String): Completable =
         api.validateApiKey(key)
             .doOnAfterError { settings.isProfileValid = false }
@@ -31,6 +27,7 @@ class ApiKeyManager(
                         isPremium = profile.isPremium
                         isSupporter = profile.isSupporter
                         isProfileValid = true
+                        apiKey = profile.key
                     }
                 }
             }

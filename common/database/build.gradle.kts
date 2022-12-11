@@ -18,7 +18,7 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                implementation(project(":common:domain"))
+                implementation(project(Deps.Module.domain))
 
                 implementation(Deps.JetBrains.DateTime.dateTime)
                 implementation(Deps.JetBrains.Serialization.core)
