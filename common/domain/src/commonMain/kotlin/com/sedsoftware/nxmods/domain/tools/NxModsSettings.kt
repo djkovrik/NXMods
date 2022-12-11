@@ -6,6 +6,6 @@ interface NxModsSettings {
     var isPremium: Boolean
     var isSupporter: Boolean
     var apiKey: String
-    var isProfileValid: Boolean
+    var isProfileValidated: Boolean
     var currentDomain: String
 }
