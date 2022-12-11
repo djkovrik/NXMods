@@ -20,9 +20,7 @@ kotlin {
             dependencies {
                 implementation(project(Deps.Module.domain))
 
-                implementation(Deps.JetBrains.DateTime.dateTime)
                 implementation(Deps.JetBrains.Serialization.core)
-                implementation(Deps.Badoo.Reaktive.reaktive)
             }
         }
 

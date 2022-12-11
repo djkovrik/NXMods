@@ -13,13 +13,17 @@ kotlin {
             dependencies {
                 implementation(project(Deps.Module.domain))
 
-                implementation(Deps.JetBrains.DateTime.dateTime)
                 implementation(Deps.JetBrains.Serialization.core)
-                implementation(Deps.Badoo.Reaktive.reaktive)
                 implementation(Deps.Badoo.Reaktive.coroutinesInterop)
                 implementation(Deps.JetBrains.Ktor.clientCore)
                 implementation(Deps.JetBrains.Ktor.clientNegotiation)
                 implementation(Deps.JetBrains.Ktor.serialization)
+            }
+        }
+
+        commonTest {
+            dependencies {
+                implementation(Deps.JetBrains.Serialization.core)
             }
         }
 
