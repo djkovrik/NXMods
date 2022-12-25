@@ -42,7 +42,7 @@ tasks.register("runOnGitHub") {
         ":detekt",
         ":common:database:testDebugUnitTest",
         ":common:network:testDebugUnitTest",
-        ":common:settings:testDebugUnitTest",
+        ":common:root:testDebugUnitTest",
         ":android:lint"
     )
     group = "custom"

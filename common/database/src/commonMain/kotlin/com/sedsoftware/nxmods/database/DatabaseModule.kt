@@ -14,9 +14,15 @@ interface DatabaseModuleDependencies {
     val driver: SqlDriver
 }
 
-fun DatabaseModule(dependencies: DatabaseModuleDependencies): DatabaseModule {
+fun DatabaseModule(dependencies: DatabaseModuleDependencies? = null): DatabaseModule {
     return object : DatabaseModule {
-        override val database: NxModsDatabase by lazy { NxModsSharedDatabase(dependencies.driver) }
-        override val testDatabase: NxModsDatabase by lazy { NxModsTestDatabase() }
+        override val database: NxModsDatabase by lazy {
+            val driver = dependencies?.driver ?: error("Database driver not provided")
+            NxModsSharedDatabase(driver)
+        }
+
+        override val testDatabase: NxModsDatabase by lazy {
+            NxModsTestDatabase()
+        }
     }
 }
