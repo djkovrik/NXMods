@@ -1,4 +1,4 @@
-package com.sedsoftware.nxmods.component.utils
+package com.sedsoftware.nxmods.utils
 
 import com.badoo.reaktive.base.Consumer
 

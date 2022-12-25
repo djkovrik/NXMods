@@ -1,4 +1,4 @@
-package com.sedsoftware.nxmods.component.utils
+package com.sedsoftware.nxmods.utils
 
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.mvikotlin.core.store.Store

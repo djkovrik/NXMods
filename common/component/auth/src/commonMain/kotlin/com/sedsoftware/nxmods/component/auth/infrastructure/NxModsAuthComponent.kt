@@ -20,10 +20,10 @@ import com.sedsoftware.nxmods.component.auth.integration.stateToModel
 import com.sedsoftware.nxmods.component.auth.store.AuthStore
 import com.sedsoftware.nxmods.component.auth.store.AuthStore.Label
 import com.sedsoftware.nxmods.component.auth.store.AuthStoreProvider
-import com.sedsoftware.nxmods.component.utils.asValue
+import com.sedsoftware.nxmods.utils.asValue
 import com.sedsoftware.nxmods.domain.ApiKeyManager
 
-class AuthComponent(
+class NxModsAuthComponent(
     private val componentContext: ComponentContext,
     private val storeFactory: StoreFactory,
     private val apiKeyManager: ApiKeyManager,
