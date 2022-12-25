@@ -14,14 +14,15 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-
+                implementation(Deps.Badoo.Reaktive.reaktive)
+                implementation(Deps.JetBrains.DateTime.dateTime)
             }
         }
         val commonTest by getting {
             dependencies {
-                implementation(Deps.JetBrains.DateTime.dateTime)
-                implementation(Deps.JetBrains.Serialization.core)
                 implementation(Deps.Badoo.Reaktive.reaktive)
+                implementation(Deps.Badoo.Reaktive.reaktiveTesting)
+                implementation(Deps.JetBrains.DateTime.dateTime)
                 implementation(Deps.JetBrains.Kotlin.testCommon)
                 implementation(Deps.JetBrains.Kotlin.testAnnotationsCommon)
             }

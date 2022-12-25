@@ -37,7 +37,7 @@ internal class NxSharedSettings(
             settings.setValue(PREF_KEY_API, value)
         }
 
-    override var isProfileValid: Boolean
+    override var isProfileValidated: Boolean
         get() = settings.getValue(PREF_KEY_VALID, false)
         set(value) {
             settings.setValue(PREF_KEY_VALID, value)

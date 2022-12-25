@@ -11,7 +11,7 @@ object Deps {
         }
 
         object Compose {
-             private const val VERSION = "1.2.0"
+            private const val VERSION = "1.2.0"
             const val gradlePlugin = "org.jetbrains.compose:compose-gradle-plugin:$VERSION"
         }
 
@@ -112,6 +112,19 @@ object Deps {
             private const val VERSION = "1.0.0-RC"
             const val settings = "com.russhwolf:multiplatform-settings:$VERSION"
             const val settingsTest = "com.russhwolf:multiplatform-settings-test:$VERSION"
+        }
+    }
+
+    object Module {
+        const val root = ":common:root"
+        const val database = ":common:database"
+        const val network = ":common:network"
+        const val settings = ":common:settings"
+        const val domain = ":common:domain"
+        const val utils = ":common:utils"
+
+        object Component {
+            const val auth = ":common:component:auth"
         }
     }
 }

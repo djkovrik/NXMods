@@ -30,7 +30,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":common:root"))
+    implementation(project(Deps.Module.root))
     implementation(compose.material)
     implementation(Deps.AndroidX.AppCompat.appCompat)
     implementation(Deps.AndroidX.Activity.activityCompose)
