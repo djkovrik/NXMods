@@ -17,12 +17,6 @@ kotlin {
             }
         }
 
-        commonTest {
-            dependencies {
-                implementation(Deps.KMM.Settings.settingsTest)
-            }
-        }
-
         androidMain {
             dependencies {
                 implementation(Deps.AndroidX.Preferences.preferences)

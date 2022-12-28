@@ -97,7 +97,7 @@ internal class NxModsTestDatabase(
         fun bookmarkGame(domain: String, bookmark: Boolean) {
             val state = if (bookmark) 1L else 0L
             val targetEntry = gameInfoSubject.value.values.firstOrNull { it.domain == domain } ?: return
-            val databaseId = targetEntry.id
+            val databaseId = gameInfoSubject.value.entries.find { it.value.id == targetEntry.id }?.key ?: return
             updateGameInfoItem(id = databaseId) { it.copy(bookmarked = state) }
         }
 
@@ -181,8 +181,8 @@ internal class NxModsTestDatabase(
                 .takeIf { it.isNotEmpty() }
 
         fun getGameUserState(domain: String, modId: Long): CachedModData {
-            val endorsedEntry = endorsementInfoSubject.value.values.firstOrNull { it.domain == domain && it.id == modId }
-            val trackedEntry = trackingInfoSubject.value.values.firstOrNull { it.domain == domain && it.id == modId }
+            val endorsedEntry = endorsementInfoSubject.value.values.firstOrNull { it.domain == domain && it.modId == modId }
+            val trackedEntry = trackingInfoSubject.value.values.firstOrNull { it.domain == domain && it.modId == modId }
 
             return CachedModData(
                 endorsed = endorsedEntry != null,

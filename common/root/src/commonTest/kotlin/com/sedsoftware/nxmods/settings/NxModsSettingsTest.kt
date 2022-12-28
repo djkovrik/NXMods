@@ -1,20 +1,13 @@
 package com.sedsoftware.nxmods.settings
 
-import com.russhwolf.settings.MapSettings
-import com.russhwolf.settings.Settings
+import com.sedsoftware.nxmods.Stubs
 import com.sedsoftware.nxmods.domain.tools.NxModsSettings
 import kotlin.test.Test
 import kotlin.test.assertTrue
 
-class NxSharedSettingsTest {
+class NxModsSettingsTest {
 
-    private val module: SettingsModule = SettingsModule(
-        object : SettingsModuleDependencies {
-            override val baseSettings: Settings = MapSettings()
-        }
-    )
-
-    private val settings: NxModsSettings = module.settings
+    private val settings: NxModsSettings = Stubs.settings
 
     @Test
     fun settingsReadWrite_test() {
