@@ -55,7 +55,6 @@ class NxModsApiTest {
                 assertTrue(genre.isNotEmpty(), "genre should be declared")
                 assertTrue(domain.isNotEmpty(), "domain should be declared")
             }
-
         }
     }
 
