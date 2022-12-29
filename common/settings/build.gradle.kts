@@ -14,6 +14,7 @@ kotlin {
                 implementation(project(Deps.Module.domain))
 
                 implementation(Deps.KMM.Settings.settings)
+                implementation(Deps.KMM.Settings.settingsTest)
             }
         }
 

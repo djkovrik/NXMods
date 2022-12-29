@@ -24,6 +24,12 @@ kotlin {
             }
         }
 
+        commonTest {
+            dependencies {
+                implementation(project(Deps.Module.network))
+            }
+        }
+
         androidMain {
             dependencies {
                 implementation(Deps.Squareup.SQLDelight.androidDriver)

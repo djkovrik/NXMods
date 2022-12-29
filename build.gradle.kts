@@ -40,9 +40,7 @@ tasks.withType<io.gitlab.arturbosch.detekt.DetektCreateBaselineTask>().configure
 tasks.register("runOnGitHub") {
     dependsOn(
         ":detekt",
-        ":common:database:testDebugUnitTest",
-        ":common:network:testDebugUnitTest",
-        ":common:root:testDebugUnitTest",
+        ":testDebugUnitTest",
         ":android:lint"
     )
     group = "custom"

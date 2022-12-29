@@ -8,25 +8,47 @@ import com.badoo.reaktive.scheduler.Scheduler
 import com.badoo.reaktive.single.blockingGet
 import com.badoo.reaktive.single.subscribeOn
 import com.badoo.reaktive.test.scheduler.TestScheduler
-import com.sedsoftware.nxmods.Stubs
 import com.sedsoftware.nxmods.domain.entity.CachedModData
 import com.sedsoftware.nxmods.domain.entity.EndorsementInfo
 import com.sedsoftware.nxmods.domain.entity.GameInfo
 import com.sedsoftware.nxmods.domain.entity.TrackingInfo
+import com.sedsoftware.nxmods.domain.framework.CompletableSubject
+import com.sedsoftware.nxmods.domain.tools.NxModsApi
 import com.sedsoftware.nxmods.domain.tools.NxModsDatabase
 import com.sedsoftware.nxmods.domain.type.EndorseStatus
+import com.sedsoftware.nxmods.network.NetworkComponentTestDependencies
+import com.sedsoftware.nxmods.network.NetworkFeatureComponentMock
 import kotlin.test.Test
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 class NxModsDatabaseTest {
 
-    private val database: NxModsDatabase = Stubs.database
+    private val endorseSubject = CompletableSubject()
+    private val trackSubject = CompletableSubject()
+
+    private val api: NxModsApi
+        get() {
+            val component = NetworkFeatureComponentMock(
+                dependencies = object : NetworkComponentTestDependencies {
+                    override val endorse: CompletableSubject = endorseSubject
+                    override val track: CompletableSubject = trackSubject
+                }
+            )
+            return component.api
+        }
+
+    private val database: NxModsDatabase
+        get() {
+            val component = DatabaseFeatureComponentMock()
+            return component.database
+        }
+
     private val scheduler: Scheduler = TestScheduler()
 
     @Test
     fun saveGames_test() {
-        val games: List<GameInfo> = Stubs.api.getGames()
+        val games: List<GameInfo> = api.getGames()
             .subscribeOn(scheduler)
             .blockingGet()
 
@@ -57,7 +79,7 @@ class NxModsDatabaseTest {
 
     @Test
     fun bookmarking_test() {
-        val games: List<GameInfo> = Stubs.api.getGames()
+        val games: List<GameInfo> = api.getGames()
             .subscribeOn(scheduler)
             .blockingGet()
 
