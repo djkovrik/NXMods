@@ -20,5 +20,11 @@ kotlin {
                 implementation(Deps.ArkIvanov.Decompose.decompose)
             }
         }
+
+        commonTest {
+            dependencies {
+                implementation(Deps.ArkIvanov.MVIKotlin.mvikotlinMain)
+            }
+        }
     }
 }

@@ -134,7 +134,7 @@ internal class NxModsSharedDatabase(driver: Single<SqlDriver>) : NxModsDatabase 
             }
         }
 
-    override fun getCachedModData(domain: String, modId: Long): Single<CachedModData> =
+    override fun getCachedModData(domain: String, modId: Long): Observable<CachedModData> =
         combineLatest(
             query { it.endorsedExists(modId, domain) }.observe { it.executeAsOne() },
             query { it.trackedExists(modId, domain) }.observe { it.executeAsOne() }
@@ -142,6 +142,7 @@ internal class NxModsSharedDatabase(driver: Single<SqlDriver>) : NxModsDatabase 
             CachedModData(endorsed, tracked)
         }
             .firstOrDefault(CachedModData(endorsed = false, tracked = false))
+            .asObservable()
 
     private fun Boolean.asLong(): Long = if (this) 1L else 0L
 }

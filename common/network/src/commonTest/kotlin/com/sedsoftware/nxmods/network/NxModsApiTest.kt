@@ -1,5 +1,6 @@
 package com.sedsoftware.nxmods.network
 
+import com.badoo.reaktive.observable.firstOrError
 import com.badoo.reaktive.scheduler.Scheduler
 import com.badoo.reaktive.single.blockingGet
 import com.badoo.reaktive.single.subscribeOn
@@ -42,12 +43,14 @@ class NxModsApiTest {
     @Test
     fun getGames_test() {
         val gamesSub: TestSingleObserver<List<GameInfo>> = api.getGames()
+            .firstOrError()
             .subscribeOn(scheduler)
             .test()
 
         gamesSub.assertNotError()
 
         val games: List<GameInfo> = api.getGames()
+            .firstOrError()
             .subscribeOn(scheduler)
             .blockingGet()
 
@@ -74,12 +77,14 @@ class NxModsApiTest {
     @Test
     fun getGame_test() {
         val gameSub: TestSingleObserver<GameInfo> = api.getGame("cyberpunk2077")
+            .firstOrError()
             .subscribeOn(scheduler)
             .test()
 
         gameSub.assertNotError()
 
         val game: GameInfo = api.getGame("cyberpunk2077")
+            .firstOrError()
             .subscribeOn(scheduler)
             .blockingGet()
 
@@ -102,12 +107,14 @@ class NxModsApiTest {
     @Test
     fun getLatest_test() {
         val latestSub: TestSingleObserver<List<ModInfo>> = api.getLatestAdded("cyberpunk2077")
+            .firstOrError()
             .subscribeOn(scheduler)
             .test()
 
         latestSub.assertNotError()
 
         val latest: List<ModInfo> = api.getLatestAdded("cyberpunk2077")
+            .firstOrError()
             .subscribeOn(scheduler)
             .blockingGet()
 
@@ -143,12 +150,14 @@ class NxModsApiTest {
     @Test
     fun getMod_test() {
         val modSub: TestSingleObserver<ModInfo> = api.getMod("cyberpunk2077", 123)
+            .firstOrError()
             .subscribeOn(scheduler)
             .test()
 
         modSub.assertNotError()
 
         val mod: ModInfo = api.getMod("cyberpunk2077", 123)
+            .firstOrError()
             .subscribeOn(scheduler)
             .blockingGet()
 
@@ -180,12 +189,14 @@ class NxModsApiTest {
     @Test
     fun getChangelog_test() {
         val changelogSub: TestSingleObserver<List<ChangelogItem>> = api.getChangelog("cyberpunk2077", 123)
+            .firstOrError()
             .subscribeOn(scheduler)
             .test()
 
         changelogSub.assertNotError()
 
         val changelog: List<ChangelogItem> = api.getChangelog("cyberpunk2077", 123)
+            .firstOrError()
             .subscribeOn(scheduler)
             .blockingGet()
 
@@ -202,12 +213,14 @@ class NxModsApiTest {
     @Test
     fun validateApiKey_test() {
         val validateSub: TestSingleObserver<OwnProfile> = api.validateApiKey("key")
+            .firstOrError()
             .subscribeOn(scheduler)
             .test()
 
         validateSub.assertNotError()
 
         val validated: OwnProfile = api.validateApiKey("123")
+            .firstOrError()
             .subscribeOn(scheduler)
             .blockingGet()
 
@@ -223,12 +236,14 @@ class NxModsApiTest {
     @Test
     fun getTracked_test() {
         val trackedSub: TestSingleObserver<List<TrackingInfo>> = api.getTracked()
+            .firstOrError()
             .subscribeOn(scheduler)
             .test()
 
         trackedSub.assertNotError()
 
         val tracked: List<TrackingInfo> = api.getTracked()
+            .firstOrError()
             .subscribeOn(scheduler)
             .blockingGet()
 
@@ -243,12 +258,14 @@ class NxModsApiTest {
     @Test
     fun getEndorsed() {
         val endorsedSub: TestSingleObserver<List<EndorsementInfo>> = api.getEndorsed()
+            .firstOrError()
             .subscribeOn(scheduler)
             .test()
 
         endorsedSub.assertNotError()
 
         val endorsed: List<EndorsementInfo> = api.getEndorsed()
+            .firstOrError()
             .subscribeOn(scheduler)
             .blockingGet()
 

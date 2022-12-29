@@ -10,10 +10,10 @@ import com.arkivanov.mvikotlin.extensions.reaktive.labels
 import com.badoo.reaktive.base.Consumer
 import com.badoo.reaktive.base.invoke
 import com.badoo.reaktive.disposable.Disposable
+import com.badoo.reaktive.observable.Observable
 import com.badoo.reaktive.observable.subscribe
 import com.badoo.reaktive.observable.subscribeOn
 import com.badoo.reaktive.scheduler.mainScheduler
-import com.badoo.reaktive.single.Single
 import com.sedsoftware.nxmods.component.auth.NxModsAuth
 import com.sedsoftware.nxmods.component.auth.NxModsAuth.Model
 import com.sedsoftware.nxmods.component.auth.NxModsAuth.Output
@@ -41,7 +41,7 @@ class NxModsAuthComponent(
                 storeFactory = storeFactory,
                 manager = NxModsAuthManager(
                     api = object : NxModsAuthApi {
-                        override fun validateApiKey(key: String): Single<OwnProfile> =
+                        override fun validateApiKey(key: String): Observable<OwnProfile> =
                             api.validateApiKey(key)
                     },
                     settings = settings

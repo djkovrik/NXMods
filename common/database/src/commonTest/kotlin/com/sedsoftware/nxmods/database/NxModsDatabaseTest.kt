@@ -48,6 +48,7 @@ class NxModsDatabaseTest {
     @Test
     fun saveGames_test() {
         val games: List<GameInfo> = api.getGames()
+            .firstOrError()
             .subscribeOn(scheduler)
             .blockingGet()
 
@@ -79,6 +80,7 @@ class NxModsDatabaseTest {
     @Test
     fun bookmarking_test() {
         val games: List<GameInfo> = api.getGames()
+            .firstOrError()
             .subscribeOn(scheduler)
             .blockingGet()
 
@@ -118,6 +120,7 @@ class NxModsDatabaseTest {
         )
 
         val empty: CachedModData = database.getCachedModData("morrowind", 1)
+            .firstOrError()
             .subscribeOn(scheduler)
             .blockingGet()
 
@@ -133,6 +136,7 @@ class NxModsDatabaseTest {
             .blockingAwait()
 
         val trackedButNotEndorsed: CachedModData = database.getCachedModData("morrowind", 1)
+            .firstOrError()
             .subscribeOn(scheduler)
             .blockingGet()
 
@@ -144,6 +148,7 @@ class NxModsDatabaseTest {
             .blockingAwait()
 
         val trackedAndEndorsed: CachedModData = database.getCachedModData("morrowind", 1)
+            .firstOrError()
             .subscribeOn(scheduler)
             .blockingGet()
 
@@ -155,6 +160,7 @@ class NxModsDatabaseTest {
             .blockingAwait()
 
         val endorsedButNotTracked: CachedModData = database.getCachedModData("morrowind", 1)
+            .firstOrError()
             .subscribeOn(scheduler)
             .blockingGet()
 

@@ -1,11 +1,11 @@
 package com.sedsoftware.nxmods.domain
 
+import com.badoo.reaktive.observable.Observable
+import com.badoo.reaktive.observable.flatMap
+import com.badoo.reaktive.observable.map
+import com.badoo.reaktive.observable.subscribeOn
 import com.badoo.reaktive.scheduler.Scheduler
 import com.badoo.reaktive.scheduler.ioScheduler
-import com.badoo.reaktive.single.Single
-import com.badoo.reaktive.single.flatMap
-import com.badoo.reaktive.single.map
-import com.badoo.reaktive.single.subscribeOn
 import com.sedsoftware.nxmods.domain.entity.CachedModData
 import com.sedsoftware.nxmods.domain.entity.ChangelogItem
 import com.sedsoftware.nxmods.domain.entity.ModInfo
@@ -23,24 +23,24 @@ class ModInfoManager(
     private val domain: String
         get() = settings.currentDomain
 
-    fun getLatestAddedMods(): Single<List<ModInfo>> =
+    fun getLatestAddedMods(): Observable<List<ModInfo>> =
         api.getLatestAdded(domain)
             .subscribeOn(scheduler)
 
-    fun getLatestUpdatedMods(): Single<List<ModInfo>> =
+    fun getLatestUpdatedMods(): Observable<List<ModInfo>> =
         api.getLatestUpdated(domain)
             .subscribeOn(scheduler)
 
-    fun getTrendingMods(): Single<List<ModInfo>> =
+    fun getTrendingMods(): Observable<List<ModInfo>> =
         api.getTrending(domain)
             .subscribeOn(scheduler)
 
-    fun getModInfo(domain: String, id: Long): Single<ModInfo> =
+    fun getModInfo(domain: String, id: Long): Observable<ModInfo> =
         db.getCachedModData(domain, id)
             .flatMap { mapWithCached(domain, id, it) }
             .subscribeOn(scheduler)
 
-    fun getModChangelog(domain: String, id: Long): Single<List<ChangelogItem>> =
+    fun getModChangelog(domain: String, id: Long): Observable<List<ChangelogItem>> =
         api.getChangelog(domain, id)
             .subscribeOn(scheduler)
 
