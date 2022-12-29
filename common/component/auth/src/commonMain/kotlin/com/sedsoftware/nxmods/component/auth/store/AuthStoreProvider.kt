@@ -16,11 +16,11 @@ import com.sedsoftware.nxmods.component.auth.model.ApiKeyStatus
 import com.sedsoftware.nxmods.component.auth.store.AuthStore.Intent
 import com.sedsoftware.nxmods.component.auth.store.AuthStore.Label
 import com.sedsoftware.nxmods.component.auth.store.AuthStore.State
-import com.sedsoftware.nxmods.domain.ApiKeyManager
+import com.sedsoftware.nxmods.component.auth.domain.NxModsAuthManager
 
 internal class AuthStoreProvider(
     private val storeFactory: StoreFactory,
-    private val manager: ApiKeyManager
+    private val manager: NxModsAuthManager
 ) {
 
     fun create(): AuthStore =

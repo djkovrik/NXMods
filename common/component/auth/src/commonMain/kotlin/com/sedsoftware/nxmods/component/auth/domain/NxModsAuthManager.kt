@@ -1,4 +1,4 @@
-package com.sedsoftware.nxmods.domain
+package com.sedsoftware.nxmods.component.auth.domain
 
 import com.badoo.reaktive.completable.Completable
 import com.badoo.reaktive.completable.completableFromFunction
@@ -10,11 +10,10 @@ import com.badoo.reaktive.single.doOnAfterError
 import com.badoo.reaktive.single.flatMapCompletable
 import com.badoo.reaktive.single.singleOf
 import com.badoo.reaktive.single.subscribeOn
-import com.sedsoftware.nxmods.domain.tools.NxModsApi
 import com.sedsoftware.nxmods.domain.tools.NxModsSettings
 
-class ApiKeyManager(
-    private val api: NxModsApi,
+internal class NxModsAuthManager(
+    private val api: NxModsAuthApi,
     private val settings: NxModsSettings,
     private val scheduler: Scheduler = ioScheduler
 ) {

@@ -10,8 +10,7 @@ import com.arkivanov.essenty.parcelable.Parcelize
 import com.arkivanov.mvikotlin.core.store.StoreFactory
 import com.badoo.reaktive.base.Consumer
 import com.sedsoftware.nxmods.component.auth.NxModsAuth
-import com.sedsoftware.nxmods.component.auth.infrastructure.NxModsAuthComponent
-import com.sedsoftware.nxmods.domain.ApiKeyManager
+import com.sedsoftware.nxmods.component.auth.integration.NxModsAuthComponent
 import com.sedsoftware.nxmods.domain.tools.NxModsApi
 import com.sedsoftware.nxmods.domain.tools.NxModsSettings
 import com.sedsoftware.nxmods.root.NxModsRoot
@@ -34,10 +33,8 @@ class NxModsRootComponent internal constructor(
             NxModsAuthComponent(
                 componentContext = childContext,
                 storeFactory = storeFactory,
-                apiKeyManager = ApiKeyManager(
-                    api = nxModsApi,
-                    settings = nxModsSettings
-                ),
+                api = nxModsApi,
+                settings = nxModsSettings,
                 output = output
             )
         }
