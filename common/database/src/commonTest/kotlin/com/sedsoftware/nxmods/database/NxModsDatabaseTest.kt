@@ -38,11 +38,10 @@ class NxModsDatabaseTest {
             return component.api
         }
 
-    private val database: NxModsDatabase
-        get() {
-            val component = DatabaseFeatureComponentMock()
-            return component.database
-        }
+    private val database: NxModsDatabase by lazy {
+        val component = DatabaseFeatureComponentMock()
+        component.database
+    }
 
     private val scheduler: Scheduler = TestScheduler()
 
