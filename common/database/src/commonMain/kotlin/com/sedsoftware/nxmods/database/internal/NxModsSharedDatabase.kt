@@ -4,7 +4,6 @@ import com.badoo.reaktive.completable.Completable
 import com.badoo.reaktive.observable.Observable
 import com.badoo.reaktive.observable.autoConnect
 import com.badoo.reaktive.observable.combineLatest
-import com.badoo.reaktive.observable.firstOrDefault
 import com.badoo.reaktive.observable.firstOrError
 import com.badoo.reaktive.observable.map
 import com.badoo.reaktive.observable.replay
@@ -141,8 +140,6 @@ internal class NxModsSharedDatabase(driver: Single<SqlDriver>) : NxModsDatabase 
         ) { endorsed: Boolean, tracked: Boolean ->
             CachedModData(endorsed, tracked)
         }
-            .firstOrDefault(CachedModData(endorsed = false, tracked = false))
-            .asObservable()
 
     private fun Boolean.asLong(): Long = if (this) 1L else 0L
 }

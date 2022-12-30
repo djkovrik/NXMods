@@ -6,7 +6,6 @@ import com.badoo.reaktive.observable.Observable
 import com.badoo.reaktive.observable.map
 import com.badoo.reaktive.observable.observeOn
 import com.badoo.reaktive.scheduler.ioScheduler
-import com.badoo.reaktive.single.asObservable
 import com.sedsoftware.nxmods.domain.entity.ChangelogItem
 import com.sedsoftware.nxmods.domain.entity.EndorsementInfo
 import com.sedsoftware.nxmods.domain.entity.GameInfo
@@ -53,55 +52,46 @@ internal class NxModsSharedApi(
 
     override fun getGames(): Observable<List<GameInfo>> =
         doGet<List<GameInfoModel>>("$BASE_URL/v1/games.json")
-            .asObservable()
             .observeOn(ioScheduler)
             .map(gameInfoModelListToDomain)
 
     override fun getGame(domain: String): Observable<GameInfo> =
         doGet<GameInfoModel>("$BASE_URL/v1/games/${domain}.json")
-            .asObservable()
             .observeOn(ioScheduler)
             .map(gameInfoModelToDomain)
 
     override fun getLatestAdded(domain: String): Observable<List<ModInfo>> =
         doGet<List<ModInfoModel>>("$BASE_URL/v1/games/${domain}/mods/latest_added.json")
-            .asObservable()
             .observeOn(ioScheduler)
             .map(modInfoListToDomain)
 
     override fun getLatestUpdated(domain: String): Observable<List<ModInfo>> =
         doGet<List<ModInfoModel>>("$BASE_URL/v1/games/${domain}/mods/latest_updated.json")
-            .asObservable()
             .observeOn(ioScheduler)
             .map(modInfoListToDomain)
 
     override fun getTrending(domain: String): Observable<List<ModInfo>> =
         doGet<List<ModInfoModel>>("$BASE_URL/v1/games/${domain}/mods/trending.json")
-            .asObservable()
             .observeOn(ioScheduler)
             .map(modInfoListToDomain)
 
     override fun getMod(domain: String, id: Long): Observable<ModInfo> =
         doGet<ModInfoModel>("$BASE_URL/v1/games/${domain}/mods/${id}.json")
-            .asObservable()
             .observeOn(ioScheduler)
             .map(modInfoToDomain)
 
     override fun getChangelog(domain: String, id: Long): Observable<List<ChangelogItem>> =
         doGet<Map<String, List<String>>>("$BASE_URL/v1/games/${domain}/mods/${id}/changelogs.json")
-            .asObservable()
             .observeOn(ioScheduler)
             .map(changelogToDomain)
 
     override fun validateApiKey(key: String): Observable<OwnProfile> =
         doGet<OwnProfileModel>("$BASE_URL/v1/users/validate.json", key)
-            .asObservable()
             .observeOn(ioScheduler)
             .map(profileToDomain)
 
     override fun getTracked(): Observable<List<TrackingInfo>> =
         doGet<List<TrackingInfoModel>>("$BASE_URL/v1/user/tracked_mods.json")
-            .asObservable()
             .observeOn(ioScheduler)
             .map(trackingInfoListToDomain)
 
@@ -115,7 +105,6 @@ internal class NxModsSharedApi(
 
     override fun getEndorsed(): Observable<List<EndorsementInfo>> =
         doGet<List<EndorsementInfoModel>>("$BASE_URL/v1/user/endorsements.json")
-            .asObservable()
             .observeOn(ioScheduler)
             .map(endorsementInfoListToDomain)
 
