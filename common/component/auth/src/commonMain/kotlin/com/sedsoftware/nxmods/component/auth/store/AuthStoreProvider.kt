@@ -7,29 +7,32 @@ import com.arkivanov.mvikotlin.core.store.StoreFactory
 import com.arkivanov.mvikotlin.core.utils.ExperimentalMviKotlinApi
 import com.arkivanov.mvikotlin.extensions.reaktive.reaktiveBootstrapper
 import com.arkivanov.mvikotlin.extensions.reaktive.reaktiveExecutorFactory
-import com.badoo.reaktive.completable.doOnAfterError
-import com.badoo.reaktive.completable.doOnBeforeSubscribe
-import com.badoo.reaktive.completable.observeOn
+import com.badoo.reaktive.observable.doOnAfterError
+import com.badoo.reaktive.observable.doOnBeforeSubscribe
+import com.badoo.reaktive.observable.observeOn
+import com.badoo.reaktive.scheduler.Scheduler
 import com.badoo.reaktive.scheduler.mainScheduler
 import com.badoo.reaktive.single.observeOn
+import com.sedsoftware.nxmods.component.auth.domain.NxModsAuthManager
 import com.sedsoftware.nxmods.component.auth.model.ApiKeyStatus
 import com.sedsoftware.nxmods.component.auth.store.AuthStore.Intent
 import com.sedsoftware.nxmods.component.auth.store.AuthStore.Label
 import com.sedsoftware.nxmods.component.auth.store.AuthStore.State
-import com.sedsoftware.nxmods.domain.ApiKeyManager
 
 internal class AuthStoreProvider(
     private val storeFactory: StoreFactory,
-    private val manager: ApiKeyManager
+    private val manager: NxModsAuthManager,
+    private val observeScheduler: Scheduler = mainScheduler
 ) {
 
-    fun create(): AuthStore =
+    fun create(autoInit: Boolean = true): AuthStore =
         object : AuthStore, Store<Intent, State, Label> by storeFactory.create<Intent, Action, Msg, State, Label>(
             name = "AuthStore",
             initialState = State(),
+            autoInit = autoInit,
             bootstrapper = reaktiveBootstrapper {
                 manager.getCurrentApiKey()
-                    .observeOn(mainScheduler)
+                    .observeOn(observeScheduler)
                     .subscribeScoped { apiKey: String ->
                         if (apiKey.isEmpty()) {
                             dispatch(Action.HandleNewUser)
@@ -45,15 +48,17 @@ internal class AuthStoreProvider(
 
                 onAction<Action.HandleExistingUser> {
                     manager.validateApiKey(key = it.key)
-                        .observeOn(mainScheduler)
+                        .observeOn(observeScheduler)
                         .doOnBeforeSubscribe { dispatch(Msg.ValidationRequested) }
                         .doOnAfterError { throwable ->
                             dispatch(Msg.ValidationFailed)
                             publish(Label.ErrorCaught(throwable))
                         }
-                        .subscribeScoped {
-                            dispatch(Msg.ValidationCompleted)
-                            publish(Label.ExistingUserValidationCompleted)
+                        .subscribeScoped { status ->
+                            if (status == ApiKeyStatus.VALID) {
+                                dispatch(Msg.ValidationCompleted)
+                                publish(Label.ExistingUserValidationCompleted)
+                            }
                         }
                 }
 
@@ -63,7 +68,7 @@ internal class AuthStoreProvider(
 
                 onIntent<Intent.ClickValidateButton> {
                     manager.validateApiKey(key = state.textInput)
-                        .observeOn(mainScheduler)
+                        .observeOn(observeScheduler)
                         .doOnBeforeSubscribe { dispatch(Msg.ValidationRequested) }
                         .doOnAfterError { throwable ->
                             dispatch(Msg.ValidationFailed)

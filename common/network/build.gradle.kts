@@ -12,6 +12,7 @@ kotlin {
         commonMain {
             dependencies {
                 implementation(project(Deps.Module.domain))
+                implementation(project(Deps.Module.settings))
 
                 implementation(Deps.JetBrains.Serialization.core)
                 implementation(Deps.Badoo.Reaktive.coroutinesInterop)

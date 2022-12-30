@@ -45,15 +45,6 @@ kotlin {
     }
 
     sourceSets {
-        named("commonTest") {
-            dependencies {
-                implementation(Deps.KMM.Settings.settings)
-                implementation(Deps.KMM.Settings.settingsTest)
-            }
-        }
-    }
-
-    sourceSets {
         named("iosMain") {
             dependencies {
                 api(project(Deps.Module.database))

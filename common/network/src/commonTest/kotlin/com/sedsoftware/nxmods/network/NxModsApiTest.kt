@@ -1,5 +1,6 @@
 package com.sedsoftware.nxmods.network
 
+import com.badoo.reaktive.observable.firstOrError
 import com.badoo.reaktive.scheduler.Scheduler
 import com.badoo.reaktive.single.blockingGet
 import com.badoo.reaktive.single.subscribeOn
@@ -7,13 +8,13 @@ import com.badoo.reaktive.test.base.assertNotError
 import com.badoo.reaktive.test.scheduler.TestScheduler
 import com.badoo.reaktive.test.single.TestSingleObserver
 import com.badoo.reaktive.test.single.test
-import com.sedsoftware.nxmods.Stubs
 import com.sedsoftware.nxmods.domain.entity.ChangelogItem
 import com.sedsoftware.nxmods.domain.entity.EndorsementInfo
 import com.sedsoftware.nxmods.domain.entity.GameInfo
 import com.sedsoftware.nxmods.domain.entity.ModInfo
 import com.sedsoftware.nxmods.domain.entity.OwnProfile
 import com.sedsoftware.nxmods.domain.entity.TrackingInfo
+import com.sedsoftware.nxmods.domain.framework.CompletableSubject
 import com.sedsoftware.nxmods.domain.tools.NxModsApi
 import kotlinx.datetime.Clock.System
 import kotlinx.datetime.TimeZone
@@ -23,18 +24,33 @@ import kotlin.test.assertTrue
 
 class NxModsApiTest {
 
-    private val api: NxModsApi = Stubs.api
+    private val endorseSubject = CompletableSubject()
+    private val trackSubject = CompletableSubject()
+
+    private val api: NxModsApi
+        get() {
+            val component = NetworkFeatureComponentMock(
+                dependencies = object : NetworkComponentTestDependencies {
+                    override val endorse: CompletableSubject = endorseSubject
+                    override val track: CompletableSubject = trackSubject
+                }
+            )
+            return component.api
+        }
+
     private val scheduler: Scheduler = TestScheduler()
 
     @Test
     fun getGames_test() {
         val gamesSub: TestSingleObserver<List<GameInfo>> = api.getGames()
+            .firstOrError()
             .subscribeOn(scheduler)
             .test()
 
         gamesSub.assertNotError()
 
         val games: List<GameInfo> = api.getGames()
+            .firstOrError()
             .subscribeOn(scheduler)
             .blockingGet()
 
@@ -61,12 +77,14 @@ class NxModsApiTest {
     @Test
     fun getGame_test() {
         val gameSub: TestSingleObserver<GameInfo> = api.getGame("cyberpunk2077")
+            .firstOrError()
             .subscribeOn(scheduler)
             .test()
 
         gameSub.assertNotError()
 
         val game: GameInfo = api.getGame("cyberpunk2077")
+            .firstOrError()
             .subscribeOn(scheduler)
             .blockingGet()
 
@@ -89,12 +107,14 @@ class NxModsApiTest {
     @Test
     fun getLatest_test() {
         val latestSub: TestSingleObserver<List<ModInfo>> = api.getLatestAdded("cyberpunk2077")
+            .firstOrError()
             .subscribeOn(scheduler)
             .test()
 
         latestSub.assertNotError()
 
         val latest: List<ModInfo> = api.getLatestAdded("cyberpunk2077")
+            .firstOrError()
             .subscribeOn(scheduler)
             .blockingGet()
 
@@ -130,12 +150,14 @@ class NxModsApiTest {
     @Test
     fun getMod_test() {
         val modSub: TestSingleObserver<ModInfo> = api.getMod("cyberpunk2077", 123)
+            .firstOrError()
             .subscribeOn(scheduler)
             .test()
 
         modSub.assertNotError()
 
         val mod: ModInfo = api.getMod("cyberpunk2077", 123)
+            .firstOrError()
             .subscribeOn(scheduler)
             .blockingGet()
 
@@ -167,12 +189,14 @@ class NxModsApiTest {
     @Test
     fun getChangelog_test() {
         val changelogSub: TestSingleObserver<List<ChangelogItem>> = api.getChangelog("cyberpunk2077", 123)
+            .firstOrError()
             .subscribeOn(scheduler)
             .test()
 
         changelogSub.assertNotError()
 
         val changelog: List<ChangelogItem> = api.getChangelog("cyberpunk2077", 123)
+            .firstOrError()
             .subscribeOn(scheduler)
             .blockingGet()
 
@@ -189,12 +213,14 @@ class NxModsApiTest {
     @Test
     fun validateApiKey_test() {
         val validateSub: TestSingleObserver<OwnProfile> = api.validateApiKey("key")
+            .firstOrError()
             .subscribeOn(scheduler)
             .test()
 
         validateSub.assertNotError()
 
         val validated: OwnProfile = api.validateApiKey("123")
+            .firstOrError()
             .subscribeOn(scheduler)
             .blockingGet()
 
@@ -210,12 +236,14 @@ class NxModsApiTest {
     @Test
     fun getTracked_test() {
         val trackedSub: TestSingleObserver<List<TrackingInfo>> = api.getTracked()
+            .firstOrError()
             .subscribeOn(scheduler)
             .test()
 
         trackedSub.assertNotError()
 
         val tracked: List<TrackingInfo> = api.getTracked()
+            .firstOrError()
             .subscribeOn(scheduler)
             .blockingGet()
 
@@ -230,12 +258,14 @@ class NxModsApiTest {
     @Test
     fun getEndorsed() {
         val endorsedSub: TestSingleObserver<List<EndorsementInfo>> = api.getEndorsed()
+            .firstOrError()
             .subscribeOn(scheduler)
             .test()
 
         endorsedSub.assertNotError()
 
         val endorsed: List<EndorsementInfo> = api.getEndorsed()
+            .firstOrError()
             .subscribeOn(scheduler)
             .blockingGet()
 

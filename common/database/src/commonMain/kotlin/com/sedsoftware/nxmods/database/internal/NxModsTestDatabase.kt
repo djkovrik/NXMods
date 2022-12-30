@@ -9,8 +9,7 @@ import com.badoo.reaktive.observable.notNull
 import com.badoo.reaktive.observable.observeOn
 import com.badoo.reaktive.scheduler.Scheduler
 import com.badoo.reaktive.scheduler.trampolineScheduler
-import com.badoo.reaktive.single.Single
-import com.badoo.reaktive.single.observeOn
+import com.badoo.reaktive.single.asObservable
 import com.badoo.reaktive.single.singleFromFunction
 import com.badoo.reaktive.subject.behavior.BehaviorSubject
 import com.sedsoftware.nxmods.database.EndorsementInfoEntity
@@ -84,8 +83,9 @@ internal class NxModsTestDatabase(
     override fun endorse(domain: String, modId: Long, endorse: Boolean): Completable =
         execute { testing.endorseItem(domain, modId, endorse) }
 
-    override fun getCachedModData(domain: String, modId: Long): Single<CachedModData> =
+    override fun getCachedModData(domain: String, modId: Long): Observable<CachedModData> =
         singleFromFunction { testing.getGameUserState(domain, modId) }
+            .asObservable()
             .observeOn(scheduler)
 
     private fun execute(block: () -> Unit): Completable =

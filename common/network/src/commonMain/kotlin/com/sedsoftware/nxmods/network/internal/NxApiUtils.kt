@@ -3,7 +3,8 @@ package com.sedsoftware.nxmods.network.internal
 import com.badoo.reaktive.completable.Completable
 import com.badoo.reaktive.coroutinesinterop.completableFromCoroutine
 import com.badoo.reaktive.coroutinesinterop.singleFromCoroutine
-import com.badoo.reaktive.single.Single
+import com.badoo.reaktive.observable.Observable
+import com.badoo.reaktive.single.asObservable
 import io.ktor.client.call.body
 import io.ktor.client.request.delete
 import io.ktor.client.request.get
@@ -14,8 +15,8 @@ import io.ktor.http.ContentType.Application
 import io.ktor.http.HttpHeaders
 import io.ktor.http.contentType
 
-internal inline fun <reified T> NxModsSharedApi.doGet(url: String, key: String = apiKey): Single<T> =
-    singleFromCoroutine {
+internal inline fun <reified T> NxModsSharedApi.doGet(url: String, key: String = apiKey): Observable<T> =
+    singleFromCoroutine<T> {
         httpClient
             .get(url) {
                 headers {
@@ -26,6 +27,7 @@ internal inline fun <reified T> NxModsSharedApi.doGet(url: String, key: String =
             }
             .body()
     }
+        .asObservable()
 
 internal inline fun NxModsSharedApi.doPost(url: String, body: Any): Completable =
     completableFromCoroutine {

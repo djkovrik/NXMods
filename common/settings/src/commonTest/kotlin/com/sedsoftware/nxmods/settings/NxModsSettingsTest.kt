@@ -1,13 +1,13 @@
 package com.sedsoftware.nxmods.settings
 
-import com.sedsoftware.nxmods.Stubs
 import com.sedsoftware.nxmods.domain.tools.NxModsSettings
 import kotlin.test.Test
 import kotlin.test.assertTrue
 
 class NxModsSettingsTest {
 
-    private val settings: NxModsSettings = Stubs.settings
+    private val component: SettingsFeatureComponent = SettingsFeatureComponentMock()
+    private val settings: NxModsSettings = component.settings
 
     @Test
     fun settingsReadWrite_test() {

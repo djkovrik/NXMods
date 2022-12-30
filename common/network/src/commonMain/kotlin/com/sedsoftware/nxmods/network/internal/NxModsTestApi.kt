@@ -2,12 +2,12 @@ package com.sedsoftware.nxmods.network.internal
 
 import com.badoo.reaktive.completable.Completable
 import com.badoo.reaktive.completable.observeOn
+import com.badoo.reaktive.observable.Observable
+import com.badoo.reaktive.observable.map
+import com.badoo.reaktive.observable.observableOf
+import com.badoo.reaktive.observable.observeOn
 import com.badoo.reaktive.scheduler.Scheduler
 import com.badoo.reaktive.scheduler.trampolineScheduler
-import com.badoo.reaktive.single.Single
-import com.badoo.reaktive.single.map
-import com.badoo.reaktive.single.observeOn
-import com.badoo.reaktive.single.singleOf
 import com.sedsoftware.nxmods.domain.entity.ChangelogItem
 import com.sedsoftware.nxmods.domain.entity.EndorsementInfo
 import com.sedsoftware.nxmods.domain.entity.GameInfo
@@ -39,48 +39,48 @@ internal class NxModsTestApi(
     private val scheduler: Scheduler = trampolineScheduler
 ) : NxModsApi {
 
-    override fun getGames(): Single<List<GameInfo>> =
-        singleOf(GetGames.response)
+    override fun getGames(): Observable<List<GameInfo>> =
+        observableOf(GetGames.response)
             .observeOn(scheduler)
             .map(gameInfoModelListToDomain)
 
-    override fun getGame(domain: String): Single<GameInfo> =
-        singleOf(GetGame.response)
+    override fun getGame(domain: String): Observable<GameInfo> =
+        observableOf(GetGame.response)
             .observeOn(scheduler)
             .map(gameInfoModelToDomain)
 
-    override fun getLatestAdded(domain: String): Single<List<ModInfo>> =
-        singleOf(GetModsList.response)
+    override fun getLatestAdded(domain: String): Observable<List<ModInfo>> =
+        observableOf(GetModsList.response)
             .observeOn(scheduler)
             .map(modInfoListToDomain)
 
-    override fun getLatestUpdated(domain: String): Single<List<ModInfo>> =
-        singleOf(GetModsList.response)
+    override fun getLatestUpdated(domain: String): Observable<List<ModInfo>> =
+        observableOf(GetModsList.response)
             .observeOn(scheduler)
             .map(modInfoListToDomain)
 
-    override fun getTrending(domain: String): Single<List<ModInfo>> =
-        singleOf(GetModsList.response)
+    override fun getTrending(domain: String): Observable<List<ModInfo>> =
+        observableOf(GetModsList.response)
             .observeOn(scheduler)
             .map(modInfoListToDomain)
 
-    override fun getMod(domain: String, id: Long): Single<ModInfo> =
-        singleOf(GetMod.response)
+    override fun getMod(domain: String, id: Long): Observable<ModInfo> =
+        observableOf(GetMod.response)
             .observeOn(scheduler)
             .map(modInfoToDomain)
 
-    override fun getChangelog(domain: String, id: Long): Single<List<ChangelogItem>> =
-        singleOf(GetChangelog.response)
+    override fun getChangelog(domain: String, id: Long): Observable<List<ChangelogItem>> =
+        observableOf(GetChangelog.response)
             .observeOn(scheduler)
             .map(changelogToDomain)
 
-    override fun validateApiKey(key: String): Single<OwnProfile> =
-        singleOf(ValidateApiKey.response)
+    override fun validateApiKey(key: String): Observable<OwnProfile> =
+        observableOf(ValidateApiKey.response)
             .observeOn(scheduler)
             .map(profileToDomain)
 
-    override fun getTracked(): Single<List<TrackingInfo>> =
-        singleOf(GetTracked.response)
+    override fun getTracked(): Observable<List<TrackingInfo>> =
+        observableOf(GetTracked.response)
             .observeOn(scheduler)
             .map(trackingInfoListToDomain)
 
@@ -92,8 +92,8 @@ internal class NxModsTestApi(
         trackSubject
             .observeOn(scheduler)
 
-    override fun getEndorsed(): Single<List<EndorsementInfo>> =
-        singleOf(GetEndorsed.response)
+    override fun getEndorsed(): Observable<List<EndorsementInfo>> =
+        observableOf(GetEndorsed.response)
             .observeOn(scheduler)
             .map(endorsementInfoListToDomain)
 
