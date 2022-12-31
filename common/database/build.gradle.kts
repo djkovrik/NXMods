@@ -24,12 +24,6 @@ kotlin {
             }
         }
 
-        commonTest {
-            dependencies {
-                implementation(project(Deps.Module.network))
-            }
-        }
-
         androidMain {
             dependencies {
                 implementation(Deps.Squareup.SQLDelight.androidDriver)
@@ -41,6 +35,18 @@ kotlin {
             dependencies {
                 implementation(Deps.Squareup.SQLDelight.nativeDriver)
                 implementation(Deps.Squareup.SQLDelight.sqliteDriver)
+            }
+        }
+
+        desktopMain {
+            dependencies {
+                implementation(Deps.Squareup.SQLDelight.sqliteDriver)
+            }
+        }
+
+        commonTest {
+            dependencies {
+                implementation(project(Deps.Module.network))
             }
         }
     }

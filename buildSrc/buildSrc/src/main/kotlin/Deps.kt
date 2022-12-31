@@ -10,6 +10,11 @@ object Deps {
             const val testAnnotationsCommon = "org.jetbrains.kotlin:kotlin-test-annotations-common:$VERSION"
         }
 
+        object Coroutines {
+            private val VERSION get() = "1.6.4"
+            val swing get() = "org.jetbrains.kotlinx:kotlinx-coroutines-swing:$VERSION"
+        }
+
         object Compose {
             private const val VERSION = "1.2.0"
             const val gradlePlugin = "org.jetbrains.compose:compose-gradle-plugin:$VERSION"
@@ -22,6 +27,7 @@ object Deps {
             const val serialization = "io.ktor:ktor-serialization-kotlinx-json:$VERSION"
             const val engineAndroid = "io.ktor:ktor-client-okhttp:$VERSION"
             const val engineIos = "io.ktor:ktor-client-darwin:$VERSION"
+            const val engineDesktop = "io.ktor:ktor-client-curl:$VERSION"
         }
 
         object DateTime {
