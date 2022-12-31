@@ -128,6 +128,7 @@ object Deps {
         const val settings = ":common:settings"
         const val domain = ":common:domain"
         const val utils = ":common:utils"
+        const val ui = ":common:compose-ui"
 
         object Component {
             const val auth = ":common:component:auth"

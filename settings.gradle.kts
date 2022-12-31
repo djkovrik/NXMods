@@ -10,4 +10,5 @@ include(
     ":common:domain",
     ":common:utils",
     ":common:component:auth",
+    ":common:compose-ui",
 )
