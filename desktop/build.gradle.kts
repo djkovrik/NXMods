@@ -19,7 +19,7 @@ kotlin {
 
                 implementation(Deps.JetBrains.Coroutines.swing)
                 implementation(Deps.ArkIvanov.Decompose.decompose)
-                implementation(Deps.ArkIvanov.Decompose.extensionsJetbrains)
+                implementation(Deps.ArkIvanov.Decompose.extensions)
                 implementation(Deps.ArkIvanov.MVIKotlin.mvikotlin)
                 implementation(Deps.ArkIvanov.MVIKotlin.mvikotlinMain)
                 implementation(Deps.Badoo.Reaktive.reaktive)

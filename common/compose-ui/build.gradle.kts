@@ -10,7 +10,13 @@ kotlin {
                 implementation(project(Deps.Module.Component.auth))
 
                 implementation(Deps.ArkIvanov.Decompose.decompose)
-                implementation(Deps.ArkIvanov.Decompose.extensionsJetbrains)
+                implementation(Deps.ArkIvanov.Decompose.extensions)
+            }
+        }
+
+        desktopMain {
+            dependencies {
+                implementation(compose.preview)
             }
         }
     }

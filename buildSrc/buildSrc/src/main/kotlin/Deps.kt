@@ -80,14 +80,13 @@ object Deps {
         }
 
         object Decompose {
-            private const val VERSION = "1.0.0-alpha-06"
+            private const val VERSION = "1.0.0-beta-02"
             const val decompose = "com.arkivanov.decompose:decompose:$VERSION"
-            const val extensionsJetbrains = "com.arkivanov.decompose:extensions-compose-jetbrains:$VERSION"
-            const val extensionsJetpack = "com.arkivanov.decompose:extensions-compose-jetpack:$VERSION"
+            const val extensions = "com.arkivanov.decompose:extensions-compose-jetbrains:$VERSION"
         }
 
         object Essenty {
-            private const val VERSION = "0.6.0"
+            private const val VERSION = "0.7.0"
             const val lifecycle = "com.arkivanov.essenty:lifecycle:$VERSION"
         }
     }
