@@ -1,5 +1,6 @@
 plugins {
     id("multiplatform-setup-compose")
+    id("android-setup")
 }
 
 kotlin {

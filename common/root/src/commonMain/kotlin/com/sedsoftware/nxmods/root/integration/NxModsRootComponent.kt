@@ -12,6 +12,7 @@ import com.badoo.reaktive.base.Consumer
 import com.sedsoftware.nxmods.component.auth.NxModsAuth
 import com.sedsoftware.nxmods.component.auth.integration.NxModsAuthComponent
 import com.sedsoftware.nxmods.domain.tools.NxModsApi
+import com.sedsoftware.nxmods.domain.tools.NxModsDatabase
 import com.sedsoftware.nxmods.domain.tools.NxModsSettings
 import com.sedsoftware.nxmods.root.NxModsRoot
 import com.sedsoftware.nxmods.root.NxModsRoot.Child
@@ -26,6 +27,7 @@ class NxModsRootComponent internal constructor(
         componentContext: ComponentContext,
         storeFactory: StoreFactory,
         nxModsApi: NxModsApi,
+        nxModsDatabase: NxModsDatabase,
         nxModsSettings: NxModsSettings
     ) : this(
         componentContext = componentContext,
