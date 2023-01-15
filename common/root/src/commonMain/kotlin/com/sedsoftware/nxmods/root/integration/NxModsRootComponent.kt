@@ -23,6 +23,7 @@ class NxModsRootComponent internal constructor(
     private val nxModsAuth: (ComponentContext, Consumer<NxModsAuth.Output>) -> NxModsAuth
 ) : NxModsRoot, ComponentContext by componentContext {
 
+    @Suppress("UnusedPrivateMember")
     constructor(
         componentContext: ComponentContext,
         storeFactory: StoreFactory,

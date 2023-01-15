@@ -15,7 +15,9 @@ import com.badoo.reaktive.scheduler.mainScheduler
 import com.badoo.reaktive.single.observeOn
 import com.sedsoftware.nxmods.component.auth.domain.NxModsAuthManager
 import com.sedsoftware.nxmods.component.auth.model.ApiKeyStatus
-import com.sedsoftware.nxmods.component.auth.store.AuthStore.*
+import com.sedsoftware.nxmods.component.auth.store.AuthStore.Intent
+import com.sedsoftware.nxmods.component.auth.store.AuthStore.Label
+import com.sedsoftware.nxmods.component.auth.store.AuthStore.State
 
 internal class AuthStoreProvider(
     private val storeFactory: StoreFactory,
