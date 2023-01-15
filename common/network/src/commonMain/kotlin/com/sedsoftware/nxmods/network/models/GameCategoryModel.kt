@@ -5,6 +5,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 internal class GameCategoryModel(
-    @SerialName("category_id") val id: Long,
-    @SerialName("name") val name: String
+    @SerialName("category_id") val id: Long = 0L,
+    @SerialName("name") val name: String = ""
 )
