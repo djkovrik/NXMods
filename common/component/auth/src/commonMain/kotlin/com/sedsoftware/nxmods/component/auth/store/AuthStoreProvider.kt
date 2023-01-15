@@ -15,9 +15,7 @@ import com.badoo.reaktive.scheduler.mainScheduler
 import com.badoo.reaktive.single.observeOn
 import com.sedsoftware.nxmods.component.auth.domain.NxModsAuthManager
 import com.sedsoftware.nxmods.component.auth.model.ApiKeyStatus
-import com.sedsoftware.nxmods.component.auth.store.AuthStore.Intent
-import com.sedsoftware.nxmods.component.auth.store.AuthStore.Label
-import com.sedsoftware.nxmods.component.auth.store.AuthStore.State
+import com.sedsoftware.nxmods.component.auth.store.AuthStore.*
 
 internal class AuthStoreProvider(
     private val storeFactory: StoreFactory,
@@ -51,12 +49,12 @@ internal class AuthStoreProvider(
                         .observeOn(observeScheduler)
                         .doOnBeforeSubscribe { dispatch(Msg.ValidationRequested) }
                         .doOnAfterError { throwable ->
-                            dispatch(Msg.ValidationFailed)
+                            dispatch(Msg.ValidationRequestFailed)
                             publish(Label.ErrorCaught(throwable))
                         }
-                        .subscribeScoped { status ->
-                            if (status == ApiKeyStatus.VALID) {
-                                dispatch(Msg.ValidationCompleted)
+                        .subscribeScoped { key ->
+                            dispatch(Msg.ValidationRequestCompleted(key))
+                            if (key.isNotEmpty()) {
                                 publish(Label.ExistingUserValidationCompleted)
                             }
                         }
@@ -71,11 +69,11 @@ internal class AuthStoreProvider(
                         .observeOn(observeScheduler)
                         .doOnBeforeSubscribe { dispatch(Msg.ValidationRequested) }
                         .doOnAfterError { throwable ->
-                            dispatch(Msg.ValidationFailed)
+                            dispatch(Msg.ValidationRequestFailed)
                             publish(Label.ErrorCaught(throwable))
                         }
                         .subscribeScoped {
-                            dispatch(Msg.ValidationCompleted)
+                            dispatch(Msg.ValidationRequestCompleted(it))
                         }
                 }
 
@@ -95,11 +93,15 @@ internal class AuthStoreProvider(
                     is Msg.ValidationRequested -> copy(
                         progressVisible = true
                     )
-                    is Msg.ValidationCompleted -> copy(
+                    is Msg.ValidationRequestCompleted -> copy(
                         progressVisible = false,
-                        apiKeyStatus = ApiKeyStatus.VALID
+                        apiKeyStatus = if (msg.key.isNotEmpty()) {
+                            ApiKeyStatus.VALID
+                        } else {
+                            ApiKeyStatus.INVALID
+                        }
                     )
-                    is Msg.ValidationFailed -> copy(
+                    is Msg.ValidationRequestFailed -> copy(
                         progressVisible = false,
                         apiKeyStatus = ApiKeyStatus.INVALID
                     )
@@ -115,8 +117,8 @@ internal class AuthStoreProvider(
     private sealed interface Msg {
         data class UserTextEntered(val text: String) : Msg
         object ValidationRequested : Msg
-        object ValidationCompleted : Msg
-        object ValidationFailed : Msg
+        data class ValidationRequestCompleted(val key: String) : Msg
+        object ValidationRequestFailed : Msg
         object NewUserDetected : Msg
     }
 }

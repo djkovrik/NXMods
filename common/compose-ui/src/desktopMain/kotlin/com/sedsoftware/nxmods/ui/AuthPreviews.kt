@@ -8,6 +8,6 @@ import com.sedsoftware.nxmods.ui.stubs.AuthStates
 @Preview
 fun PreviewNewUser() {
     NxModsAuthScreen(
-        model = AuthStates.newUser
+        model = AuthStates.newUserKeyValidating
     )
 }
