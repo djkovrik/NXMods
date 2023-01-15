@@ -1,6 +1,7 @@
 package com.sedsoftware.nxmods.component.auth
 
 import com.arkivanov.decompose.value.Value
+import com.sedsoftware.nxmods.component.auth.model.ApiKeyStatus
 
 interface NxModsAuth {
 
@@ -16,7 +17,8 @@ interface NxModsAuth {
         val currentInput: String,
         val progressVisible: Boolean,
         val validateButtonAvailable: Boolean,
-        val nextButtonAvailable: Boolean
+        val nextButtonAvailable: Boolean,
+        val status: ApiKeyStatus
     )
 
     sealed class Output {

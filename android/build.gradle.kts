@@ -31,7 +31,19 @@ android {
 
 dependencies {
     implementation(project(Deps.Module.root))
+    implementation(project(Deps.Module.domain))
+    implementation(project(Deps.Module.database))
+    implementation(project(Deps.Module.network))
+    implementation(project(Deps.Module.settings))
+    implementation(project(Deps.Module.ui))
+
     implementation(compose.material)
+
     implementation(Deps.AndroidX.AppCompat.appCompat)
     implementation(Deps.AndroidX.Activity.activityCompose)
+    implementation(Deps.ArkIvanov.Decompose.decompose)
+    implementation(Deps.ArkIvanov.Decompose.extensions)
+    implementation(Deps.ArkIvanov.MVIKotlin.mvikotlin)
+    implementation(Deps.ArkIvanov.MVIKotlin.mvikotlinMain)
+    implementation(Deps.KMM.Settings.settings)
 }

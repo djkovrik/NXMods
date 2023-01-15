@@ -10,6 +10,11 @@ object Deps {
             const val testAnnotationsCommon = "org.jetbrains.kotlin:kotlin-test-annotations-common:$VERSION"
         }
 
+        object Coroutines {
+            private val VERSION get() = "1.6.4"
+            val swing get() = "org.jetbrains.kotlinx:kotlinx-coroutines-swing:$VERSION"
+        }
+
         object Compose {
             private const val VERSION = "1.2.0"
             const val gradlePlugin = "org.jetbrains.compose:compose-gradle-plugin:$VERSION"
@@ -22,6 +27,7 @@ object Deps {
             const val serialization = "io.ktor:ktor-serialization-kotlinx-json:$VERSION"
             const val engineAndroid = "io.ktor:ktor-client-okhttp:$VERSION"
             const val engineIos = "io.ktor:ktor-client-darwin:$VERSION"
+            const val engineDesktop = "io.ktor:ktor-client-curl:$VERSION"
         }
 
         object DateTime {
@@ -74,14 +80,13 @@ object Deps {
         }
 
         object Decompose {
-            private const val VERSION = "1.0.0-alpha-06"
+            private const val VERSION = "1.0.0-beta-02"
             const val decompose = "com.arkivanov.decompose:decompose:$VERSION"
-            const val extensionsJetbrains = "com.arkivanov.decompose:extensions-compose-jetbrains:$VERSION"
-            const val extensionsJetpack = "com.arkivanov.decompose:extensions-compose-jetpack:$VERSION"
+            const val extensions = "com.arkivanov.decompose:extensions-compose-jetbrains:$VERSION"
         }
 
         object Essenty {
-            private const val VERSION = "0.6.0"
+            private const val VERSION = "0.7.0"
             const val lifecycle = "com.arkivanov.essenty:lifecycle:$VERSION"
         }
     }
@@ -122,6 +127,7 @@ object Deps {
         const val settings = ":common:settings"
         const val domain = ":common:domain"
         const val utils = ":common:utils"
+        const val ui = ":common:compose-ui"
 
         object Component {
             const val auth = ":common:component:auth"

@@ -8,7 +8,10 @@ internal val stateToModel: (State) -> Model = {
     Model(
         currentInput = it.textInput,
         progressVisible = it.progressVisible,
-        validateButtonAvailable = it.textInput.isNotEmpty() && !it.progressVisible,
-        nextButtonAvailable = it.apiKeyStatus == ApiKeyStatus.VALID
+        validateButtonAvailable = it.textInput.isNotEmpty()
+            && it.apiKeyStatus != ApiKeyStatus.VALID
+            && !it.progressVisible,
+        nextButtonAvailable = it.apiKeyStatus == ApiKeyStatus.VALID,
+        status = it.apiKeyStatus
     )
 }

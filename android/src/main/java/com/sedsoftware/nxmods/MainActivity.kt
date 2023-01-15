@@ -11,7 +11,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Shapes
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.material.Typography
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
@@ -23,6 +22,15 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.arkivanov.decompose.ComponentContext
+import com.arkivanov.decompose.defaultComponentContext
+import com.arkivanov.mvikotlin.main.store.DefaultStoreFactory
+import com.sedsoftware.nxmods.database.DatabaseFeatureComponent
+import com.sedsoftware.nxmods.network.NetworkFeatureComponent
+import com.sedsoftware.nxmods.root.NxModsRoot
+import com.sedsoftware.nxmods.root.integration.NxModsRootComponent
+import com.sedsoftware.nxmods.settings.SettingsFeatureComponent
+import com.sedsoftware.nxmods.ui.NxModsRootContent
 
 @Composable
 fun MyApplicationTheme(
@@ -64,17 +72,40 @@ fun MyApplicationTheme(
 }
 
 class MainActivity : ComponentActivity() {
+
+    private val databaseFeature: DatabaseFeatureComponent
+        get() = DatabaseScopedComponent.get(applicationContext)
+
+    private val settingsFeature: SettingsFeatureComponent
+        get() = SettingsScopedComponent.get(applicationContext)
+
+    private val networkFeature: NetworkFeatureComponent
+        get() = NetworkScopedComponent.get(settingsFeature)
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val root: NxModsRoot = todoRoot(defaultComponentContext())
+
         setContent {
             MyApplicationTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Text(text = "Hello world")
+                    NxModsRootContent(root)
                 }
             }
         }
     }
+
+    private fun todoRoot(componentContext: ComponentContext): NxModsRoot =
+        NxModsRootComponent(
+            componentContext = componentContext,
+            storeFactory = DefaultStoreFactory(),
+            nxModsApi = networkFeature.api,
+            nxModsDatabase = databaseFeature.database,
+            nxModsSettings = settingsFeature.settings
+        )
 }
