@@ -7,7 +7,6 @@ import com.arkivanov.mvikotlin.core.store.StoreFactory
 import com.arkivanov.mvikotlin.core.utils.ExperimentalMviKotlinApi
 import com.arkivanov.mvikotlin.extensions.reaktive.reaktiveBootstrapper
 import com.arkivanov.mvikotlin.extensions.reaktive.reaktiveExecutorFactory
-import com.badoo.reaktive.observable.doOnAfterError
 import com.badoo.reaktive.observable.doOnBeforeSubscribe
 import com.badoo.reaktive.observable.observeOn
 import com.badoo.reaktive.scheduler.Scheduler
@@ -50,16 +49,18 @@ internal class AuthStoreProvider(
                     manager.validateApiKey(key = it.key)
                         .observeOn(observeScheduler)
                         .doOnBeforeSubscribe { dispatch(Msg.ValidationRequested) }
-                        .doOnAfterError { throwable ->
-                            dispatch(Msg.ValidationRequestFailed)
-                            publish(Label.ErrorCaught(throwable))
-                        }
-                        .subscribeScoped { key ->
-                            dispatch(Msg.ValidationRequestCompleted(key))
-                            if (key.isNotEmpty()) {
-                                publish(Label.ExistingUserValidationCompleted)
+                        .subscribeScoped(
+                            onNext = { key ->
+                                dispatch(Msg.ValidationRequestCompleted(key))
+                                if (key.isNotEmpty()) {
+                                    publish(Label.ExistingUserValidationCompleted)
+                                }
+                            },
+                            onError = { throwable ->
+                                dispatch(Msg.ValidationRequestFailed)
+                                publish(Label.ErrorCaught(throwable))
                             }
-                        }
+                        )
                 }
 
                 onIntent<Intent.InputText> {
@@ -70,13 +71,15 @@ internal class AuthStoreProvider(
                     manager.validateApiKey(key = state.textInput)
                         .observeOn(observeScheduler)
                         .doOnBeforeSubscribe { dispatch(Msg.ValidationRequested) }
-                        .doOnAfterError { throwable ->
-                            dispatch(Msg.ValidationRequestFailed)
-                            publish(Label.ErrorCaught(throwable))
-                        }
-                        .subscribeScoped {
-                            dispatch(Msg.ValidationRequestCompleted(it))
-                        }
+                        .subscribeScoped(
+                            onNext = { key ->
+                                dispatch(Msg.ValidationRequestCompleted(key))
+                            },
+                            onError = { throwable ->
+                                dispatch(Msg.ValidationRequestFailed)
+                                publish(Label.ErrorCaught(throwable))
+                            }
+                        )
                 }
 
                 onIntent<Intent.ClickNextButton> {
@@ -88,13 +91,16 @@ internal class AuthStoreProvider(
                     is Msg.UserTextEntered -> copy(
                         textInput = msg.text
                     )
+
                     is Msg.NewUserDetected -> copy(
                         progressVisible = false,
                         apiKeyStatus = ApiKeyStatus.NOT_FOUND
                     )
+
                     is Msg.ValidationRequested -> copy(
                         progressVisible = true
                     )
+
                     is Msg.ValidationRequestCompleted -> copy(
                         progressVisible = false,
                         apiKeyStatus = if (msg.key.isNotEmpty()) {
@@ -103,6 +109,7 @@ internal class AuthStoreProvider(
                             ApiKeyStatus.INVALID
                         }
                     )
+
                     is Msg.ValidationRequestFailed -> copy(
                         progressVisible = false,
                         apiKeyStatus = ApiKeyStatus.INVALID
