@@ -62,9 +62,9 @@ class NxModsRootComponent internal constructor(
 
     private fun onAuthOutput(output: NxModsAuth.Output): Unit =
         when (output) {
-            is NxModsAuth.Output.NavigateToGameSelectionScreen -> TODO()
-            is NxModsAuth.Output.NavigateToHomeScreen -> TODO()
-            is NxModsAuth.Output.ErrorCaught -> TODO()
+            is NxModsAuth.Output.NavigateToGameSelectionScreen -> Unit
+            is NxModsAuth.Output.NavigateToHomeScreen -> Unit
+            is NxModsAuth.Output.ErrorCaught -> Unit
         }
 
     private sealed class Configuration : Parcelable {
