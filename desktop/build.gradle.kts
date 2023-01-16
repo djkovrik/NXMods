@@ -15,7 +15,7 @@ kotlin {
             dependencies {
                 implementation(compose.desktop.currentOs)
 
-                implementation(project(Deps.Module.root))
+                implementation(project(Deps.Module.Component.root))
 
                 implementation(Deps.JetBrains.Coroutines.swing)
                 implementation(Deps.ArkIvanov.Decompose.decompose)

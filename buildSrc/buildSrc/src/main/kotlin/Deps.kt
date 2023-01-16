@@ -121,7 +121,6 @@ object Deps {
     }
 
     object Module {
-        const val root = ":common:root"
         const val database = ":common:database"
         const val network = ":common:network"
         const val settings = ":common:settings"
@@ -131,6 +130,7 @@ object Deps {
 
         object Component {
             const val auth = ":common:component:auth"
+            const val root = ":common:component:root"
         }
     }
 }

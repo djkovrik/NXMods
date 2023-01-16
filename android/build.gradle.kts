@@ -30,7 +30,7 @@ android {
 }
 
 dependencies {
-    implementation(project(Deps.Module.root))
+    implementation(project(Deps.Module.Component.root))
     implementation(project(Deps.Module.domain))
     implementation(project(Deps.Module.database))
     implementation(project(Deps.Module.network))
