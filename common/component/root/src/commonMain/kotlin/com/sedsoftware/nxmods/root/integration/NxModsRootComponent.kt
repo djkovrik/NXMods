@@ -9,6 +9,7 @@ import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
 import com.arkivanov.mvikotlin.core.store.StoreFactory
 import com.badoo.reaktive.base.Consumer
+import com.badoo.reaktive.subject.publish.PublishSubject
 import com.sedsoftware.nxmods.component.auth.NxModsAuth
 import com.sedsoftware.nxmods.component.auth.integration.NxModsAuthComponent
 import com.sedsoftware.nxmods.domain.tools.NxModsApi
@@ -43,6 +44,7 @@ class NxModsRootComponent internal constructor(
         }
     )
 
+    private val errorHandler: NxModsErrorHandler = NxModsErrorHandler()
     private val navigation: StackNavigation<Configuration> = StackNavigation()
 
     private val stack: Value<ChildStack<Configuration, Child>> =
@@ -55,6 +57,8 @@ class NxModsRootComponent internal constructor(
 
     override val childStack: Value<ChildStack<*, Child>> = stack
 
+    override val messages: PublishSubject<String> = PublishSubject()
+
     private fun createChild(configuration: Configuration, componentContext: ComponentContext): Child =
         when (configuration) {
             is Configuration.Auth -> Child.Auth(nxModsAuth(componentContext, Consumer(::onAuthOutput)))
@@ -62,9 +66,9 @@ class NxModsRootComponent internal constructor(
 
     private fun onAuthOutput(output: NxModsAuth.Output): Unit =
         when (output) {
-            is NxModsAuth.Output.NavigateToGameSelectionScreen -> TODO()
-            is NxModsAuth.Output.NavigateToHomeScreen -> TODO()
-            is NxModsAuth.Output.ErrorCaught -> TODO()
+            is NxModsAuth.Output.NavigateToGameSelectionScreen -> Unit
+            is NxModsAuth.Output.NavigateToHomeScreen -> Unit
+            is NxModsAuth.Output.ErrorCaught -> errorHandler.consume(output.throwable, messages)
         }
 
     private sealed class Configuration : Parcelable {
