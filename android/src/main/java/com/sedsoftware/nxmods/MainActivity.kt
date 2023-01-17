@@ -90,12 +90,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             MyApplicationTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    NxModsRootContent(root)
-                }
+                NxModsRootContent(root)
             }
         }
     }

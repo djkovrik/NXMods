@@ -14,7 +14,7 @@ class FetchGameListException(cause: Throwable) : Exception("Failed to fetch all 
 class FetchGameInfoException(cause: Throwable) : Exception("Failed to fetch game info", cause)
 
 // User
-class ValidateApiKeyException(cause: Throwable) : Exception("Failed to validate current api key", cause)
+class ValidateApiKeyException(cause: Throwable) : Exception(cause)
 class GetTrackedModsException(cause: Throwable) : Exception("Failed to get tracked mods", cause)
 class TrackModException(cause: Throwable) : Exception("Failed to track mod", cause)
 class UntrackModException(cause: Throwable) : Exception("Failed to untrack mod", cause)

@@ -17,6 +17,7 @@ import com.sedsoftware.nxmods.component.auth.model.ApiKeyStatus
 import com.sedsoftware.nxmods.component.auth.store.AuthStore.Intent
 import com.sedsoftware.nxmods.component.auth.store.AuthStore.Label
 import com.sedsoftware.nxmods.component.auth.store.AuthStore.State
+import com.sedsoftware.nxmods.domain.exception.ValidateApiKeyException
 
 internal class AuthStoreProvider(
     private val storeFactory: StoreFactory,
@@ -58,7 +59,7 @@ internal class AuthStoreProvider(
                             },
                             onError = { throwable ->
                                 dispatch(Msg.ValidationRequestFailed)
-                                publish(Label.ErrorCaught(throwable))
+                                publish(Label.ErrorCaught(ValidateApiKeyException(throwable)))
                             }
                         )
                 }
@@ -77,7 +78,7 @@ internal class AuthStoreProvider(
                             },
                             onError = { throwable ->
                                 dispatch(Msg.ValidationRequestFailed)
-                                publish(Label.ErrorCaught(throwable))
+                                publish(Label.ErrorCaught(ValidateApiKeyException(throwable)))
                             }
                         )
                 }
