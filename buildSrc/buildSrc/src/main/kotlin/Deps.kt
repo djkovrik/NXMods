@@ -70,7 +70,7 @@ object Deps {
 
     object ArkIvanov {
         object MVIKotlin {
-            private const val VERSION = "3.0.2"
+            private const val VERSION = "3.1.0"
             const val rx = "com.arkivanov.mvikotlin:rx:$VERSION"
             const val mvikotlin = "com.arkivanov.mvikotlin:mvikotlin:$VERSION"
             const val mvikotlinMain = "com.arkivanov.mvikotlin:mvikotlin-main:$VERSION"
@@ -80,7 +80,7 @@ object Deps {
         }
 
         object Decompose {
-            private const val VERSION = "1.0.0-beta-02"
+            private const val VERSION = "1.0.0-beta-04"
             const val decompose = "com.arkivanov.decompose:decompose:$VERSION"
             const val extensions = "com.arkivanov.decompose:extensions-compose-jetbrains:$VERSION"
         }
@@ -93,7 +93,7 @@ object Deps {
 
     object Badoo {
         object Reaktive {
-            private const val VERSION = "1.2.2"
+            private const val VERSION = "1.2.3"
             const val reaktive = "com.badoo.reaktive:reaktive:$VERSION"
             const val reaktiveTesting = "com.badoo.reaktive:reaktive-testing:$VERSION"
             const val utils = "com.badoo.reaktive:utils:$VERSION"
@@ -103,7 +103,7 @@ object Deps {
 
     object Squareup {
         object SQLDelight {
-            private const val VERSION = "1.5.4"
+            private const val VERSION = "1.5.5"
 
             const val gradlePlugin = "com.squareup.sqldelight:gradle-plugin:$VERSION"
             const val androidDriver = "com.squareup.sqldelight:android-driver:$VERSION"
