@@ -41,7 +41,7 @@ internal class GameSelectorStoreProvider(
                         .observeOn(observeScheduler)
                         .subscribeScoped(
                             onNext = { games ->
-                                dispatch(Msg.GamesLoadingCompleted(games))
+                                dispatch(Msg.GamesFetched(games))
                             },
                             onError = { throwable ->
                                 publish(Label.ErrorCaught(FetchLocalGameListException(throwable)))
@@ -79,7 +79,7 @@ internal class GameSelectorStoreProvider(
                         progressVisible = true
                     )
 
-                    is Msg.GamesLoadingCompleted -> copy(
+                    is Msg.GamesFetched -> copy(
                         games = msg.games,
                         progressVisible = false,
                         bookmarkedGamesCounter = games.count { it.isBookmarked }
@@ -103,7 +103,7 @@ internal class GameSelectorStoreProvider(
 
     private sealed interface Msg {
         object GamesLoadingStarted : Msg
-        data class GamesLoadingCompleted(val games: List<GameInfo>) : Msg
+        data class GamesFetched(val games: List<GameInfo>) : Msg
         object GamesLoadingFailed : Msg
         object BookmarkRequestCompleted : Msg
     }
