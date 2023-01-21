@@ -5,6 +5,7 @@ import com.badoo.reaktive.observable.Observable
 import com.badoo.reaktive.observable.autoConnect
 import com.badoo.reaktive.observable.combineLatest
 import com.badoo.reaktive.observable.firstOrError
+import com.badoo.reaktive.observable.flatMapCompletable
 import com.badoo.reaktive.observable.map
 import com.badoo.reaktive.observable.replay
 import com.badoo.reaktive.single.Single
@@ -22,6 +23,7 @@ import com.sedsoftware.nxmods.domain.entity.GameInfo
 import com.sedsoftware.nxmods.domain.entity.TrackingInfo
 import com.sedsoftware.nxmods.domain.tools.NxModsDatabase
 import com.squareup.sqldelight.db.SqlDriver
+import kotlin.math.abs
 
 internal class NxModsSharedDatabase(driver: Single<SqlDriver>) : NxModsDatabase {
 
@@ -41,7 +43,7 @@ internal class NxModsSharedDatabase(driver: Single<SqlDriver>) : NxModsDatabase 
             .map(gameInfoListToDomain)
 
     override fun observeGame(domain: String): Observable<GameInfo> =
-        query { it.selectGame(domain = domain) }
+        query { it.selectGame(domain) }
             .observe { it.executeAsOne() }
             .map(gameInfoToDomain)
 
@@ -50,8 +52,13 @@ internal class NxModsSharedDatabase(driver: Single<SqlDriver>) : NxModsDatabase 
             .observe { it.executeAsList() }
             .map(gameInfoListToDomain)
 
-    override fun bookmark(domain: String, bookmark: Boolean): Completable =
-        execute { it.bookmarkGame(bookmark.asLong(), domain) }
+    override fun toggleBookmark(domain: String): Completable =
+        query { it.selectGame(domain) }
+            .observe { it.executeAsOne() }
+            .flatMapCompletable { localGameInfo ->
+                val newBookmarkState = abs(localGameInfo.bookmarked - 1L)
+                execute { it.bookmarkGame(newBookmarkState, domain) }
+            }
 
     override fun saveGames(items: List<GameInfo>): Completable =
         execute { query ->

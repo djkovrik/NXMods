@@ -23,6 +23,7 @@ import com.sedsoftware.nxmods.domain.entity.GameInfo
 import com.sedsoftware.nxmods.domain.entity.TrackingInfo
 import com.sedsoftware.nxmods.domain.tools.NxModsDatabase
 import com.sedsoftware.nxmods.domain.type.EndorseStatus
+import kotlin.math.abs
 
 internal class NxModsTestDatabase(
     private val scheduler: Scheduler = trampolineScheduler
@@ -62,8 +63,8 @@ internal class NxModsTestDatabase(
                     .toList()
             }
 
-    override fun bookmark(domain: String, bookmark: Boolean): Completable =
-        execute { testing.bookmarkGame(domain, bookmark) }
+    override fun toggleBookmark(domain: String): Completable =
+         execute { testing.toggleGameBookmark(domain) }
 
     override fun saveGames(items: List<GameInfo>): Completable =
         execute { items.forEach { testing.addGameInfo(it) } }
@@ -94,10 +95,10 @@ internal class NxModsTestDatabase(
 
     inner class Testing {
 
-        fun bookmarkGame(domain: String, bookmark: Boolean) {
-            val state = if (bookmark) 1L else 0L
+        fun toggleGameBookmark(domain: String) {
             val targetEntry = gameInfoSubject.value.values.firstOrNull { it.domain == domain } ?: return
             val databaseId = gameInfoSubject.value.entries.find { it.value.id == targetEntry.id }?.key ?: return
+            val state = abs(targetEntry.bookmarked - 1L)
             updateGameInfoItem(id = databaseId) { it.copy(bookmarked = state) }
         }
 
