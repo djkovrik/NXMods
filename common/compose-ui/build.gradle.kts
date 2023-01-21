@@ -9,6 +9,7 @@ kotlin {
             dependencies {
                 implementation(project(Deps.Module.Component.root))
                 implementation(project(Deps.Module.Component.auth))
+                implementation(project(Deps.Module.Component.gameSelector))
 
                 implementation(Deps.ArkIvanov.Decompose.decompose)
                 implementation(Deps.ArkIvanov.Decompose.extensions)

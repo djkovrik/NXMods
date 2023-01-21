@@ -131,6 +131,7 @@ object Deps {
         object Component {
             const val auth = ":common:component:auth"
             const val root = ":common:component:root"
+            const val gameSelector = ":common:component:game-selector"
         }
     }
 }

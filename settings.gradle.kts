@@ -10,5 +10,6 @@ include(
     ":common:utils",
     ":common:component:root",
     ":common:component:auth",
+    ":common:component:game-selector",
     ":common:compose-ui",
 )
