@@ -53,12 +53,13 @@ internal class NxModsSharedDatabase(driver: Single<SqlDriver>) : NxModsDatabase 
             .map(gameInfoListToDomain)
 
     override fun toggleBookmark(domain: String): Completable =
-        query { it.selectGame(domain) }
-            .observe { it.executeAsOne() }
-            .flatMapCompletable { localGameInfo ->
+        execute { query ->
+            query.transaction {
+                val localGameInfo = query.selectGame(domain).executeAsOne()
                 val newBookmarkState = abs(localGameInfo.bookmarked - 1L)
-                execute { it.bookmarkGame(newBookmarkState, domain) }
+                query.bookmarkGame(newBookmarkState, domain)
             }
+        }
 
     override fun saveGames(items: List<GameInfo>): Completable =
         execute { query ->

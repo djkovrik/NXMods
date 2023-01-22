@@ -23,7 +23,11 @@ import com.sedsoftware.nxmods.domain.entity.GameInfo
 @Composable
 fun NxModsGameSelectorContent(component: NxModsGameSelector) {
     val model: NxModsGameSelector.Model by component.models.subscribeAsState()
-    NxModsGameSelectorScreen(model)
+    NxModsGameSelectorScreen(
+        model = model,
+        onNextClicked = component::onNextButtonClicked,
+        onBookmarkClicked = component::onBookmarkClicked
+    )
 }
 
 @Composable
@@ -49,7 +53,9 @@ fun NxModsGameSelectorScreen(
             }
 
             if (model.progressVisible) {
-                CircularProgressIndicator()
+                CircularProgressIndicator(
+                    modifier = modifier
+                )
             }
         }
 

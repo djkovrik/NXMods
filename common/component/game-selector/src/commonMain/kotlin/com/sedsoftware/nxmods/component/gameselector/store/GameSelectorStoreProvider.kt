@@ -81,16 +81,12 @@ internal class GameSelectorStoreProvider(
 
                     is Msg.GamesFetched -> copy(
                         games = msg.games,
-                        progressVisible = false,
-                        bookmarkedGamesCounter = games.count { it.isBookmarked }
+                        progressVisible = msg.games.isEmpty(),
+                        bookmarkedGamesCounter = msg.games.count { it.isBookmarked }
                     )
 
                     is Msg.GamesLoadingFailed -> copy(
                         progressVisible = false
-                    )
-
-                    is Msg.BookmarkRequestCompleted -> copy(
-                        bookmarkedGamesCounter = games.count { it.isBookmarked }
                     )
                 }
             }
@@ -105,6 +101,5 @@ internal class GameSelectorStoreProvider(
         object GamesLoadingStarted : Msg
         data class GamesFetched(val games: List<GameInfo>) : Msg
         object GamesLoadingFailed : Msg
-        object BookmarkRequestCompleted : Msg
     }
 }

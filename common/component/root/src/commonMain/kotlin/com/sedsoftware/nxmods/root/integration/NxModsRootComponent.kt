@@ -94,6 +94,7 @@ class NxModsRootComponent internal constructor(
     private sealed class Configuration : Parcelable {
         @Parcelize
         object Auth : Configuration()
+        @Parcelize
         object GameSelector : Configuration()
     }
 }
