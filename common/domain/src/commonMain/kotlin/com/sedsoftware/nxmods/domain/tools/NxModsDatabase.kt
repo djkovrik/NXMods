@@ -11,7 +11,7 @@ interface NxModsDatabase {
     fun observeGamesList(): Observable<List<GameInfo>>
     fun observeGame(domain: String): Observable<GameInfo>
     fun observeBookmarkedGames(): Observable<List<GameInfo>>
-    fun bookmark(domain: String, bookmark: Boolean): Completable
+    fun toggleBookmark(domain: String): Completable
     fun saveGames(items: List<GameInfo>): Completable
     fun saveGame(item: GameInfo): Completable
     fun saveTracked(items: List<TrackingInfo>): Completable

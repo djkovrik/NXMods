@@ -10,8 +10,9 @@ class EndorseGiveException(cause: Throwable) : Exception("Failed to endorse mod"
 class EndorseTakeException(cause: Throwable) : Exception("Failed to take mod endorse", cause)
 
 // Games
-class FetchGameListException(cause: Throwable) : Exception("Failed to fetch all games", cause)
-class FetchGameInfoException(cause: Throwable) : Exception("Failed to fetch game info", cause)
+class FetchRemoteGameListException(cause: Throwable) : Exception(cause)
+class FetchLocalGameListException(cause: Throwable) : Exception(cause)
+class BookmarkGameException(cause: Throwable) : Exception(cause)
 
 // User
 class ValidateApiKeyException(cause: Throwable) : Exception(cause)

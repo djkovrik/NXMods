@@ -95,7 +95,7 @@ class NxModsDatabaseTest {
 
         assertTrue(bookmarked.isEmpty(), "No bookmarked games at this stage")
 
-        database.bookmark("morrowind", true)
+        database.toggleBookmark("morrowind")
             .subscribeOn(scheduler)
             .blockingAwait()
 
