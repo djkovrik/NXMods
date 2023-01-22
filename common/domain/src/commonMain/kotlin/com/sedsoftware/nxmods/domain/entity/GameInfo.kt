@@ -1,6 +1,6 @@
 package com.sedsoftware.nxmods.domain.entity
 
-class GameInfo(
+data class GameInfo(
     val id: Long,
     val name: String,
     val forumUrl: String,
