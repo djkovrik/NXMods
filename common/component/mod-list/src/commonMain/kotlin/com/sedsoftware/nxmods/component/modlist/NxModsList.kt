@@ -7,6 +7,8 @@ interface NxModsList {
 
     val models: Value<Model>
 
+    fun onModInfoClick(domain: String, id: Long)
+
     data class Model(
         val mods: List<ModInfo>,
         val progressVisible: Boolean,

@@ -4,7 +4,6 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
-import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.router.stack.replaceCurrent
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.parcelable.Parcelable
@@ -13,9 +12,9 @@ import com.arkivanov.mvikotlin.core.store.StoreFactory
 import com.badoo.reaktive.base.Consumer
 import com.badoo.reaktive.subject.publish.PublishSubject
 import com.sedsoftware.nxmods.component.auth.NxModsAuth
-import com.sedsoftware.nxmods.component.auth.integration.NxModsAuthComponent
+import com.sedsoftware.nxmods.component.auth.integration.NxAuthComponent
 import com.sedsoftware.nxmods.component.gameselector.NxModsGameSelector
-import com.sedsoftware.nxmods.component.gameselector.integration.NxModsGameSelectorComponent
+import com.sedsoftware.nxmods.component.gameselector.integration.NxGameSelectorComponent
 import com.sedsoftware.nxmods.domain.tools.NxModsApi
 import com.sedsoftware.nxmods.domain.tools.NxModsDatabase
 import com.sedsoftware.nxmods.domain.tools.NxModsSettings
@@ -38,7 +37,7 @@ class NxModsRootComponent internal constructor(
     ) : this(
         componentContext = componentContext,
         nxModsAuth = { childContext, output ->
-            NxModsAuthComponent(
+            NxAuthComponent(
                 componentContext = childContext,
                 storeFactory = storeFactory,
                 api = nxModsApi,
@@ -47,7 +46,7 @@ class NxModsRootComponent internal constructor(
             )
         },
         nxModsGameSelector = { childContext, output ->
-            NxModsGameSelectorComponent(
+            NxGameSelectorComponent(
                 componentContext = childContext,
                 storeFactory = storeFactory,
                 api = nxModsApi,

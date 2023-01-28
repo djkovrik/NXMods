@@ -12,6 +12,7 @@ import com.badoo.reaktive.observable.doOnBeforeSubscribe
 import com.badoo.reaktive.observable.observeOn
 import com.badoo.reaktive.scheduler.Scheduler
 import com.badoo.reaktive.scheduler.mainScheduler
+import com.sedsoftware.nxmods.component.modlist.domain.NxModsListsManager
 import com.sedsoftware.nxmods.component.modlist.store.ModsListStore.Intent
 import com.sedsoftware.nxmods.component.modlist.store.ModsListStore.Label
 import com.sedsoftware.nxmods.component.modlist.store.ModsListStore.State
@@ -22,9 +23,8 @@ import com.sedsoftware.nxmods.domain.type.ModListType
 
 internal class ModsListStoreProvider(
     private val storeFactory: StoreFactory,
-    private val settings: NxModsSettings,
     private val listType: ModListType,
-    private val modsListProvider: (String) -> Observable<List<ModInfo>>,
+    private val manager: NxModsListsManager,
     private val observeScheduler: Scheduler = mainScheduler
 ) {
 
@@ -36,8 +36,7 @@ internal class ModsListStoreProvider(
             bootstrapper = SimpleBootstrapper<Action>(Action.LoadMods),
             executorFactory = reaktiveExecutorFactory {
                 onAction<Action.LoadMods> {
-                    val domain = settings.currentDomain
-                    modsListProvider.invoke(domain)
+                    manager.getModsList(listType)
                         .observeOn(observeScheduler)
                         .doOnBeforeSubscribe { dispatch(Msg.ModsLoadingStarted) }
                         .subscribeScoped(

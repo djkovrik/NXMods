@@ -30,7 +30,7 @@ import com.sedsoftware.nxmods.domain.tools.NxModsDatabase
 import com.sedsoftware.nxmods.domain.tools.NxModsSettings
 import com.sedsoftware.nxmods.utils.asValue
 
-class NxModsGameSelectorComponent(
+class NxGameSelectorComponent(
     private val componentContext: ComponentContext,
     private val storeFactory: StoreFactory,
     private val api: NxModsApi,

@@ -23,18 +23,6 @@ class ModInfoManager(
     private val domain: String
         get() = settings.currentDomain
 
-    fun getLatestAddedMods(): Observable<List<ModInfo>> =
-        api.getLatestAdded(domain)
-            .subscribeOn(scheduler)
-
-    fun getLatestUpdatedMods(): Observable<List<ModInfo>> =
-        api.getLatestUpdated(domain)
-            .subscribeOn(scheduler)
-
-    fun getTrendingMods(): Observable<List<ModInfo>> =
-        api.getTrending(domain)
-            .subscribeOn(scheduler)
-
     fun getModInfo(domain: String, id: Long): Observable<ModInfo> =
         db.getCachedModData(domain, id)
             .flatMap { mapWithCached(domain, id, it) }
