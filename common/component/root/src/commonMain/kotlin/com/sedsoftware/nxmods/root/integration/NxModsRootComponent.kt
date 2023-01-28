@@ -52,6 +52,7 @@ class NxModsRootComponent internal constructor(
                 storeFactory = storeFactory,
                 api = nxModsApi,
                 db = nxModsDatabase,
+                settings = nxModsSettings,
                 output = output
             )
         }

@@ -27,6 +27,7 @@ import com.sedsoftware.nxmods.component.gameselector.store.GameSelectorStoreProv
 import com.sedsoftware.nxmods.domain.entity.GameInfo
 import com.sedsoftware.nxmods.domain.tools.NxModsApi
 import com.sedsoftware.nxmods.domain.tools.NxModsDatabase
+import com.sedsoftware.nxmods.domain.tools.NxModsSettings
 import com.sedsoftware.nxmods.utils.asValue
 
 class NxModsGameSelectorComponent(
@@ -34,6 +35,7 @@ class NxModsGameSelectorComponent(
     private val storeFactory: StoreFactory,
     private val api: NxModsApi,
     private val db: NxModsDatabase,
+    private val settings: NxModsSettings,
     private val output: Consumer<Output>
 ) : NxModsGameSelector, ComponentContext by componentContext {
 
@@ -55,7 +57,8 @@ class NxModsGameSelectorComponent(
 
                         override fun toggleBookmark(domain: String): Completable =
                             db.toggleBookmark(domain)
-                    }
+                    },
+                    settings = settings
                 )
             ).create()
         }
