@@ -133,6 +133,7 @@ object Deps {
             const val root = ":common:component:root"
             const val gameSelector = ":common:component:game-selector"
             const val modList = ":common:component:mod-list"
+            const val home = ":common:component:home"
         }
     }
 }

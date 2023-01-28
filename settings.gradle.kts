@@ -12,5 +12,6 @@ include(
     ":common:component:auth",
     ":common:component:game-selector",
     ":common:component:mod-list",
+    ":common:component:home",
     ":common:compose-ui",
 )

@@ -113,14 +113,14 @@ class NxModsRootComponent internal constructor(
             is NxModsList.Output.ErrorCaught -> errorHandler.consume(output.throwable, messages)
         }
 
-    private sealed class Configuration : Parcelable {
+    private sealed interface Configuration : Parcelable {
         @Parcelize
-        object Auth : Configuration()
+        object Auth : Configuration
 
         @Parcelize
-        object GameSelector : Configuration()
+        object GameSelector : Configuration
 
         @Parcelize
-        object ModsList : Configuration()
+        object ModsList : Configuration
     }
 }
