@@ -23,6 +23,7 @@ kotlin {
                     export(project(Deps.Module.domain))
                     export(project(Deps.Module.Component.auth))
                     export(project(Deps.Module.Component.gameSelector))
+                    export(project(Deps.Module.Component.modList))
                     export(Deps.ArkIvanov.Decompose.decompose)
                     export(Deps.ArkIvanov.MVIKotlin.mvikotlinMain)
                     export(Deps.ArkIvanov.Essenty.lifecycle)
@@ -40,6 +41,7 @@ kotlin {
                 implementation(project(Deps.Module.domain))
                 implementation(project(Deps.Module.Component.auth))
                 implementation(project(Deps.Module.Component.gameSelector))
+                implementation(project(Deps.Module.Component.modList))
                 implementation(Deps.ArkIvanov.MVIKotlin.mvikotlin)
                 implementation(Deps.ArkIvanov.Decompose.decompose)
             }
@@ -56,6 +58,7 @@ kotlin {
                 api(project(Deps.Module.domain))
                 api(project(Deps.Module.Component.auth))
                 api(project(Deps.Module.Component.gameSelector))
+                api(project(Deps.Module.Component.modList))
                 api(Deps.ArkIvanov.Decompose.decompose)
                 api(Deps.ArkIvanov.MVIKotlin.mvikotlinMain)
                 api(Deps.ArkIvanov.Essenty.lifecycle)

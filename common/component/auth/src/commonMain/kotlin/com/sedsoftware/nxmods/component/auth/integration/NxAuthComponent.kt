@@ -27,7 +27,7 @@ import com.sedsoftware.nxmods.domain.tools.NxModsApi
 import com.sedsoftware.nxmods.domain.tools.NxModsSettings
 import com.sedsoftware.nxmods.utils.asValue
 
-class NxModsAuthComponent(
+class NxAuthComponent(
     private val componentContext: ComponentContext,
     private val storeFactory: StoreFactory,
     private val api: NxModsApi,
