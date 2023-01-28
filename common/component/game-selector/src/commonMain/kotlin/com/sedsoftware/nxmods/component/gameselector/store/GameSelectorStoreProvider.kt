@@ -7,6 +7,7 @@ import com.arkivanov.mvikotlin.core.store.StoreFactory
 import com.arkivanov.mvikotlin.core.utils.ExperimentalMviKotlinApi
 import com.arkivanov.mvikotlin.extensions.reaktive.reaktiveBootstrapper
 import com.arkivanov.mvikotlin.extensions.reaktive.reaktiveExecutorFactory
+import com.badoo.reaktive.completable.doOnBeforeSubscribe
 import com.badoo.reaktive.completable.observeOn
 import com.badoo.reaktive.observable.observeOn
 import com.badoo.reaktive.scheduler.Scheduler
@@ -52,6 +53,7 @@ internal class GameSelectorStoreProvider(
                 onAction<Action.FetchRemoteGamesList> {
                     manager.fetchGamesList()
                         .observeOn(observeScheduler)
+                        .doOnBeforeSubscribe { dispatch(Msg.GamesLoadingStarted) }
                         .subscribeScoped(
                             onError = { throwable ->
                                 publish(Label.ErrorCaught(FetchRemoteGameListException(throwable)))
