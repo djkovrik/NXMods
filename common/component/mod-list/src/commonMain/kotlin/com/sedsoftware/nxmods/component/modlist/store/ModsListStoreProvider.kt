@@ -7,7 +7,6 @@ import com.arkivanov.mvikotlin.core.store.Store
 import com.arkivanov.mvikotlin.core.store.StoreFactory
 import com.arkivanov.mvikotlin.core.utils.ExperimentalMviKotlinApi
 import com.arkivanov.mvikotlin.extensions.reaktive.reaktiveExecutorFactory
-import com.badoo.reaktive.observable.Observable
 import com.badoo.reaktive.observable.doOnBeforeSubscribe
 import com.badoo.reaktive.observable.observeOn
 import com.badoo.reaktive.scheduler.Scheduler
@@ -17,8 +16,7 @@ import com.sedsoftware.nxmods.component.modlist.store.ModsListStore.Intent
 import com.sedsoftware.nxmods.component.modlist.store.ModsListStore.Label
 import com.sedsoftware.nxmods.component.modlist.store.ModsListStore.State
 import com.sedsoftware.nxmods.domain.entity.ModInfo
-import com.sedsoftware.nxmods.domain.exception.FetchLocalGameListException
-import com.sedsoftware.nxmods.domain.tools.NxModsSettings
+import com.sedsoftware.nxmods.domain.exception.LoadModsListException
 import com.sedsoftware.nxmods.domain.type.ModListType
 
 internal class ModsListStoreProvider(
@@ -45,7 +43,7 @@ internal class ModsListStoreProvider(
                             },
                             onError = { throwable ->
                                 dispatch(Msg.ModsLoadingFailed)
-                                publish(Label.ErrorCaught(FetchLocalGameListException(throwable)))
+                                publish(Label.ErrorCaught(LoadModsListException(throwable)))
                             }
                         )
                 }
