@@ -43,7 +43,7 @@ fun NxModsRootContent(component: NxModsRoot) {
             when (val child = it.instance) {
                 is NxModsRoot.Child.Auth -> NxModsAuthContent(child.component)
                 is NxModsRoot.Child.GameSelector -> NxModsGameSelectorContent(child.component)
-                is NxModsRoot.Child.ModsList -> NxModsListContent(child.component)
+                is NxModsRoot.Child.Home -> NxModsHomeContent(child.component)
             }
         }
     }

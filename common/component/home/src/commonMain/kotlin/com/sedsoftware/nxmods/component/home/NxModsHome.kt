@@ -5,7 +5,7 @@ import com.arkivanov.decompose.value.Value
 import com.sedsoftware.nxmods.component.modlist.NxModsList
 import com.sedsoftware.nxmods.domain.type.ModListType
 
-interface NxHome {
+interface NxModsHome {
 
     val models: Value<Model>
 
@@ -20,10 +20,10 @@ interface NxHome {
         val currentDomain: String,
     )
 
-    sealed class Child(val type: ModListType) {
-        class LatestAdded(val component: NxModsList) : Child(ModListType.LATEST_ADDED)
-        class LatestUpdated(val component: NxModsList) : Child(ModListType.LATEST_UPDATED)
-        class Trending(val component: NxModsList) : Child(ModListType.TRENDING)
+    sealed class Child(val type: ModListType, val index: Int) {
+        class LatestAdded(val component: NxModsList) : Child(ModListType.LATEST_ADDED, 0)
+        class LatestUpdated(val component: NxModsList) : Child(ModListType.LATEST_UPDATED, 1)
+        class Trending(val component: NxModsList) : Child(ModListType.TRENDING, 2)
     }
 
     sealed class Output {

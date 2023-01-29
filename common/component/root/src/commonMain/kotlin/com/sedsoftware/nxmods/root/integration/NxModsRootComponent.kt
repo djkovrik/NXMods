@@ -15,7 +15,7 @@ import com.sedsoftware.nxmods.component.auth.NxModsAuth
 import com.sedsoftware.nxmods.component.auth.integration.NxAuthComponent
 import com.sedsoftware.nxmods.component.gameselector.NxModsGameSelector
 import com.sedsoftware.nxmods.component.gameselector.integration.NxGameSelectorComponent
-import com.sedsoftware.nxmods.component.home.NxHome
+import com.sedsoftware.nxmods.component.home.NxModsHome
 import com.sedsoftware.nxmods.component.home.integration.NxHomeComponent
 import com.sedsoftware.nxmods.domain.tools.NxModsApi
 import com.sedsoftware.nxmods.domain.tools.NxModsDatabase
@@ -28,7 +28,7 @@ class NxModsRootComponent internal constructor(
     componentContext: ComponentContext,
     private val nxModsAuth: (ComponentContext, Consumer<NxModsAuth.Output>) -> NxModsAuth,
     private val nxModsGameSelector: (ComponentContext, Consumer<NxModsGameSelector.Output>) -> NxModsGameSelector,
-    private val nxHome: (ComponentContext, Consumer<NxHome.Output>) -> NxHome,
+    private val nxHome: (ComponentContext, Consumer<NxModsHome.Output>) -> NxModsHome,
 ) : NxModsRoot, ComponentContext by componentContext {
 
     constructor(
@@ -106,9 +106,9 @@ class NxModsRootComponent internal constructor(
             is NxModsGameSelector.Output.ErrorCaught -> errorHandler.consume(output.throwable, messages)
         }
 
-    private fun onHomeScreenOutput(output: NxHome.Output): Unit =
+    private fun onHomeScreenOutput(output: NxModsHome.Output): Unit =
         when (output) {
-            is NxHome.Output.ErrorCaught -> errorHandler.consume(output.throwable, messages)
+            is NxModsHome.Output.ErrorCaught -> errorHandler.consume(output.throwable, messages)
         }
 
     private sealed interface Configuration : Parcelable {

@@ -73,7 +73,6 @@ class NxModsListComponent(
         }
     }
 
-
     override val models: Value<Model> = store.asValue().map(stateToModel)
 
     override fun onModInfoClick(domain: String, id: Long) {

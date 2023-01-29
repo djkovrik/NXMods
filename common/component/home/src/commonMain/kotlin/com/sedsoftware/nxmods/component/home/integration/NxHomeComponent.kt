@@ -20,10 +20,10 @@ import com.badoo.reaktive.observable.Observable
 import com.badoo.reaktive.observable.subscribe
 import com.badoo.reaktive.observable.subscribeOn
 import com.badoo.reaktive.scheduler.mainScheduler
-import com.sedsoftware.nxmods.component.home.NxHome
-import com.sedsoftware.nxmods.component.home.NxHome.Child
-import com.sedsoftware.nxmods.component.home.NxHome.Model
-import com.sedsoftware.nxmods.component.home.NxHome.Output
+import com.sedsoftware.nxmods.component.home.NxModsHome
+import com.sedsoftware.nxmods.component.home.NxModsHome.Child
+import com.sedsoftware.nxmods.component.home.NxModsHome.Model
+import com.sedsoftware.nxmods.component.home.NxModsHome.Output
 import com.sedsoftware.nxmods.component.home.domain.NxModsGameSwitcherDb
 import com.sedsoftware.nxmods.component.home.domain.NxModsGameSwitcherManager
 import com.sedsoftware.nxmods.component.home.domain.NxModsGameSwitcherSettings
@@ -47,7 +47,7 @@ class NxHomeComponent(
     private val db: NxModsDatabase,
     private val settings: NxModsSettings,
     private val output: Consumer<Output>
-) : NxHome, ComponentContext by componentContext {
+) : NxModsHome, ComponentContext by componentContext {
 
     private val store: HomeScreenStore =
         instanceKeeper.getStore {
@@ -118,34 +118,34 @@ class NxHomeComponent(
         )
     }
 
-    private val navigation: StackNavigation<Configuration> = StackNavigation()
+    private val navigation: StackNavigation<Config> = StackNavigation()
 
-    private val stack: Value<ChildStack<Configuration, Child>> =
+    private val stack: Value<ChildStack<Config, Child>> =
         childStack(
             source = navigation,
-            initialStack = { listOf(Configuration.LatestAdded) },
+            initialStack = { listOf(Config.LatestAdded) },
             childFactory = ::createChild,
         )
 
     override val childStack: Value<ChildStack<*, Child>> = stack
 
-    private fun createChild(configuration: Configuration, componentContext: ComponentContext): Child =
+    private fun createChild(configuration: Config, componentContext: ComponentContext): Child =
         when (configuration) {
-            is Configuration.LatestAdded -> Child.LatestAdded(nxModsListLatestAdded(componentContext, Consumer(::onModsListOutput)))
-            is Configuration.LatestUpdated -> Child.LatestAdded(nxModsListLatestUpdated(componentContext, Consumer(::onModsListOutput)))
-            is Configuration.Trending -> Child.LatestAdded(nxModsListLatestTrending(componentContext, Consumer(::onModsListOutput)))
+            is Config.LatestAdded -> Child.LatestAdded(nxModsListLatestAdded(componentContext, Consumer(::onModsListOutput)))
+            is Config.LatestUpdated -> Child.LatestUpdated(nxModsListLatestUpdated(componentContext, Consumer(::onModsListOutput)))
+            is Config.Trending -> Child.Trending(nxModsListLatestTrending(componentContext, Consumer(::onModsListOutput)))
         }
 
     override fun onLatestAddedTabClicked() {
-        navigation.bringToFront(Configuration.LatestAdded)
+        navigation.bringToFront(Config.LatestAdded)
     }
 
     override fun onLatestUpdatedTabClicked() {
-        navigation.bringToFront(Configuration.LatestUpdated)
+        navigation.bringToFront(Config.LatestUpdated)
     }
 
     override fun onTrendingTabClicked() {
-        navigation.bringToFront(Configuration.Trending)
+        navigation.bringToFront(Config.Trending)
     }
 
     private fun onModsListOutput(childOutput: NxModsList.Output): Unit =
@@ -154,27 +154,14 @@ class NxHomeComponent(
             is NxModsList.Output.ErrorCaught -> output(Output.ErrorCaught(childOutput.throwable))
         }
 
-    private sealed interface Configuration : Parcelable {
+    private sealed interface Config : Parcelable {
         @Parcelize
-        object LatestAdded : Configuration {
-            /**
-             * Only required for state preservation on JVM/desktop via StateKeeper, as it uses Serializable.
-             * Temporary workaround for https://youtrack.jetbrains.com/issue/KT-40218.
-             */
-            @Suppress("unused")
-            private fun readResolve(): Any = LatestAdded
-        }
+        object LatestAdded : Config
 
         @Parcelize
-        object LatestUpdated : Configuration {
-            @Suppress("unused")
-            private fun readResolve(): Any = LatestUpdated
-        }
+        object LatestUpdated : Config
 
         @Parcelize
-        object Trending : Configuration {
-            @Suppress("unused")
-            private fun readResolve(): Any = Trending
-        }
+        object Trending : Config
     }
 }

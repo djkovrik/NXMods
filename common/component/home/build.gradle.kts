@@ -1,6 +1,7 @@
 plugins {
     id("multiplatform-setup")
     id("android-setup")
+    id("kotlin-parcelize")
 }
 
 android {
