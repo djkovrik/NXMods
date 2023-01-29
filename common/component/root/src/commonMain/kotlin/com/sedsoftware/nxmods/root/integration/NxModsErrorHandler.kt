@@ -5,6 +5,7 @@ import com.sedsoftware.nxmods.domain.exception.BookmarkGameException
 import com.sedsoftware.nxmods.domain.exception.FetchLocalGameListException
 import com.sedsoftware.nxmods.domain.exception.FetchRemoteGameListException
 import com.sedsoftware.nxmods.domain.exception.LoadModsListException
+import com.sedsoftware.nxmods.domain.exception.SwitchSelectedGameException
 import com.sedsoftware.nxmods.domain.exception.ValidateApiKeyException
 
 internal class NxModsErrorHandler {
@@ -18,6 +19,7 @@ internal class NxModsErrorHandler {
                 is FetchLocalGameListException -> "Failed to load cached games list"
                 is BookmarkGameException -> "Failed to bookmark game"
                 is LoadModsListException -> "Failed to load mods list"
+                is SwitchSelectedGameException -> "Failed to change tracked game"
                 else -> "Unknown error"
             }
         )

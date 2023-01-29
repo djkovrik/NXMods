@@ -7,5 +7,6 @@ interface NxModsSettings {
     var isSupporter: Boolean
     var apiKey: String
     var isProfileValidated: Boolean
-    var currentDomain: String
+    var currentGameName: String
+    var currentGameDomain: String
 }

@@ -21,6 +21,10 @@ internal class NxModsAuthManager(
         singleOf(settings.apiKey)
             .subscribeOn(scheduler)
 
+    fun getCurrentDomain(): Single<String> =
+        singleOf(settings.currentGameDomain)
+            .subscribeOn(scheduler)
+
     fun validateApiKey(key: String): Observable<String> =
         api.validateApiKey(key)
             .doOnAfterNext { response ->

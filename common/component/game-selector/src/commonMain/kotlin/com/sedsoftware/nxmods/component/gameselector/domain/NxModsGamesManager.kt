@@ -22,7 +22,9 @@ internal class NxModsGamesManager(
         db.observeGamesList()
             .doOnAfterNext { games ->
                 val bookmarked = games.filter { it.isBookmarked }.sortedBy { it.domain }
-                settings.currentDomain = bookmarked.firstOrNull()?.domain.orEmpty()
+                val game = bookmarked.firstOrNull()
+                settings.currentGameName = game?.name.orEmpty()
+                settings.currentGameDomain = game?.domain.orEmpty()
             }
             .subscribeOn(scheduler)
 

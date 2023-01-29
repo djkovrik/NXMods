@@ -28,7 +28,7 @@ internal class ModsListStoreProvider(
 
     fun create(autoInit: Boolean = true): ModsListStore =
         object : ModsListStore, Store<Intent, State, Label> by storeFactory.create<Intent, Action, Msg, State, Label>(
-            name = "ModsListStore${listType.id}",
+            name = "ModsListStore${listType.index}",
             initialState = State(),
             autoInit = autoInit,
             bootstrapper = SimpleBootstrapper<Action>(Action.LoadMods),

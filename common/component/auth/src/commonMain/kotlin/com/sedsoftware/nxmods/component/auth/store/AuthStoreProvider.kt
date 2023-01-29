@@ -12,6 +12,7 @@ import com.badoo.reaktive.observable.observeOn
 import com.badoo.reaktive.scheduler.Scheduler
 import com.badoo.reaktive.scheduler.mainScheduler
 import com.badoo.reaktive.single.observeOn
+import com.badoo.reaktive.single.zip
 import com.sedsoftware.nxmods.component.auth.domain.NxModsAuthManager
 import com.sedsoftware.nxmods.component.auth.model.ApiKeyStatus
 import com.sedsoftware.nxmods.component.auth.store.AuthStore.Intent
@@ -31,13 +32,15 @@ internal class AuthStoreProvider(
             initialState = State(),
             autoInit = autoInit,
             bootstrapper = reaktiveBootstrapper {
-                manager.getCurrentApiKey()
+                zip(manager.getCurrentApiKey(), manager.getCurrentDomain(), { key: String, domain: String -> Pair(key, domain) })
                     .observeOn(observeScheduler)
-                    .subscribeScoped { apiKey: String ->
+                    .subscribeScoped { pair ->
+                        val apiKey = pair.first
+                        val domain = pair.second
                         if (apiKey.isEmpty()) {
                             dispatch(Action.HandleNewUser)
                         } else {
-                            dispatch(Action.HandleExistingUser(apiKey))
+                            dispatch(Action.HandleExistingKey(apiKey, domain))
                         }
                     }
             },
@@ -46,7 +49,7 @@ internal class AuthStoreProvider(
                     dispatch(Msg.NewUserDetected)
                 }
 
-                onAction<Action.HandleExistingUser> {
+                onAction<Action.HandleExistingKey> {
                     manager.validateApiKey(key = it.key)
                         .observeOn(observeScheduler)
                         .doOnBeforeSubscribe { dispatch(Msg.ValidationRequested) }
@@ -54,7 +57,11 @@ internal class AuthStoreProvider(
                             onNext = { key ->
                                 dispatch(Msg.ValidationRequestCompleted(key))
                                 if (key.isNotEmpty()) {
-                                    publish(Label.ExistingUserValidationCompleted)
+                                    if (it.domain.isNotEmpty()) {
+                                        publish(Label.ExistingUserValidationCompleted)
+                                    } else {
+                                        publish(Label.NewUserValidationCompleted)
+                                    }
                                 }
                             },
                             onError = { throwable ->
@@ -120,7 +127,7 @@ internal class AuthStoreProvider(
         ) {}
 
     private sealed interface Action {
-        data class HandleExistingUser(val key: String) : Action
+        data class HandleExistingKey(val key: String, val domain: String) : Action
         object HandleNewUser : Action
     }
 
