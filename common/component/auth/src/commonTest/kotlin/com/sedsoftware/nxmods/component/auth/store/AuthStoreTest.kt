@@ -133,6 +133,7 @@ class AuthStoreTest {
     @Test
     fun existingUserFlow_validKey_test() {
         apiKeyStub = "some-api-key"
+        currentDomainStub = "domain"
 
         store.init()
 
@@ -166,6 +167,7 @@ class AuthStoreTest {
     @Test
     fun existingUserFlow_invalidKey_test() {
         apiKeyStub = "some-api-key"
+        currentDomainStub = "domain"
 
         store.init()
 
