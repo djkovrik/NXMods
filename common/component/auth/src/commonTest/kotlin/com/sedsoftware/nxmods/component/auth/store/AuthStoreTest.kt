@@ -34,6 +34,7 @@ class AuthStoreTest {
     private var apiKeyStub: String = ""
     private var isProfileValidatedStub: Boolean = false
     private var currentDomainStub: String = ""
+    private var currentNameStub: String = ""
 
     private var label: AuthStore.Label? = null
 
@@ -75,7 +76,12 @@ class AuthStoreTest {
                     set(value) {
                         isProfileValidatedStub = value
                     }
-                override var currentDomain: String
+                override var currentGameName: String
+                    get() = currentNameStub
+                    set(value) {
+                        currentNameStub = value
+                    }
+                override var currentGameDomain: String
                     get() = currentDomainStub
                     set(value) {
                         currentDomainStub = value

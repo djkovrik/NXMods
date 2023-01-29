@@ -16,9 +16,9 @@ internal class NxModsListsManager(
 
     fun getModsList(type: ModListType): Observable<List<ModInfo>> =
         when (type) {
-            ModListType.LATEST_ADDED -> api.getLatestAdded(settings.currentDomain)
-            ModListType.LATEST_UPDATED -> api.getLatestAdded(settings.currentDomain)
-            ModListType.TRENDING -> api.getLatestAdded(settings.currentDomain)
+            ModListType.LATEST_ADDED -> api.getLatestAdded(settings.currentGameDomain)
+            ModListType.LATEST_UPDATED -> api.getLatestAdded(settings.currentGameDomain)
+            ModListType.TRENDING -> api.getLatestAdded(settings.currentGameDomain)
         }
             .subscribeOn(scheduler)
 

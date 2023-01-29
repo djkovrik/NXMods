@@ -18,7 +18,7 @@ class NxModsSettingsTest {
             isSupporter = true
             apiKey = "api-key"
             isProfileValidated = true
-            currentDomain = "domain"
+            currentGameDomain = "domain"
         }
 
         assertTrue(settings.name == "User name", "Settings should have name")

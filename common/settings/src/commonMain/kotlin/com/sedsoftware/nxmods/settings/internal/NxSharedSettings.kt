@@ -43,10 +43,16 @@ internal class NxSharedSettings(
             settings.setValue(PREF_KEY_VALID, value)
         }
 
-    override var currentDomain: String
-        get() = settings.getValue(PREF_KEY_DOMAIN, "")
+    override var currentGameName: String
+        get() = settings.getValue(PREF_KEY_GAME_NAME, "")
         set(value) {
-            settings.setValue(PREF_KEY_DOMAIN, value)
+            settings.setValue(PREF_KEY_GAME_NAME, value)
+        }
+
+    override var currentGameDomain: String
+        get() = settings.getValue(PREF_KEY_GAME_DOMAIN, "")
+        set(value) {
+            settings.setValue(PREF_KEY_GAME_DOMAIN, value)
         }
 
     private fun Settings.setValue(key: String, value: Any) {
@@ -77,6 +83,7 @@ internal class NxSharedSettings(
         const val PREF_KEY_SUPPORTER = "pref_key_supporter"
         const val PREF_KEY_API = "pref_key_api"
         const val PREF_KEY_VALID = "pref_key_valid"
-        const val PREF_KEY_DOMAIN = "pref_key_domain"
+        const val PREF_KEY_GAME_NAME = "pref_key_game_name"
+        const val PREF_KEY_GAME_DOMAIN = "pref_key_game_domain"
     }
 }

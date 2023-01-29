@@ -21,7 +21,7 @@ class ModInfoManager(
 ) {
 
     private val domain: String
-        get() = settings.currentDomain
+        get() = settings.currentGameDomain
 
     fun getModInfo(domain: String, id: Long): Observable<ModInfo> =
         db.getCachedModData(domain, id)
