@@ -2,9 +2,14 @@ package com.sedsoftware.nxmods.component.home.integration
 
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.ChildStack
+import com.arkivanov.decompose.router.stack.StackNavigation
+import com.arkivanov.decompose.router.stack.bringToFront
+import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.decompose.value.operator.map
 import com.arkivanov.essenty.lifecycle.doOnDestroy
+import com.arkivanov.essenty.parcelable.Parcelable
+import com.arkivanov.essenty.parcelable.Parcelize
 import com.arkivanov.mvikotlin.core.instancekeeper.getStore
 import com.arkivanov.mvikotlin.core.store.StoreFactory
 import com.arkivanov.mvikotlin.extensions.reaktive.labels
@@ -25,14 +30,20 @@ import com.sedsoftware.nxmods.component.home.domain.NxModsGameSwitcherSettings
 import com.sedsoftware.nxmods.component.home.store.HomeScreenStore
 import com.sedsoftware.nxmods.component.home.store.HomeScreenStore.Label
 import com.sedsoftware.nxmods.component.home.store.HomeScreenStoreProvider
+import com.sedsoftware.nxmods.component.modlist.NxModsList
+import com.sedsoftware.nxmods.component.modlist.integration.NxModsListComponent
 import com.sedsoftware.nxmods.domain.entity.GameInfo
+import com.sedsoftware.nxmods.domain.tools.NxModsApi
 import com.sedsoftware.nxmods.domain.tools.NxModsDatabase
 import com.sedsoftware.nxmods.domain.tools.NxModsSettings
+import com.sedsoftware.nxmods.domain.type.ModListType
+import com.sedsoftware.nxmods.utils.Consumer
 import com.sedsoftware.nxmods.utils.asValue
 
 class NxHomeComponent(
     private val componentContext: ComponentContext,
     private val storeFactory: StoreFactory,
+    private val api: NxModsApi,
     private val db: NxModsDatabase,
     private val settings: NxModsSettings,
     private val output: Consumer<Output>
@@ -74,18 +85,96 @@ class NxHomeComponent(
 
     override val models: Value<Model> = store.asValue().map(stateToModel)
 
-    override val childStack: Value<ChildStack<*, Child>>
-        get() = TODO("Not yet implemented")
+    private val nxModsListLatestAdded: (ComponentContext, Consumer<NxModsList.Output>) -> NxModsList = { childContext, childOutput ->
+        NxModsListComponent(
+            componentContext = childContext,
+            storeFactory = storeFactory,
+            api = api,
+            settings = settings,
+            listType = ModListType.LATEST_ADDED,
+            output = childOutput
+        )
+    }
+
+    private val nxModsListLatestUpdated: (ComponentContext, Consumer<NxModsList.Output>) -> NxModsList = { childContext, childOutput ->
+        NxModsListComponent(
+            componentContext = childContext,
+            storeFactory = storeFactory,
+            api = api,
+            settings = settings,
+            listType = ModListType.LATEST_UPDATED,
+            output = childOutput
+        )
+    }
+
+    private val nxModsListLatestTrending: (ComponentContext, Consumer<NxModsList.Output>) -> NxModsList = { childContext, childOutput ->
+        NxModsListComponent(
+            componentContext = childContext,
+            storeFactory = storeFactory,
+            api = api,
+            settings = settings,
+            listType = ModListType.TRENDING,
+            output = childOutput
+        )
+    }
+
+    private val navigation: StackNavigation<Configuration> = StackNavigation()
+
+    private val stack: Value<ChildStack<Configuration, Child>> =
+        childStack(
+            source = navigation,
+            initialStack = { listOf(Configuration.LatestAdded) },
+            childFactory = ::createChild,
+        )
+
+    override val childStack: Value<ChildStack<*, Child>> = stack
+
+    private fun createChild(configuration: Configuration, componentContext: ComponentContext): Child =
+        when (configuration) {
+            is Configuration.LatestAdded -> Child.LatestAdded(nxModsListLatestAdded(componentContext, Consumer(::onModsListOutput)))
+            is Configuration.LatestUpdated -> Child.LatestAdded(nxModsListLatestUpdated(componentContext, Consumer(::onModsListOutput)))
+            is Configuration.Trending -> Child.LatestAdded(nxModsListLatestTrending(componentContext, Consumer(::onModsListOutput)))
+        }
 
     override fun onLatestAddedTabClicked() {
-        TODO("Not yet implemented")
+        navigation.bringToFront(Configuration.LatestAdded)
     }
 
     override fun onLatestUpdatedTabClicked() {
-        TODO("Not yet implemented")
+        navigation.bringToFront(Configuration.LatestUpdated)
     }
 
     override fun onTrendingTabClicked() {
-        TODO("Not yet implemented")
+        navigation.bringToFront(Configuration.Trending)
+    }
+
+    private fun onModsListOutput(childOutput: NxModsList.Output): Unit =
+        when (childOutput) {
+            is NxModsList.Output.OpenModInfo -> Unit // TODO
+            is NxModsList.Output.ErrorCaught -> output(Output.ErrorCaught(childOutput.throwable))
+        }
+
+    private sealed interface Configuration : Parcelable {
+        @Parcelize
+        object LatestAdded : Configuration {
+            /**
+             * Only required for state preservation on JVM/desktop via StateKeeper, as it uses Serializable.
+             * Temporary workaround for https://youtrack.jetbrains.com/issue/KT-40218.
+             */
+            @Suppress("unused")
+            private fun readResolve(): Any = LatestAdded
+        }
+
+        @Parcelize
+        object LatestUpdated : Configuration {
+            @Suppress("unused")
+            private fun readResolve(): Any = LatestUpdated
+        }
+
+        @Parcelize
+        object Trending : Configuration {
+            @Suppress("unused")
+            private fun readResolve(): Any = Trending
+        }
     }
 }

@@ -21,9 +21,9 @@ interface NxHome {
     )
 
     sealed class Child(val type: ModListType) {
-        class LatestAddedChild(val component: NxModsList) : Child(ModListType.LATEST_ADDED)
-        class LatestUpdatedChild(val component: NxModsList) : Child(ModListType.LATEST_UPDATED)
-        class TrendingChild(val component: NxModsList) : Child(ModListType.TRENDING)
+        class LatestAdded(val component: NxModsList) : Child(ModListType.LATEST_ADDED)
+        class LatestUpdated(val component: NxModsList) : Child(ModListType.LATEST_UPDATED)
+        class Trending(val component: NxModsList) : Child(ModListType.TRENDING)
     }
 
     sealed class Output {
