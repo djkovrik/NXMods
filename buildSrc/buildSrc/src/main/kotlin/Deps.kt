@@ -16,18 +16,18 @@ object Deps {
         }
 
         object Compose {
-            private const val VERSION = "1.2.0"
+            private const val VERSION = "1.3.0"
             const val gradlePlugin = "org.jetbrains.compose:compose-gradle-plugin:$VERSION"
         }
 
         object Ktor {
-            private const val VERSION = "2.1.3"
+            private const val VERSION = "2.2.3"
             const val clientCore = "io.ktor:ktor-client-core:$VERSION"
             const val clientNegotiation = "io.ktor:ktor-client-content-negotiation:$VERSION"
             const val serialization = "io.ktor:ktor-serialization-kotlinx-json:$VERSION"
             const val engineAndroid = "io.ktor:ktor-client-okhttp:$VERSION"
             const val engineIos = "io.ktor:ktor-client-darwin:$VERSION"
-            const val engineDesktop = "io.ktor:ktor-client-curl:$VERSION"
+            const val engineDesktop = "io.ktor:ktor-client-cio:$VERSION"
         }
 
         object DateTime {
@@ -80,13 +80,13 @@ object Deps {
         }
 
         object Decompose {
-            private const val VERSION = "1.0.0-beta-04"
+            private const val VERSION = "1.0.0"
             const val decompose = "com.arkivanov.decompose:decompose:$VERSION"
             const val extensions = "com.arkivanov.decompose:extensions-compose-jetbrains:$VERSION"
         }
 
         object Essenty {
-            private const val VERSION = "0.7.0"
+            private const val VERSION = "1.0.0"
             const val lifecycle = "com.arkivanov.essenty:lifecycle:$VERSION"
         }
     }
@@ -135,5 +135,11 @@ object Deps {
             const val modList = ":common:component:mod-list"
             const val home = ":common:component:home"
         }
+    }
+
+    object Desktop {
+        const val logBack = "ch.qos.logback:logback-classic:1.4.5"
+        const val log4jcore = "org.apache.logging.log4j:log4j-core:2.19.0"
+        const val log4jimpl = "org.apache.logging.log4j:log4j-slf4j-impl:2.19.0"
     }
 }
