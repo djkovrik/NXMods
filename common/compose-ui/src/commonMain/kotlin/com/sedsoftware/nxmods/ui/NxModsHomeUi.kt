@@ -10,6 +10,10 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
+import androidx.compose.material.icons.filled.AirlineSeatLegroomNormal
+import androidx.compose.material.icons.filled.Announcement
+import androidx.compose.material.icons.filled.Chair
+import androidx.compose.material.icons.filled.Cyclone
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
@@ -55,7 +59,7 @@ fun NxModsHomeContent(component: NxModsHome, modifier: Modifier = Modifier) {
                 onClick = component::onLatestAddedTabClicked,
                 icon = {
                     Icon(
-                        imageVector = Icons.Default.Star,
+                        imageVector = Icons.Default.AirlineSeatLegroomNormal,
                         contentDescription = "Latest added",
                     )
                 },
@@ -67,7 +71,7 @@ fun NxModsHomeContent(component: NxModsHome, modifier: Modifier = Modifier) {
                 onClick = component::onLatestUpdatedTabClicked,
                 icon = {
                     Icon(
-                        imageVector = Icons.Default.Home,
+                        imageVector = Icons.Default.Chair,
                         contentDescription = "Latest updated",
                     )
                 },
@@ -79,7 +83,7 @@ fun NxModsHomeContent(component: NxModsHome, modifier: Modifier = Modifier) {
                 onClick = component::onTrendingTabClicked,
                 icon = {
                     Icon(
-                        imageVector = Icons.Default.AccountBox,
+                        imageVector = Icons.Default.Cyclone,
                         contentDescription = "Trending",
                     )
                 },
