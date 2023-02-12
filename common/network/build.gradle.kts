@@ -34,6 +34,14 @@ kotlin {
             }
         }
 
+        desktopMain {
+            dependencies {
+                implementation(Deps.JetBrains.Ktor.engineDesktop)
+                implementation(Deps.Desktop.log4jcore)
+                implementation(Deps.Desktop.log4jimpl)
+            }
+        }
+
         iosMain {
             dependencies {
                 implementation(Deps.JetBrains.Ktor.engineIos)
