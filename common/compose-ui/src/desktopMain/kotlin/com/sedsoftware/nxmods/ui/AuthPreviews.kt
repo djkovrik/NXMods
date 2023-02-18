@@ -14,3 +14,13 @@ fun PreviewNewUser() {
         )
     }
 }
+
+@Preview
+@Composable
+fun PreviewNewUserDark() {
+    NxModsTheme(useDarkTheme = true) {
+        NxModsAuthScreen(
+            model = AuthStates.newUserKeyValidating
+        )
+    }
+}

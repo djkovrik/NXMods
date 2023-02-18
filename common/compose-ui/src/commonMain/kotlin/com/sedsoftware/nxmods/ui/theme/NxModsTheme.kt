@@ -91,10 +91,10 @@ fun NxModsTheme(
 
     val shapes = Shapes(
         extraSmall = RoundedCornerShape(4.dp),
-        small = RoundedCornerShape(6.dp),
-        medium = RoundedCornerShape(8.dp),
-        large = RoundedCornerShape(12.dp),
-        extraLarge = RoundedCornerShape(16.dp)
+        small = RoundedCornerShape(8.dp),
+        medium = RoundedCornerShape(12.dp),
+        large = RoundedCornerShape(16.dp),
+        extraLarge = RoundedCornerShape(18.dp)
     )
 
     val typography = Typography(
@@ -114,7 +114,7 @@ fun NxModsTheme(
         ),
         headlineSmall = TextStyle(
             fontFamily = Fonts.lato(),
-            fontWeight = FontWeight.Light,
+            fontWeight = FontWeight.Normal,
             fontSize = 24.sp,
             lineHeight = 32.sp,
             letterSpacing = 0.0.sp,
@@ -129,8 +129,8 @@ fun NxModsTheme(
         titleMedium = TextStyle(
             fontFamily = Fonts.lato(),
             fontWeight = FontWeight.Normal,
-            fontSize = 16.sp,
-            lineHeight = 24.sp,
+            fontSize = 18.sp,
+            lineHeight = 26.sp,
             letterSpacing = 0.2.sp,
         ),
         titleSmall = TextStyle(

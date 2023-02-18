@@ -5,6 +5,7 @@ package com.sedsoftware.nxmods
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.isSystemInDarkTheme
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.defaultComponentContext
 import com.arkivanov.mvikotlin.main.store.DefaultStoreFactory
@@ -34,6 +35,7 @@ class MainActivity : ComponentActivity() {
         val root: NxModsRoot = todoRoot(defaultComponentContext())
 
         setContent {
+            val dark = isSystemInDarkTheme()
             NxModsTheme {
                 NxModsRootContent(root)
             }

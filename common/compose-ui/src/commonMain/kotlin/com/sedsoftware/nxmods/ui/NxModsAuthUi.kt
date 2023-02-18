@@ -1,18 +1,36 @@
+@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
+
 package com.sedsoftware.nxmods.ui
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Button
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Surface
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 import com.sedsoftware.nxmods.component.auth.NxModsAuth
@@ -37,40 +55,134 @@ fun NxModsAuthScreen(
     onValidateClicked: () -> Unit = {},
     onNextClicked: () -> Unit = {},
 ) {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
-        modifier = modifier.fillMaxSize(),
-    ) {
-        TextField(
-            value = model.currentInput,
-            label = { Text(text = "Please enter your nexusmods API key:") },
-            modifier = modifier.fillMaxWidth().padding(8.dp),
-            onValueChange = onTextChanged,
-            readOnly = model.progressVisible,
-            isError = model.status == ApiKeyStatus.INVALID
-        )
 
-        Button(
-            onClick = onValidateClicked,
-            enabled = model.validateButtonAvailable,
-        ) {
-            Text(text = "Validate")
-        }
+    val keyboardController = LocalSoftwareKeyboardController.current
 
-        Button(
-            onClick = onNextClicked,
-            enabled = model.nextButtonAvailable,
-        ) {
-            Text(text = "Next")
-        }
-
-        Text(text = model.status.name)
-
-        if (model.progressVisible) {
-            CircularProgressIndicator(
-                modifier = modifier
+    Scaffold(
+        modifier = modifier,
+        backgroundColor = MaterialTheme.colorScheme.surfaceVariant,
+        topBar = {
+            Text(
+                text = "Authenticate",
+                color = MaterialTheme.colorScheme.onSurface,
+                style = MaterialTheme.typography.headlineSmall,
+                modifier = modifier.padding(vertical = 16.dp, horizontal = 32.dp)
             )
+        }
+    ) { paddingValues ->
+        Surface(
+            shape = RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp),
+            color = MaterialTheme.colorScheme.surface,
+            modifier = modifier.padding(paddingValues)
+        ) {
+            Column(modifier = modifier.fillMaxWidth()) {
+                Box(modifier = modifier.weight(1f)) {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Bottom,
+                        modifier = modifier.fillMaxSize(),
+                    ) {
+                        Text(
+                            text = "Your API key:",
+                            style = MaterialTheme.typography.titleMedium,
+                            color = MaterialTheme.colorScheme.primary,
+                            modifier = modifier.padding(horizontal = 32.dp)
+                        )
+
+                        OutlinedTextField(
+                            value = model.currentInput,
+                            modifier = modifier
+                                .fillMaxWidth()
+                                .height(160.dp)
+                                .padding(start = 32.dp, end = 32.dp, bottom = 16.dp, top = 16.dp),
+                            onValueChange = onTextChanged,
+                            readOnly = model.progressVisible,
+                            isError = model.status == ApiKeyStatus.INVALID,
+                            keyboardOptions = KeyboardOptions(
+                                imeAction = ImeAction.Done,
+                                autoCorrect = false
+                            ),
+                            keyboardActions = KeyboardActions(
+                                onDone = { keyboardController?.hide() }
+                            ),
+                            shape = MaterialTheme.shapes.medium
+                        )
+                    }
+                }
+                Box(modifier = modifier.weight(1f)) {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center,
+                        modifier = modifier.fillMaxSize(),
+                    ) {
+                        Text(
+                            text = "To create new API key visit \"Site Preferences - API\" page from your nexusmods.com profile",
+                            style = MaterialTheme.typography.bodyMedium,
+                            textAlign = TextAlign.Center,
+                            color = MaterialTheme.colorScheme.primary,
+                            modifier = modifier.padding(horizontal = 64.dp),
+                        )
+
+
+                        Spacer(modifier = modifier.weight(1f))
+
+                        when {
+                            model.progressVisible -> {
+                                Text(
+                                    text = "Validating...",
+                                    color = MaterialTheme.colorScheme.primary
+                                )
+                            }
+                            model.status == ApiKeyStatus.VALID -> {
+                                Text(
+                                    text = "Valid API key",
+                                    color = MaterialTheme.colorScheme.tertiary
+                                )
+                            }
+                            model.status == ApiKeyStatus.INVALID -> {
+                                Text(
+                                    text = "Invalid API key",
+                                    color = MaterialTheme.colorScheme.error
+                                )
+                            }
+                        }
+
+                        Row(
+                            modifier = modifier
+                                .width(340.dp)
+                                .padding(all = 16.dp)
+                        ) {
+                            Button(
+                                onClick = onValidateClicked,
+                                enabled = model.validateButtonAvailable,
+                                shape = MaterialTheme.shapes.large,
+                                elevation = ButtonDefaults.buttonElevation(
+                                    defaultElevation = 4.dp
+                                ),
+                                modifier = modifier
+                                    .weight(1f)
+                                    .padding(all = 8.dp)
+                            ) {
+                                Text(text = "Validate")
+                            }
+
+                            Button(
+                                onClick = onNextClicked,
+                                enabled = model.nextButtonAvailable,
+                                shape = MaterialTheme.shapes.large,
+                                elevation = ButtonDefaults.buttonElevation(
+                                    defaultElevation = 4.dp
+                                ),
+                                modifier = modifier
+                                    .weight(1f)
+                                    .padding(all = 8.dp)
+                            ) {
+                                Text(text = "Next")
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
