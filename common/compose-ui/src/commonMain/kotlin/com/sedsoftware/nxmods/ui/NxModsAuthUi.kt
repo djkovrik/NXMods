@@ -64,7 +64,7 @@ fun NxModsAuthScreen(
         topBar = {
             Text(
                 text = "Authenticate",
-                color = MaterialTheme.colorScheme.onSurface,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 style = MaterialTheme.typography.headlineSmall,
                 modifier = modifier.padding(vertical = 16.dp, horizontal = 32.dp)
             )
@@ -163,7 +163,10 @@ fun NxModsAuthScreen(
                                     .weight(1f)
                                     .padding(all = 8.dp)
                             ) {
-                                Text(text = "Validate")
+                                Text(
+                                    text = "Validate",
+                                    color = MaterialTheme.colorScheme.onPrimary
+                                )
                             }
 
                             Button(
@@ -177,7 +180,10 @@ fun NxModsAuthScreen(
                                     .weight(1f)
                                     .padding(all = 8.dp)
                             ) {
-                                Text(text = "Next")
+                                Text(
+                                    text = "Next",
+                                    color = MaterialTheme.colorScheme.onPrimary
+                                )
                             }
                         }
                     }

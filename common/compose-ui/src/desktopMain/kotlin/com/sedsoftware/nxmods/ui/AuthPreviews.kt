@@ -24,3 +24,24 @@ fun PreviewNewUserDark() {
         )
     }
 }
+
+
+@Preview
+@Composable
+fun PreviewNewUserValid() {
+    NxModsTheme {
+        NxModsAuthScreen(
+            model = AuthStates.newUserKeyValid
+        )
+    }
+}
+
+@Preview
+@Composable
+fun PreviewNewUserValidDark() {
+    NxModsTheme(useDarkTheme = true) {
+        NxModsAuthScreen(
+            model = AuthStates.newUserKeyValid
+        )
+    }
+}

@@ -156,9 +156,30 @@ fun NxModsTheme(
         ),
         bodySmall = TextStyle(
             fontFamily = Fonts.lato(),
-            fontWeight = FontWeight.Light,
+            fontWeight = FontWeight.Normal,
             fontSize = 12.sp,
             lineHeight = 26.sp,
+            letterSpacing = 0.4.sp,
+        ),
+        labelLarge = TextStyle(
+            fontFamily = Fonts.lato(),
+            fontWeight = FontWeight.Normal,
+            fontSize = 14.sp,
+            lineHeight = 20.sp,
+            letterSpacing = 0.1.sp,
+        ),
+        labelMedium = TextStyle(
+            fontFamily = Fonts.lato(),
+            fontWeight = FontWeight.Normal,
+            fontSize = 12.sp,
+            lineHeight = 16.sp,
+            letterSpacing = 0.4.sp,
+        ),
+        labelSmall = TextStyle(
+            fontFamily = Fonts.lato(),
+            fontWeight = FontWeight.Light,
+            fontSize = 11.sp,
+            lineHeight = 16.sp,
             letterSpacing = 0.4.sp,
         )
     )

@@ -10,7 +10,7 @@ import com.sedsoftware.nxmods.ui.theme.NxModsTheme
 fun PreviewGameItem() {
     NxModsTheme {
         NxModsGameItem(
-            model = GameSelectorStates.loaded.games[0]
+            model = GameSelectorStates.loaded.games[1]
         )
     }
 }
@@ -20,7 +20,7 @@ fun PreviewGameItem() {
 fun PreviewGameItemDark() {
     NxModsTheme(useDarkTheme = true) {
         NxModsGameItem(
-            model = GameSelectorStates.loaded.games[0]
+            model = GameSelectorStates.loaded.games[1]
         )
     }
 }
