@@ -10,11 +10,20 @@ import com.sedsoftware.nxmods.ui.theme.NxModsTheme
 fun PreviewGameItem() {
     NxModsTheme {
         NxModsGameItem(
-            game = GameSelectorStates.loaded.games[1]
+            model = GameSelectorStates.loaded.games[0]
         )
     }
 }
 
+@Preview
+@Composable
+fun PreviewGameItemDark() {
+    NxModsTheme(useDarkTheme = true) {
+        NxModsGameItem(
+            model = GameSelectorStates.loaded.games[0]
+        )
+    }
+}
 
 @Preview
 @Composable
@@ -28,8 +37,28 @@ fun PreviewGamesLoading() {
 
 @Preview
 @Composable
+fun PreviewGamesLoadingDark() {
+    NxModsTheme(useDarkTheme = true) {
+        NxModsGameSelectorScreen(
+            model = GameSelectorStates.loading
+        )
+    }
+}
+
+@Preview
+@Composable
 fun PreviewGamesLoaded() {
     NxModsTheme {
+        NxModsGameSelectorScreen(
+            model = GameSelectorStates.loaded
+        )
+    }
+}
+
+@Preview
+@Composable
+fun PreviewGamesLoadedDark() {
+    NxModsTheme(useDarkTheme = true) {
         NxModsGameSelectorScreen(
             model = GameSelectorStates.loaded
         )

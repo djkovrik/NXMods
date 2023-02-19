@@ -1,7 +1,7 @@
 package com.sedsoftware.nxmods.component.gameselector
 
 import com.arkivanov.decompose.value.Value
-import com.sedsoftware.nxmods.domain.entity.GameInfo
+import com.sedsoftware.nxmods.component.gameselector.model.GameInfoModel
 
 interface NxModsGameSelector {
 
@@ -12,7 +12,7 @@ interface NxModsGameSelector {
     fun onNextButtonClicked()
 
     data class Model(
-        val games: List<GameInfo>,
+        val games: List<GameInfoModel>,
         val bookmarkedCounter: Int,
         val progressVisible: Boolean,
         val nextButtonAvailable: Boolean
