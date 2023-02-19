@@ -19,16 +19,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Scaffold
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FileCopy
 import androidx.compose.material.icons.filled.FileDownload
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -41,7 +37,9 @@ import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 import com.sedsoftware.nxmods.component.gameselector.NxModsGameSelector
 import com.sedsoftware.nxmods.component.gameselector.model.GameInfoModel
+import com.sedsoftware.nxmods.ui.component.ButtonMain
 import com.sedsoftware.nxmods.ui.component.RoundCheckbox
+import com.sedsoftware.nxmods.ui.component.ShapedSurface
 
 @Composable
 fun NxModsGameSelectorContent(component: NxModsGameSelector) {
@@ -81,11 +79,7 @@ fun NxModsGameSelectorScreen(
             }
         }
     ) { paddingValues ->
-        Surface(
-            shape = RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp),
-            color = MaterialTheme.colorScheme.surface,
-            modifier = modifier.padding(paddingValues)
-        ) {
+        ShapedSurface(paddingValues = paddingValues) {
             Box {
                 Crossfade(
                     targetState = !model.progressVisible
@@ -132,12 +126,9 @@ fun NxModsGameSelectorScreen(
                     exit = scaleOut() + fadeOut(),
                     modifier = modifier.align(Alignment.BottomCenter)
                 ) {
-                    Button(
+                    ButtonMain(
                         onClick = onNextClicked,
-                        shape = MaterialTheme.shapes.large,
-                        elevation = ButtonDefaults.buttonElevation(
-                            defaultElevation = 4.dp
-                        ),
+                        enabled = true,
                         modifier = modifier.padding(all = 16.dp)
                     ) {
                         Text(

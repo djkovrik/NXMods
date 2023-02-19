@@ -11,14 +11,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Scaffold
-import androidx.compose.material.Surface
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -35,6 +30,8 @@ import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 import com.sedsoftware.nxmods.component.auth.NxModsAuth
 import com.sedsoftware.nxmods.component.auth.model.ApiKeyStatus
+import com.sedsoftware.nxmods.ui.component.ButtonMain
+import com.sedsoftware.nxmods.ui.component.ShapedSurface
 
 @Composable
 fun NxModsAuthContent(component: NxModsAuth) {
@@ -70,11 +67,7 @@ fun NxModsAuthScreen(
             )
         }
     ) { paddingValues ->
-        Surface(
-            shape = RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp),
-            color = MaterialTheme.colorScheme.surface,
-            modifier = modifier.padding(paddingValues)
-        ) {
+        ShapedSurface(paddingValues = paddingValues) {
             Column(modifier = modifier.fillMaxWidth()) {
                 Box(modifier = modifier.weight(1f)) {
                     Column(
@@ -133,12 +126,14 @@ fun NxModsAuthScreen(
                                     color = MaterialTheme.colorScheme.primary
                                 )
                             }
+
                             model.status == ApiKeyStatus.VALID -> {
                                 Text(
                                     text = "Valid API key",
                                     color = MaterialTheme.colorScheme.tertiary
                                 )
                             }
+
                             model.status == ApiKeyStatus.INVALID -> {
                                 Text(
                                     text = "Invalid API key",
@@ -148,20 +143,12 @@ fun NxModsAuthScreen(
                         }
 
                         Row(
-                            modifier = modifier
-                                .width(340.dp)
-                                .padding(all = 16.dp)
+                            modifier = modifier.padding(all = 16.dp)
                         ) {
-                            Button(
+                            ButtonMain(
                                 onClick = onValidateClicked,
                                 enabled = model.validateButtonAvailable,
-                                shape = MaterialTheme.shapes.large,
-                                elevation = ButtonDefaults.buttonElevation(
-                                    defaultElevation = 4.dp
-                                ),
-                                modifier = modifier
-                                    .weight(1f)
-                                    .padding(all = 8.dp)
+                                modifier = modifier.padding(all = 8.dp)
                             ) {
                                 Text(
                                     text = "Validate",
@@ -169,16 +156,10 @@ fun NxModsAuthScreen(
                                 )
                             }
 
-                            Button(
+                            ButtonMain(
                                 onClick = onNextClicked,
                                 enabled = model.nextButtonAvailable,
-                                shape = MaterialTheme.shapes.large,
-                                elevation = ButtonDefaults.buttonElevation(
-                                    defaultElevation = 4.dp
-                                ),
-                                modifier = modifier
-                                    .weight(1f)
-                                    .padding(all = 8.dp)
+                                modifier = modifier.padding(all = 8.dp)
                             ) {
                                 Text(
                                     text = "Next",

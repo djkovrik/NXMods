@@ -17,28 +17,8 @@ fun PreviewGameItem() {
 
 @Preview
 @Composable
-fun PreviewGameItemDark() {
-    NxModsTheme(useDarkTheme = true) {
-        NxModsGameItem(
-            model = GameSelectorStates.loaded.games[1]
-        )
-    }
-}
-
-@Preview
-@Composable
 fun PreviewGamesLoading() {
     NxModsTheme {
-        NxModsGameSelectorScreen(
-            model = GameSelectorStates.loading
-        )
-    }
-}
-
-@Preview
-@Composable
-fun PreviewGamesLoadingDark() {
-    NxModsTheme(useDarkTheme = true) {
         NxModsGameSelectorScreen(
             model = GameSelectorStates.loading
         )

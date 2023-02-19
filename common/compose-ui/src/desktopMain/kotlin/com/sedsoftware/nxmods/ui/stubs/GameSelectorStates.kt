@@ -54,6 +54,7 @@ object GameSelectorStates {
 
     val loaded = default.copy(
         games = dummyList + dummyList + dummyList + dummyList + dummyList + dummyList,
-        nextButtonAvailable = true
+        nextButtonAvailable = true,
+        bookmarkedCounter = 5
     )
 }
