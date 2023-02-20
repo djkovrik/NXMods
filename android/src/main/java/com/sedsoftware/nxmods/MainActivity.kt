@@ -6,16 +6,19 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.runtime.CompositionLocalProvider
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.defaultComponentContext
 import com.arkivanov.mvikotlin.main.store.DefaultStoreFactory
 import com.sedsoftware.nxmods.database.DatabaseFeatureComponent
+import com.sedsoftware.nxmods.network.ImageLoaderFactory
 import com.sedsoftware.nxmods.network.NetworkFeatureComponent
 import com.sedsoftware.nxmods.root.NxModsRoot
 import com.sedsoftware.nxmods.root.integration.NxModsRootComponent
 import com.sedsoftware.nxmods.settings.SettingsFeatureComponent
 import com.sedsoftware.nxmods.ui.NxModsRootContent
 import com.sedsoftware.nxmods.ui.theme.NxModsTheme
+import com.seiko.imageloader.LocalImageLoader
 
 class MainActivity : ComponentActivity() {
 
@@ -37,7 +40,11 @@ class MainActivity : ComponentActivity() {
         setContent {
             val dark = isSystemInDarkTheme()
             NxModsTheme {
-                NxModsRootContent(root)
+                CompositionLocalProvider(
+                    LocalImageLoader provides ImageLoaderFactory(applicationContext),
+                ) {
+                    NxModsRootContent(root)
+                }
             }
         }
     }

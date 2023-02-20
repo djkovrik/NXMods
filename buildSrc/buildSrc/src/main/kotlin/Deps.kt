@@ -118,6 +118,13 @@ object Deps {
             const val settings = "com.russhwolf:multiplatform-settings:$VERSION"
             const val settingsTest = "com.russhwolf:multiplatform-settings-test:$VERSION"
         }
+
+        object ImageLoader {
+            private const val VERSION = "1.2.9"
+            const val main = "io.github.qdsfdhvh:image-loader:$VERSION"
+            const val extensionBlur = "io.github.qdsfdhvh:image-loader-extension-blur:$VERSION"
+            const val extensionImageIo = "io.github.qdsfdhvh:image-loader-extension-imageio:$VERSION"
+        }
     }
 
     object Module {

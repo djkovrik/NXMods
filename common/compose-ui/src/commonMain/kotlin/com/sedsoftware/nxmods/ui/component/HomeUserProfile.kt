@@ -1,5 +1,6 @@
 package com.sedsoftware.nxmods.ui.component
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -15,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.sedsoftware.nxmods.component.home.model.CurrentUser
+import com.seiko.imageloader.rememberAsyncImagePainter
 
 @Composable
 internal fun HomeUserProfile(
@@ -33,7 +35,10 @@ internal fun HomeUserProfile(
                     shape = CircleShape
                 )
         ) {
-            // TODO AVATAR
+            Image(
+                painter = rememberAsyncImagePainter(url = user.avatar),
+                contentDescription = null
+            )
         }
         Column(modifier = modifier.padding(horizontal = 16.dp)) {
             Text(
