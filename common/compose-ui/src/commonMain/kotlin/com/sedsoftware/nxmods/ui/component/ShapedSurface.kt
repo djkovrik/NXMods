@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun ShapedSurface(
+internal fun ShapedSurface(
     paddingValues: PaddingValues,
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit

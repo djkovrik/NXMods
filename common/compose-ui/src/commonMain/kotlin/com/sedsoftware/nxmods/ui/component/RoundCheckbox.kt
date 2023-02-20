@@ -26,7 +26,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun RoundCheckbox(
+internal fun RoundCheckbox(
     size: Float,
     checkedColor: Color,
     uncheckedColor: Color,

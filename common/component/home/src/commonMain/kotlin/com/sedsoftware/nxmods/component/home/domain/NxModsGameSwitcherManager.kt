@@ -11,6 +11,8 @@ import com.badoo.reaktive.scheduler.ioScheduler
 import com.badoo.reaktive.single.Single
 import com.badoo.reaktive.single.singleOf
 import com.badoo.reaktive.single.subscribeOn
+import com.sedsoftware.nxmods.component.home.model.CurrentUser
+import com.sedsoftware.nxmods.component.home.model.HomeScreenData
 import com.sedsoftware.nxmods.domain.entity.GameInfo
 
 internal class NxModsGameSwitcherManager(
@@ -19,12 +21,19 @@ internal class NxModsGameSwitcherManager(
     private val scheduler: Scheduler = ioScheduler
 ) {
 
-    fun getActiveName(): Single<String> =
-        singleOf(settings.selectedGameName)
-            .subscribeOn(scheduler)
-
-    fun getActiveDomain(): Single<String> =
-        singleOf(settings.selectedGameDomain)
+    fun getBaseInfo(): Single<HomeScreenData> =
+        singleOf(
+            HomeScreenData(
+                user = CurrentUser(
+                    name = settings.userName,
+                    avatar = settings.userAvatar,
+                    isPremium = settings.isPremium,
+                    isSupporter = settings.isSupporter
+                ),
+                currentGame = settings.selectedGameName,
+                currentDomain = settings.selectedGameDomain
+            )
+        )
             .subscribeOn(scheduler)
 
     fun watchForBookmarkedGames(): Observable<List<GameInfo>> =

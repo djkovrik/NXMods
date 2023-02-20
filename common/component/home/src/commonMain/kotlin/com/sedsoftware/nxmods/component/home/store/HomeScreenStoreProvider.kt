@@ -13,6 +13,7 @@ import com.badoo.reaktive.scheduler.Scheduler
 import com.badoo.reaktive.scheduler.mainScheduler
 import com.badoo.reaktive.single.observeOn
 import com.sedsoftware.nxmods.component.home.domain.NxModsGameSwitcherManager
+import com.sedsoftware.nxmods.component.home.model.HomeScreenData
 import com.sedsoftware.nxmods.component.home.store.HomeScreenStore.Intent
 import com.sedsoftware.nxmods.component.home.store.HomeScreenStore.Label
 import com.sedsoftware.nxmods.component.home.store.HomeScreenStore.State
@@ -31,28 +32,16 @@ internal class HomeScreenStoreProvider(
             initialState = State(),
             autoInit = autoInit,
             bootstrapper = reaktiveBootstrapper {
-                dispatch(Action.FetchCurrentGameName)
-                dispatch(Action.FetchCurrentGameDomain)
+                dispatch(Action.FetchBasicInfo)
                 dispatch(Action.ObserveLocalGamesList)
             },
             executorFactory = reaktiveExecutorFactory {
-                onAction<Action.FetchCurrentGameName> {
-                    manager.getActiveName()
+                onAction<Action.FetchBasicInfo> {
+                    manager.getBaseInfo()
                         .observeOn(observeScheduler)
                         .subscribeScoped(
-                            onSuccess = { game ->
-                                dispatch(Msg.GameSelected(game))
-                            }, onError = { throwable ->
-                                publish(Label.ErrorCaught(SwitchSelectedGameException(throwable)))
-                            })
-                }
-
-                onAction<Action.FetchCurrentGameDomain> {
-                    manager.getActiveDomain()
-                        .observeOn(observeScheduler)
-                        .subscribeScoped(
-                            onSuccess = { game ->
-                                dispatch(Msg.DomainSelected(game))
+                            onSuccess = { data ->
+                                dispatch(Msg.UserDataLoaded(data))
                             }, onError = { throwable ->
                                 publish(Label.ErrorCaught(SwitchSelectedGameException(throwable)))
                             })
@@ -85,6 +74,12 @@ internal class HomeScreenStoreProvider(
             },
             reducer = { msg ->
                 when (msg) {
+                    is Msg.UserDataLoaded -> copy(
+                        user = msg.info.user,
+                        currentGame = msg.info.currentGame,
+                        currentDomain = msg.info.currentDomain
+                    )
+
                     is Msg.GameSelected -> copy(
                         currentGame = msg.name
                     )
@@ -101,12 +96,12 @@ internal class HomeScreenStoreProvider(
             }) {}
 
     private sealed interface Action {
-        object FetchCurrentGameName : Action
-        object FetchCurrentGameDomain : Action
+        object FetchBasicInfo : Action
         object ObserveLocalGamesList : Action
     }
 
     private sealed interface Msg {
+        data class UserDataLoaded(val info: HomeScreenData) : Msg
         data class GameSelected(val name: String) : Msg
         data class DomainSelected(val domain: String) : Msg
         data class GamesFetched(val games: List<GameInfo>) : Msg

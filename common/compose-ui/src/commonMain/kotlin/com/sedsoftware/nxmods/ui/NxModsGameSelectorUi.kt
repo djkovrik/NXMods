@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalAnimationApi::class)
+@file:OptIn(ExperimentalAnimationApi::class, ExperimentalMaterial3Api::class)
 
 package com.sedsoftware.nxmods.ui
 
@@ -19,15 +19,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FileCopy
 import androidx.compose.material.icons.filled.FileDownload
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -52,7 +53,7 @@ fun NxModsGameSelectorContent(component: NxModsGameSelector) {
 }
 
 @Composable
-fun NxModsGameSelectorScreen(
+internal fun NxModsGameSelectorScreen(
     model: NxModsGameSelector.Model,
     modifier: Modifier = Modifier,
     onNextClicked: () -> Unit = {},
@@ -61,7 +62,7 @@ fun NxModsGameSelectorScreen(
 
     Scaffold(
         modifier = modifier,
-        backgroundColor = MaterialTheme.colorScheme.surfaceVariant,
+        containerColor = MaterialTheme.colorScheme.surfaceVariant,
         topBar = {
             Column {
                 Text(

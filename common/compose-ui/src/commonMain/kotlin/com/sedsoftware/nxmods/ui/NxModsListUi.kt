@@ -19,7 +19,7 @@ fun NxModsListContent(component: NxModsList) {
 }
 
 @Composable
-fun NxModsListScreen(
+internal fun NxModsListScreen(
     model: NxModsList.Model,
     modifier: Modifier = Modifier
 ) {

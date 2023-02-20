@@ -135,7 +135,7 @@ fun NxModsTheme(
         ),
         titleSmall = TextStyle(
             fontFamily = Fonts.lato(),
-            fontWeight = FontWeight.Light,
+            fontWeight = FontWeight.Bold,
             fontSize = 14.sp,
             lineHeight = 20.sp,
             letterSpacing = 0.1.sp,
@@ -177,7 +177,7 @@ fun NxModsTheme(
         ),
         labelSmall = TextStyle(
             fontFamily = Fonts.lato(),
-            fontWeight = FontWeight.Light,
+            fontWeight = FontWeight.Normal,
             fontSize = 11.sp,
             lineHeight = 16.sp,
             letterSpacing = 0.4.sp,

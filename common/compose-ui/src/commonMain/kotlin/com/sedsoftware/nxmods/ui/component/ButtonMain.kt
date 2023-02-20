@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun ButtonMain(
+internal fun ButtonMain(
     onClick: () -> Unit,
     enabled: Boolean,
     modifier: Modifier = Modifier,

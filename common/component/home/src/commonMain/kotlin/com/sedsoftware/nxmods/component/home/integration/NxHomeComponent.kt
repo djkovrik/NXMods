@@ -64,6 +64,18 @@ class NxHomeComponent(
 
                         override var selectedGameDomain: String =
                             settings.currentGameDomain
+
+                        override val userName: String
+                            get() = settings.name
+
+                        override val userAvatar: String
+                            get() = settings.avatar
+
+                        override val isPremium: Boolean
+                            get() = settings.isPremium
+
+                        override val isSupporter: Boolean
+                            get() = settings.isSupporter
                     }
                 )
             ).create()
