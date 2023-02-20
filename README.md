@@ -14,3 +14,16 @@ Compose and Kotlin Multiplatform playground
 - [Decompose](https://github.com/arkivanov/Decompose)
 - [SQLDelight](https://github.com/cashapp/sqldelight)
 - [Ktor](https://github.com/ktorio/ktor)
+
+
+#### TODO
+[ ] Basic screens design
+[ ] Localization support
+[ ] Game selector screen search
+[ ] Navigation drawer: active game switcher
+[ ] Navigation drawer: game list management
+[ ] Compose animations
+[ ] Github Actions for Google Play
+[ ] Mod details screen
+[ ] Endorse/track
+[ ] iOS target?
