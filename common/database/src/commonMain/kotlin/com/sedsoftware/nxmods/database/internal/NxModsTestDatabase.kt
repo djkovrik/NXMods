@@ -16,7 +16,7 @@ import com.sedsoftware.nxmods.database.EndorsementInfoEntity
 import com.sedsoftware.nxmods.database.GameInfoEntity
 import com.sedsoftware.nxmods.database.TrackingInfoEntity
 import com.sedsoftware.nxmods.database.mappers.GameInfoEntityMappers.gameInfoToDomain
-import com.sedsoftware.nxmods.database.serializer.GameCategorySerializable.Companion.asString
+import com.sedsoftware.nxmods.database.serializer.ModCategorySerializable.Companion.asString
 import com.sedsoftware.nxmods.domain.entity.CachedModData
 import com.sedsoftware.nxmods.domain.entity.EndorsementInfo
 import com.sedsoftware.nxmods.domain.entity.GameInfo

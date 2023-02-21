@@ -3,7 +3,7 @@ package com.sedsoftware.nxmods.ui.stubs
 import com.sedsoftware.nxmods.component.auth.NxModsAuth
 import com.sedsoftware.nxmods.component.auth.model.ApiKeyStatus
 
-object AuthStates {
+internal object AuthStates {
 
     private const val API_KEY_STUB = "XBuYsJB4YRTwJTo2PvN8TExtucAzw03F5JJSjyd4NWNL--ytySJTmNkAYzxmcp--UdEI2QoHMDEU4+J8mZ9YAt=="
 

@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalDecomposeApi::class)
-
 package com.sedsoftware.nxmods.ui
 
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,7 +6,6 @@ import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.Children
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.fade
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.plus

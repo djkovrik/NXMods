@@ -64,6 +64,18 @@ class NxHomeComponent(
 
                         override var selectedGameDomain: String =
                             settings.currentGameDomain
+
+                        override val userName: String
+                            get() = settings.name
+
+                        override val userAvatar: String
+                            get() = settings.avatar
+
+                        override val isPremium: Boolean
+                            get() = settings.isPremium
+
+                        override val isSupporter: Boolean
+                            get() = settings.isSupporter
                     }
                 )
             ).create()
@@ -90,6 +102,7 @@ class NxHomeComponent(
             componentContext = childContext,
             storeFactory = storeFactory,
             api = api,
+            db = db,
             settings = settings,
             listType = ModListType.LATEST_ADDED,
             output = childOutput
@@ -101,6 +114,7 @@ class NxHomeComponent(
             componentContext = childContext,
             storeFactory = storeFactory,
             api = api,
+            db = db,
             settings = settings,
             listType = ModListType.LATEST_UPDATED,
             output = childOutput
@@ -112,6 +126,7 @@ class NxHomeComponent(
             componentContext = childContext,
             storeFactory = storeFactory,
             api = api,
+            db = db,
             settings = settings,
             listType = ModListType.TRENDING,
             output = childOutput

@@ -1,6 +1,6 @@
 package com.sedsoftware.nxmods.database.serializer
 
-import com.sedsoftware.nxmods.domain.entity.GameCategory
+import com.sedsoftware.nxmods.domain.entity.ModCategory
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
@@ -8,7 +8,7 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
 @Serializable
-internal class GameCategorySerializable(
+internal class ModCategorySerializable(
     @SerialName("category_id") val id: Long,
     @SerialName("name") val name: String
 ) {
@@ -20,9 +20,9 @@ internal class GameCategorySerializable(
             ignoreUnknownKeys = true
         }
 
-        fun List<GameCategory>.asString(): String {
+        fun List<ModCategory>.asString(): String {
             val serializable = map {
-                GameCategorySerializable(
+                ModCategorySerializable(
                     id = it.id,
                     name = it.name
                 )
@@ -30,10 +30,10 @@ internal class GameCategorySerializable(
             return json.encodeToString(serializable)
         }
 
-        fun String.asGameCategories(): List<GameCategory> {
-            val deserialized: List<GameCategorySerializable> = json.decodeFromString(this)
+        fun String.asModCategories(): List<ModCategory> {
+            val deserialized: List<ModCategorySerializable> = json.decodeFromString(this)
             return deserialized.map {
-                GameCategory(
+                ModCategory(
                     id = it.id,
                     name = it.name
                 )

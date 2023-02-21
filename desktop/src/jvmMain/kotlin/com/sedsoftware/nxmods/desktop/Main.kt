@@ -5,6 +5,7 @@ package com.sedsoftware.nxmods.desktop
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
@@ -19,11 +20,13 @@ import com.arkivanov.mvikotlin.main.store.DefaultStoreFactory
 import com.badoo.reaktive.coroutinesinterop.asScheduler
 import com.badoo.reaktive.scheduler.overrideSchedulers
 import com.sedsoftware.nxmods.database.DatabaseFeatureComponent
+import com.sedsoftware.nxmods.network.ImageLoaderFactory
 import com.sedsoftware.nxmods.network.NetworkFeatureComponent
 import com.sedsoftware.nxmods.root.NxModsRoot
 import com.sedsoftware.nxmods.root.integration.NxModsRootComponent
 import com.sedsoftware.nxmods.settings.SettingsFeatureComponent
 import com.sedsoftware.nxmods.ui.NxModsRootContent
+import com.seiko.imageloader.LocalImageLoader
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.swing.SwingUtilities
@@ -50,7 +53,11 @@ fun main() {
         ) {
             Surface(modifier = Modifier.fillMaxSize()) {
                 MaterialTheme {
-                    NxModsRootContent(root)
+                    CompositionLocalProvider(
+                        LocalImageLoader provides ImageLoaderFactory(),
+                    ) {
+                        NxModsRootContent(root)
+                    }
                 }
             }
         }

@@ -18,12 +18,16 @@ kotlin {
                 implementation(Deps.ArkIvanov.Decompose.decompose)
                 implementation(Deps.ArkIvanov.Decompose.extensions)
                 implementation(Deps.Badoo.Reaktive.reaktive)
+
+                implementation(Deps.KMM.ImageLoader.main)
             }
         }
 
         desktopMain {
             dependencies {
                 implementation(compose.preview)
+
+                implementation(Deps.JetBrains.DateTime.dateTime)
             }
         }
     }

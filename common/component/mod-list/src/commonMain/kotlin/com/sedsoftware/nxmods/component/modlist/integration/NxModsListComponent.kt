@@ -17,13 +17,16 @@ import com.badoo.reaktive.scheduler.mainScheduler
 import com.sedsoftware.nxmods.component.modlist.NxModsList
 import com.sedsoftware.nxmods.component.modlist.NxModsList.Model
 import com.sedsoftware.nxmods.component.modlist.NxModsList.Output
+import com.sedsoftware.nxmods.component.modlist.domain.NxModsListDb
 import com.sedsoftware.nxmods.component.modlist.domain.NxModsListsApi
 import com.sedsoftware.nxmods.component.modlist.domain.NxModsListsManager
 import com.sedsoftware.nxmods.component.modlist.store.ModsListStore
 import com.sedsoftware.nxmods.component.modlist.store.ModsListStore.Label
 import com.sedsoftware.nxmods.component.modlist.store.ModsListStoreProvider
+import com.sedsoftware.nxmods.domain.entity.GameInfo
 import com.sedsoftware.nxmods.domain.entity.ModInfo
 import com.sedsoftware.nxmods.domain.tools.NxModsApi
+import com.sedsoftware.nxmods.domain.tools.NxModsDatabase
 import com.sedsoftware.nxmods.domain.tools.NxModsSettings
 import com.sedsoftware.nxmods.domain.type.ModListType
 import com.sedsoftware.nxmods.utils.asValue
@@ -32,6 +35,7 @@ class NxModsListComponent(
     private val componentContext: ComponentContext,
     private val storeFactory: StoreFactory,
     private val api: NxModsApi,
+    private val db: NxModsDatabase,
     private val settings: NxModsSettings,
     private val listType: ModListType,
     private val output: Consumer<Output>
@@ -52,6 +56,10 @@ class NxModsListComponent(
 
                         override fun getTrending(domain: String): Observable<List<ModInfo>> =
                             api.getTrending(domain)
+                    },
+                    db = object : NxModsListDb {
+                        override fun getActiveGameInfo(domain: String): Observable<GameInfo> =
+                            db.observeGame(domain)
                     },
                     settings = settings
                 )

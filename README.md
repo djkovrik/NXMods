@@ -8,9 +8,24 @@ Compose and Kotlin Multiplatform playground
 
 #### Used libraries
 
-- Jetbrains Compose
+- [Jetbrains Compose](https://github.com/JetBrains/compose-jb)
 - [MVIKotlin](https://github.com/arkivanov/MVIKotlin)
 - [Reaktive](https://github.com/badoo/Reaktive)
 - [Decompose](https://github.com/arkivanov/Decompose)
 - [SQLDelight](https://github.com/cashapp/sqldelight)
 - [Ktor](https://github.com/ktorio/ktor)
+
+
+#### TODO
+- [x] Basic screens design
+- [ ] Localization support
+- [ ] Loader on startup
+- [ ] Game selector screen search
+- [ ] Navigation drawer: active game switcher
+- [ ] Navigation drawer: game list management
+- [ ] Compose animations
+- [ ] Github Actions for Google Play
+- [ ] Mod details screen
+- [ ] Endorse/track
+- [ ] iOS target?
+

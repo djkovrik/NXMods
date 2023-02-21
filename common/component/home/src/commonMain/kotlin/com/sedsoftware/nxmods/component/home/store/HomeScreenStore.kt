@@ -1,6 +1,7 @@
 package com.sedsoftware.nxmods.component.home.store
 
 import com.arkivanov.mvikotlin.core.store.Store
+import com.sedsoftware.nxmods.component.home.model.CurrentUser
 import com.sedsoftware.nxmods.component.home.store.HomeScreenStore.Intent
 import com.sedsoftware.nxmods.component.home.store.HomeScreenStore.Label
 import com.sedsoftware.nxmods.component.home.store.HomeScreenStore.State
@@ -13,6 +14,7 @@ internal interface HomeScreenStore : Store<Intent, State, Label> {
     }
 
     data class State(
+        val user: CurrentUser? = null,
         val currentGame: String = "",
         val currentDomain: String = "",
         val availableGames: List<GameInfo> = emptyList()

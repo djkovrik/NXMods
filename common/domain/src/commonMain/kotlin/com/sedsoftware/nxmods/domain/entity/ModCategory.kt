@@ -1,6 +1,6 @@
 package com.sedsoftware.nxmods.domain.entity
 
-class GameCategory(
+class ModCategory(
     val id: Long,
     val name: String
 )

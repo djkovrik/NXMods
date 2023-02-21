@@ -14,6 +14,8 @@ kotlin {
                 implementation(Deps.ArkIvanov.MVIKotlin.mvikotlin)
                 implementation(Deps.ArkIvanov.MVIKotlin.mvikotlinExtensionsReaktive)
                 implementation(Deps.ArkIvanov.Decompose.decompose)
+
+                implementation(Deps.KMM.ImageLoader.main)
             }
         }
     }

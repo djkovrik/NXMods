@@ -5,7 +5,6 @@ import com.badoo.reaktive.observable.Observable
 import com.badoo.reaktive.observable.autoConnect
 import com.badoo.reaktive.observable.combineLatest
 import com.badoo.reaktive.observable.firstOrError
-import com.badoo.reaktive.observable.flatMapCompletable
 import com.badoo.reaktive.observable.map
 import com.badoo.reaktive.observable.replay
 import com.badoo.reaktive.single.Single
@@ -16,7 +15,7 @@ import com.sedsoftware.nxmods.database.NexusDatabase
 import com.sedsoftware.nxmods.database.NexusDatabaseQueries
 import com.sedsoftware.nxmods.database.mappers.GameInfoEntityMappers.gameInfoListToDomain
 import com.sedsoftware.nxmods.database.mappers.GameInfoEntityMappers.gameInfoToDomain
-import com.sedsoftware.nxmods.database.serializer.GameCategorySerializable.Companion.asString
+import com.sedsoftware.nxmods.database.serializer.ModCategorySerializable.Companion.asString
 import com.sedsoftware.nxmods.domain.entity.CachedModData
 import com.sedsoftware.nxmods.domain.entity.EndorsementInfo
 import com.sedsoftware.nxmods.domain.entity.GameInfo

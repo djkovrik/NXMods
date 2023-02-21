@@ -36,7 +36,7 @@ SET bookmarked = :bookmarked
 WHERE domain = :domain;
 
 insertGame:
-INSERT INTO GameInfoEntity(id, name, bookmarked, forumUrl, nexusmodsUrl, genre, fileCount, downloadsCount, domain, fileViews, authors, fileEndorsements, modsCount, categories)
+INSERT OR IGNORE INTO GameInfoEntity(id, name, bookmarked, forumUrl, nexusmodsUrl, genre, fileCount, downloadsCount, domain, fileViews, authors, fileEndorsements, modsCount, categories)
 VALUES(:id, :name, :bookmarked, :forumUrl, :nexusmodsUrl, :genre, :fileCount, :downloadsCount, :domain, :fileViews, :authors, :fileEndorsements, :modsCount, :categories);
 
 

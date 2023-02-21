@@ -14,5 +14,5 @@ data class GameInfo(
     val fileEndorsements: Long,
     val modsCount: Long,
     val isBookmarked: Boolean,
-    val categories: List<GameCategory>
+    val categories: List<ModCategory>
 )

@@ -1,9 +1,9 @@
 package com.sedsoftware.nxmods.ui.stubs
 
 import com.sedsoftware.nxmods.component.gameselector.NxModsGameSelector
-import com.sedsoftware.nxmods.domain.entity.GameInfo
+import com.sedsoftware.nxmods.component.gameselector.model.GameInfoModel
 
-object GameSelectorStates {
+internal object GameSelectorStates {
 
     private val default = NxModsGameSelector.Model(
         games = emptyList(),
@@ -12,31 +12,49 @@ object GameSelectorStates {
         nextButtonAvailable = false
     )
 
-    private val defaultGame = GameInfo(
+    private val defaultGame = GameInfoModel(
         id = 123,
         name = "Game",
-        forumUrl = "http",
-        nexusmodsUrl = "http",
         genre = "Action",
-        filesCount = 12345L,
-        downloadsCount = 123456L,
+        mods = "",
+        downloads = "",
         domain = "domain",
-        filesViews = 1234L,
-        authors = 10L,
-        fileEndorsements = 1234L,
-        modsCount = 1111L,
-        isBookmarked = false,
-        categories = emptyList()
+        bookmarked = false,
     )
 
     val loading = default.copy(progressVisible = true)
 
-    val loaded = default.copy(
-        games = listOf(
-            defaultGame.copy(id = 1, name = "Skyrim", domain = "skyrim"),
-            defaultGame.copy(id = 2, name = "Cyberpunk 2077", domain = "cyberpunk2077", isBookmarked = true),
-            defaultGame.copy(id = 3, name = "Morrowind", domain = "morrowind")
+    private val dummyList = listOf(
+        defaultGame.copy(
+            id = 100,
+            name = "Morrowind",
+            genre = "RPG",
+            domain = "morrowind",
+            mods = "10.1k",
+            downloads = "47.4M"
         ),
-        nextButtonAvailable = true
+        defaultGame.copy(
+            id = 100,
+            name = "Oblivion",
+            genre = "RPG",
+            domain = "oblivion",
+            mods = "30.9k",
+            downloads = "263.1M",
+            bookmarked = true
+        ),
+        defaultGame.copy(
+            id = 333,
+            name = "Cyberpunk 2077",
+            genre = "Action",
+            domain = "cyberpunk2077",
+            mods = "5.4k",
+            downloads = "103.6M"
+        ),
+    )
+
+    val loaded = default.copy(
+        games = dummyList + dummyList + dummyList + dummyList + dummyList + dummyList,
+        nextButtonAvailable = true,
+        bookmarkedCounter = 5
     )
 }
