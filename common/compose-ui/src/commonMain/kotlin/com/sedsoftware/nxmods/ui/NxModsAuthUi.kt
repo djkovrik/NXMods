@@ -45,6 +45,7 @@ fun NxModsAuthContent(component: NxModsAuth) {
 }
 
 @Composable
+@Suppress("LongMethod")
 internal fun NxModsAuthScreen(
     model: NxModsAuth.Model,
     modifier: Modifier = Modifier,

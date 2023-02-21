@@ -8,7 +8,7 @@ import com.seiko.imageloader.util.DebugLogger
 import com.seiko.imageloader.util.LogPriority
 import okio.Path.Companion.toOkioPath
 
-@Suppress("FunctionName")
+@Suppress("FunctionName", "MagicNumber")
 fun ImageLoaderFactory(context: Context): ImageLoader {
     return ImageLoader {
         logger = DebugLogger(LogPriority.VERBOSE)

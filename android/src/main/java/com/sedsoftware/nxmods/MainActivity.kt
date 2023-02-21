@@ -38,7 +38,6 @@ class MainActivity : ComponentActivity() {
         val root: NxModsRoot = todoRoot(defaultComponentContext())
 
         setContent {
-            val dark = isSystemInDarkTheme()
             NxModsTheme {
                 CompositionLocalProvider(
                     LocalImageLoader provides ImageLoaderFactory(applicationContext),

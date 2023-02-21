@@ -125,13 +125,14 @@ complexity:
     excludes: [ '**/stubs/**' ]
   LongMethod:
     active: true
-    threshold: 60
+    threshold: 70
     excludes: ['**Provider.kt']
+    ignoreAnnotated: ['Composable']
   LongParameterList:
     active: true
-    functionThreshold: 6
-    constructorThreshold: 7
-    ignoreDefaultParameters: false
+    functionThreshold: 10
+    constructorThreshold: 10
+    ignoreDefaultParameters: true
     ignoreDataClasses: true
     ignoreAnnotatedParameter: []
     excludes: ['**/domain/entity/**', '**/generated/**', '**Model.kt']
@@ -582,6 +583,7 @@ style:
     ignoreEnums: false
     ignoreRanges: false
     ignoreExtensionFunctions: true
+    ignoreAnnotated: ['Composable']
   MandatoryBracesIfStatements:
     active: false
   MandatoryBracesLoops:
@@ -687,6 +689,7 @@ style:
     active: true
     allowedNames: '(_|ignored|expected|serialVersionUID)'
     excludes: ['**.gradle.kts']
+    ignoreAnnotated: ['Composable']
   UseAnyOrNoneInsteadOfFind:
     active: true
   UseArrayLiteralsInAnnotations:

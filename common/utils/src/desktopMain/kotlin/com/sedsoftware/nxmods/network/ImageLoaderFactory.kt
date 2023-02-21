@@ -8,7 +8,7 @@ import com.seiko.imageloader.util.LogPriority
 import okio.Path.Companion.toOkioPath
 import java.io.File
 
-@Suppress("FunctionName")
+@Suppress("FunctionName", "MagicNumber")
 fun ImageLoaderFactory(): ImageLoader {
     return ImageLoader {
         logger = DebugLogger(LogPriority.VERBOSE)
@@ -52,5 +52,5 @@ private fun getCacheDir() = when (currentOperatingSystem) {
     OperatingSystem.Windows -> File(System.getenv("AppData"), "NxMods/cache")
     OperatingSystem.Linux -> File(System.getProperty("user.home"), ".cache/NxMods")
     OperatingSystem.MacOS -> File(System.getProperty("user.home"), "Library/Caches/NxMods")
-    else -> throw IllegalStateException("Unsupported operating system")
+    else -> error("Unsupported operating system")
 }

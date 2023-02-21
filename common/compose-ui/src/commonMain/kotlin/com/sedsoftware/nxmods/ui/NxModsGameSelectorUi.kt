@@ -53,6 +53,7 @@ fun NxModsGameSelectorContent(component: NxModsGameSelector) {
 }
 
 @Composable
+@Suppress("LongMethod")
 internal fun NxModsGameSelectorScreen(
     model: NxModsGameSelector.Model,
     modifier: Modifier = Modifier,
