@@ -102,6 +102,7 @@ class NxHomeComponent(
             componentContext = childContext,
             storeFactory = storeFactory,
             api = api,
+            db = db,
             settings = settings,
             listType = ModListType.LATEST_ADDED,
             output = childOutput
@@ -113,6 +114,7 @@ class NxHomeComponent(
             componentContext = childContext,
             storeFactory = storeFactory,
             api = api,
+            db = db,
             settings = settings,
             listType = ModListType.LATEST_UPDATED,
             output = childOutput
@@ -124,6 +126,7 @@ class NxHomeComponent(
             componentContext = childContext,
             storeFactory = storeFactory,
             api = api,
+            db = db,
             settings = settings,
             listType = ModListType.TRENDING,
             output = childOutput

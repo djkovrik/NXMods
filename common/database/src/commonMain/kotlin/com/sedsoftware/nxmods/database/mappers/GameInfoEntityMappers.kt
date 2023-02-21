@@ -1,8 +1,8 @@
 package com.sedsoftware.nxmods.database.mappers
 
 import com.sedsoftware.nxmods.database.GameInfoEntity
-import com.sedsoftware.nxmods.database.serializer.GameCategorySerializable.Companion.asGameCategories
-import com.sedsoftware.nxmods.database.serializer.GameCategorySerializable.Companion.asString
+import com.sedsoftware.nxmods.database.serializer.ModCategorySerializable.Companion.asModCategories
+import com.sedsoftware.nxmods.database.serializer.ModCategorySerializable.Companion.asString
 import com.sedsoftware.nxmods.domain.entity.GameInfo
 
 internal object GameInfoEntityMappers {
@@ -25,7 +25,7 @@ internal object GameInfoEntityMappers {
             fileEndorsements = fileEndorsements,
             modsCount = modsCount,
             isBookmarked = bookmarked == 1L,
-            categories = categories?.asGameCategories().orEmpty()
+            categories = categories?.asModCategories().orEmpty()
         )
     }
 

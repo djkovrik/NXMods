@@ -4,15 +4,20 @@ import com.badoo.reaktive.observable.Observable
 import com.badoo.reaktive.observable.subscribeOn
 import com.badoo.reaktive.scheduler.Scheduler
 import com.badoo.reaktive.scheduler.ioScheduler
+import com.sedsoftware.nxmods.domain.entity.GameInfo
 import com.sedsoftware.nxmods.domain.entity.ModInfo
 import com.sedsoftware.nxmods.domain.tools.NxModsSettings
 import com.sedsoftware.nxmods.domain.type.ModListType
 
 internal class NxModsListsManager(
     private val api: NxModsListsApi,
+    private val db: NxModsListDb,
     private val settings: NxModsSettings,
     private val scheduler: Scheduler = ioScheduler
 ) {
+
+    fun getActiveGameInfo(): Observable<GameInfo> =
+        db.getActiveGameInfo(settings.currentGameDomain)
 
     fun getModsList(type: ModListType): Observable<List<ModInfo>> =
         when (type) {

@@ -1,6 +1,6 @@
 package com.sedsoftware.nxmods.network.mappers
 
-import com.sedsoftware.nxmods.domain.entity.GameCategory
+import com.sedsoftware.nxmods.domain.entity.ModCategory
 import com.sedsoftware.nxmods.domain.entity.GameInfo
 import com.sedsoftware.nxmods.network.models.GameCategoryModel
 import com.sedsoftware.nxmods.network.models.GameInfoModel
@@ -30,8 +30,8 @@ internal object GameInfoModelMapper {
         map { gameInfoModelToDomain(it) }
     }
 
-    private fun toDomain(from: GameCategoryModel): GameCategory =
-        GameCategory(
+    private fun toDomain(from: GameCategoryModel): ModCategory =
+        ModCategory(
             id = from.id,
             name = from.name
         )

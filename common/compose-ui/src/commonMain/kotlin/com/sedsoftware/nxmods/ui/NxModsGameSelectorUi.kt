@@ -82,10 +82,8 @@ internal fun NxModsGameSelectorScreen(
     ) { paddingValues ->
         ShapedSurface(paddingValues = paddingValues) {
             Box {
-                Crossfade(
-                    targetState = !model.progressVisible
-                ) { visible ->
-                    if (visible) {
+                Crossfade(targetState = !model.progressVisible) { contentVisible ->
+                    if (contentVisible) {
                         LazyColumn(
                             modifier = modifier
                                 .padding(top = 8.dp, bottom = 8.dp)

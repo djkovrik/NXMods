@@ -1,7 +1,7 @@
 package com.sedsoftware.nxmods.component.modlist
 
 import com.arkivanov.decompose.value.Value
-import com.sedsoftware.nxmods.domain.entity.ModInfo
+import com.sedsoftware.nxmods.component.modlist.model.ModInfoModel
 
 interface NxModsList {
 
@@ -10,8 +10,9 @@ interface NxModsList {
     fun onModInfoClick(domain: String, id: Long)
 
     data class Model(
-        val mods: List<ModInfo>,
+        val mods: List<ModInfoModel>,
         val progressVisible: Boolean,
+        val emptyListPlaceholderVisible: Boolean
     )
 
     sealed class Output {

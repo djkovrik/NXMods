@@ -2,6 +2,9 @@ package com.sedsoftware.nxmods.utils
 
 import kotlin.math.abs
 
+fun String.asThumbnail(): String =
+    this.replace("images", "images/thumbnails")
+
 fun Long.prettify(): String {
     return when (abs(this)) {
         in 1000..999999 -> {

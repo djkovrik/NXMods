@@ -26,6 +26,8 @@ kotlin {
         desktopMain {
             dependencies {
                 implementation(compose.preview)
+
+                implementation(Deps.JetBrains.DateTime.dateTime)
             }
         }
     }

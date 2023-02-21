@@ -3,7 +3,7 @@ package com.sedsoftware.nxmods.ui.stubs
 import com.sedsoftware.nxmods.component.gameselector.NxModsGameSelector
 import com.sedsoftware.nxmods.component.gameselector.model.GameInfoModel
 
-object GameSelectorStates {
+internal object GameSelectorStates {
 
     private val default = NxModsGameSelector.Model(
         games = emptyList(),

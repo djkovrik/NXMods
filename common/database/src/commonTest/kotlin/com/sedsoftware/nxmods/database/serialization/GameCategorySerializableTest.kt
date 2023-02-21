@@ -1,18 +1,18 @@
 package com.sedsoftware.nxmods.database.serialization
 
-import com.sedsoftware.nxmods.database.serializer.GameCategorySerializable.Companion.asGameCategories
-import com.sedsoftware.nxmods.database.serializer.GameCategorySerializable.Companion.asString
-import com.sedsoftware.nxmods.domain.entity.GameCategory
+import com.sedsoftware.nxmods.database.serializer.ModCategorySerializable.Companion.asModCategories
+import com.sedsoftware.nxmods.database.serializer.ModCategorySerializable.Companion.asString
+import com.sedsoftware.nxmods.domain.entity.ModCategory
 import kotlin.test.Test
 import kotlin.test.assertTrue
 
 class GameCategorySerializableTest {
 
-    private val testCategories: List<GameCategory> = listOf(
-        GameCategory(1, "Morrowind"),
-        GameCategory(2, "Buildings"),
-        GameCategory(3, "Dungeons and Locations"),
-        GameCategory(4, "Gameplay")
+    private val testCategories: List<ModCategory> = listOf(
+        ModCategory(1, "Morrowind"),
+        ModCategory(2, "Buildings"),
+        ModCategory(3, "Dungeons and Locations"),
+        ModCategory(4, "Gameplay")
     )
 
     private val testString: String = """ [
@@ -35,7 +35,7 @@ class GameCategorySerializableTest {
 
     @Test
     fun asGameCategories_test() {
-        val deserialized = testString.asGameCategories()
+        val deserialized = testString.asModCategories()
         assertTrue(deserialized.isNotEmpty(), "Deserialized list should not be empty")
         assertTrue(deserialized[0].id == 1L, "Deserialized item should have id")
         assertTrue(deserialized[1].id == 2L, "Deserialized item should have id")

@@ -2,7 +2,7 @@ package com.sedsoftware.nxmods.ui.stubs
 
 import com.sedsoftware.nxmods.component.home.model.CurrentUser
 
-object ProfileStates {
+internal object ProfileStates {
 
     val normal = CurrentUser(
         name = "DJ_Kovrik",
