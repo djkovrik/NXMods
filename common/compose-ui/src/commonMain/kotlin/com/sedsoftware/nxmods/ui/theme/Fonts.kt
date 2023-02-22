@@ -13,9 +13,11 @@ object Fonts {
         font("Lato", "lato_italic", FontWeight.Normal, FontStyle.Italic),
         font("Lato", "lato_bold", FontWeight.Bold, FontStyle.Normal),
         font("Lato", "lato_bold_italic", FontWeight.Bold, FontStyle.Italic),
-        font("Lato", "lato_light", FontWeight.Light, FontStyle.Normal),
-        font("Lato", "lato_light_italic", FontWeight.Light, FontStyle.Italic),
-        font("Lato", "lato_thin", FontWeight.Thin, FontStyle.Normal),
-        font("Lato", "lato_thin_italic", FontWeight.Thin, FontStyle.Italic)
+        font("Lato Medium", "lato_medium", FontWeight.Medium, FontStyle.Normal),
+        font("Lato Medium", "lato_medium_italic", FontWeight.Medium, FontStyle.Italic),
+        font("Lato Light", "lato_light", FontWeight.Light, FontStyle.Normal),
+        font("Lato Light", "lato_light_italic", FontWeight.Light, FontStyle.Italic),
+        font("Lato Thin", "lato_thin", FontWeight.Thin, FontStyle.Normal),
+        font("Lato Thin", "lato_thin_italic", FontWeight.Thin, FontStyle.Italic)
     )
 }
