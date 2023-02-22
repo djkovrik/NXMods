@@ -35,7 +35,6 @@ internal class AuthStoreProvider(
             autoInit = autoInit,
             bootstrapper = reaktiveBootstrapper {
                 zip(manager.getCurrentApiKey(), manager.getCurrentDomain(), { key: String, domain: String -> Pair(key, domain) })
-                    .delay(2000L, ioScheduler)
                     .observeOn(observeScheduler)
                     .subscribeScoped { pair ->
                         val apiKey = pair.first
