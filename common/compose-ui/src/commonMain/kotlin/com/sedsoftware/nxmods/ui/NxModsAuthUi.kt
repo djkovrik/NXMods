@@ -32,6 +32,7 @@ import com.sedsoftware.nxmods.component.auth.NxModsAuth
 import com.sedsoftware.nxmods.component.auth.model.ApiKeyStatus
 import com.sedsoftware.nxmods.ui.component.ButtonMain
 import com.sedsoftware.nxmods.ui.component.ShapedSurface
+import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 fun NxModsAuthContent(component: NxModsAuth) {
@@ -61,7 +62,7 @@ internal fun NxModsAuthScreen(
         containerColor = MaterialTheme.colorScheme.surfaceVariant,
         topBar = {
             Text(
-                text = "Authenticate",
+                text = stringResource(MR.strings.auth_header),
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 style = MaterialTheme.typography.headlineSmall,
                 modifier = modifier.padding(vertical = 16.dp, horizontal = 32.dp)
@@ -77,7 +78,7 @@ internal fun NxModsAuthScreen(
                         modifier = modifier.fillMaxSize(),
                     ) {
                         Text(
-                            text = "Your API key:",
+                            text = stringResource(MR.strings.auth_api_key),
                             style = MaterialTheme.typography.titleMedium,
                             color = MaterialTheme.colorScheme.primary,
                             modifier = modifier.padding(horizontal = 32.dp)
@@ -110,7 +111,7 @@ internal fun NxModsAuthScreen(
                         modifier = modifier.fillMaxSize(),
                     ) {
                         Text(
-                            text = "To create new API key visit \"Site Preferences - API\" page from your nexusmods.com profile",
+                            text = stringResource(MR.strings.auth_api_key_desc),
                             style = MaterialTheme.typography.bodyMedium,
                             textAlign = TextAlign.Center,
                             color = MaterialTheme.colorScheme.primary,
@@ -123,21 +124,21 @@ internal fun NxModsAuthScreen(
                         when {
                             model.progressVisible -> {
                                 Text(
-                                    text = "Validating...",
+                                    text = stringResource(MR.strings.auth_api_key_validation),
                                     color = MaterialTheme.colorScheme.primary
                                 )
                             }
 
                             model.status == ApiKeyStatus.VALID -> {
                                 Text(
-                                    text = "Valid API key",
+                                    text = stringResource(MR.strings.auth_api_key_valid),
                                     color = MaterialTheme.colorScheme.tertiary
                                 )
                             }
 
                             model.status == ApiKeyStatus.INVALID -> {
                                 Text(
-                                    text = "Invalid API key",
+                                    text = stringResource(MR.strings.auth_api_key_invalid),
                                     color = MaterialTheme.colorScheme.error
                                 )
                             }
@@ -152,7 +153,7 @@ internal fun NxModsAuthScreen(
                                 modifier = modifier.padding(all = 8.dp)
                             ) {
                                 Text(
-                                    text = "Validate",
+                                    text = stringResource(MR.strings.auth_button_validate),
                                     color = MaterialTheme.colorScheme.onPrimary
                                 )
                             }
@@ -163,7 +164,7 @@ internal fun NxModsAuthScreen(
                                 modifier = modifier.padding(all = 8.dp)
                             ) {
                                 Text(
-                                    text = "Next",
+                                    text = stringResource(MR.strings.auth_button_next),
                                     color = MaterialTheme.colorScheme.onPrimary
                                 )
                             }

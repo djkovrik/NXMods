@@ -1,6 +1,11 @@
 plugins {
     id("multiplatform-setup-compose")
     id("android-setup")
+    id("dev.icerock.mobile.multiplatform-resources")
+}
+
+multiplatformResources {
+    multiplatformResourcesPackage = "com.sedsoftware.nxmods.ui"
 }
 
 kotlin {
@@ -20,6 +25,14 @@ kotlin {
                 implementation(Deps.Badoo.Reaktive.reaktive)
 
                 implementation(Deps.KMM.ImageLoader.main)
+
+                api(Deps.KMM.Mokko.resources)
+            }
+        }
+
+        androidMain {
+            dependencies {
+                api(Deps.KMM.Mokko.resourcesCompose)
             }
         }
 
@@ -28,6 +41,8 @@ kotlin {
                 implementation(compose.preview)
 
                 implementation(Deps.JetBrains.DateTime.dateTime)
+
+                api(Deps.KMM.Mokko.resourcesCompose)
             }
         }
     }
