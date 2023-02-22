@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    // Auth
+    <string name="auth_header">Authenticate</string>
+    <string name="auth_api_key">Your API key:</string>
+    <string name="auth_api_key_desc">To create new API key visit "Site Preferences - API" page from your nexusmods.com profile</string>
+    <string name="auth_api_key_validation">Validating...</string>
+    <string name="auth_api_key_valid">Valid API key</string>
+    <string name="auth_api_key_invalid">Invalid API key</string>
+    <string name="auth_button_validate">Validate</string>
+    <string name="auth_button_next">Next</string>
+    // Game selector
+    <string name="game_selector_header">Games to track</string>
+    <string name="game_selector_sub_header">Selected:</string>
+    <string name="game_selector_next">Next</string>
+    // Mods list
+    <string name="mods_list_empty_placeholder">No mods available for this category</string>
+    // Home screen
+    <string name="home_tab_latest_added">Latest added</string>
+    <string name="home_tab_latest_updated">Latest updated</string>
+    <string name="home_tab_trending">Trending</string>
+</resources>

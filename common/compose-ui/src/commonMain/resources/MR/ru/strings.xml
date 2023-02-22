@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    // Auth
+    <string name="auth_header">Авторизация</string>
+    <string name="auth_api_key">Ваш ключ API:</string>
+    <string name="auth_api_key_desc">Создать новый ключ API можно в разделе "Site Preferences - API" вашего профиля на nexusmods.com</string>
+    <string name="auth_api_key_validation">Проверка...</string>
+    <string name="auth_api_key_valid">Корректный ключ API</string>
+    <string name="auth_api_key_invalid">Некорректный ключ API</string>
+    <string name="auth_button_validate">Проверить</string>
+    <string name="auth_button_next">Дальше</string>
+    // Game selector
+    <string name="game_selector_header">Игры для отслеживания</string>
+    <string name="game_selector_sub_header">Выбрано:</string>
+    <string name="game_selector_next">Дальше</string>
+    // Mods list
+    <string name="mods_list_empty_placeholder">Нет доступных модов для данной категории</string>
+    // Home screen
+    <string name="home_tab_latest_added">Новые</string>
+    <string name="home_tab_latest_updated">Обновленные</string>
+    <string name="home_tab_trending">Популярные</string>
+</resources>

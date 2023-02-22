@@ -9,7 +9,7 @@ import com.sedsoftware.nxmods.ui.theme.NxModsTheme
 @Preview
 fun ModListItemPreview() {
     NxModsTheme {
-        ModListItem(HomeStates.mod)
+        ModListItem(HomeStates.mod, 0)
     }
 }
 

@@ -41,6 +41,7 @@ import com.sedsoftware.nxmods.component.gameselector.model.GameInfoModel
 import com.sedsoftware.nxmods.ui.component.ButtonMain
 import com.sedsoftware.nxmods.ui.component.RoundCheckbox
 import com.sedsoftware.nxmods.ui.component.ShapedSurface
+import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 fun NxModsGameSelectorContent(component: NxModsGameSelector) {
@@ -67,13 +68,13 @@ internal fun NxModsGameSelectorScreen(
         topBar = {
             Column {
                 Text(
-                    text = "Games to track",
+                    text = stringResource(MR.strings.game_selector_header),
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     style = MaterialTheme.typography.headlineSmall,
                     modifier = modifier.padding(start = 32.dp, end = 32.dp, top = 16.dp)
                 )
                 Text(
-                    text = "Selected: ${model.bookmarkedCounter}",
+                    text = "${stringResource(MR.strings.game_selector_sub_header)} ${model.bookmarkedCounter}",
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     style = MaterialTheme.typography.titleMedium,
                     modifier = modifier.padding(start = 32.dp, end = 32.dp, bottom = 16.dp)
@@ -132,7 +133,7 @@ internal fun NxModsGameSelectorScreen(
                         modifier = modifier.padding(all = 16.dp)
                     ) {
                         Text(
-                            text = "Next",
+                            text = stringResource(MR.strings.game_selector_next),
                             color = MaterialTheme.colorScheme.onPrimary
                         )
                     }

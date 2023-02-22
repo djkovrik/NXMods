@@ -1,4 +1,4 @@
-package com.sedsoftware.nxmods.ui.component
+package com.sedsoftware.nxmods.ui
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -16,6 +16,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.sedsoftware.nxmods.component.home.NxModsHome
 import com.sedsoftware.nxmods.domain.type.ModListType
+import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 internal fun HomeNavigationBar(
@@ -40,7 +41,7 @@ internal fun HomeNavigationBar(
             },
             label = {
                 Text(
-                    text = "Latest added",
+                    text = stringResource(MR.strings.home_tab_latest_added),
                     softWrap = true
                 )
             },
@@ -57,7 +58,7 @@ internal fun HomeNavigationBar(
             },
             label = {
                 Text(
-                    text = "Latest updated",
+                    text = stringResource(MR.strings.home_tab_latest_updated),
                     softWrap = true
                 )
             },
@@ -74,7 +75,7 @@ internal fun HomeNavigationBar(
             },
             label = {
                 Text(
-                    text = "Trending",
+                    text = stringResource(MR.strings.home_tab_trending),
                     softWrap = true
                 )
             },

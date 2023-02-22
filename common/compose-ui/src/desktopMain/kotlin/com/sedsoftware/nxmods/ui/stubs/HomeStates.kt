@@ -27,6 +27,7 @@ internal object HomeStates {
             mod.copy(name = "Mod name 3"),
             mod.copy(name = "Mod name 4"),
             mod.copy(name = "Mod name 5"),
-        )
+        ),
+        emptyListPlaceholderVisible = false
     )
 }

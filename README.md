@@ -18,7 +18,7 @@ Compose and Kotlin Multiplatform playground
 
 #### TODO
 - [x] Basic screens design
-- [ ] Localization support
+- [x] Localization support
 - [ ] Loader on startup
 - [ ] Game selector screen search
 - [ ] Navigation drawer: active game switcher

@@ -14,7 +14,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
@@ -27,7 +26,6 @@ import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.sedsoftware.nxmods.component.home.NxModsHome
 import com.sedsoftware.nxmods.domain.type.ModListType
-import com.sedsoftware.nxmods.ui.component.HomeNavigationBar
 import com.sedsoftware.nxmods.ui.component.HomeNavigationDrawer
 import com.sedsoftware.nxmods.ui.component.ShapedSurface
 import kotlinx.coroutines.launch
