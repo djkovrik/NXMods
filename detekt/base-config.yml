@@ -601,6 +601,7 @@ style:
     excludes: [ '**/generated/**' ]
   MayBeConst:
     active: true
+    excludes: [ '**MR.kt' ]
   ModifierOrder:
     active: true
   MultilineLambdaItParameter:
@@ -688,7 +689,7 @@ style:
   UnusedPrivateMember:
     active: true
     allowedNames: '(_|ignored|expected|serialVersionUID)'
-    excludes: ['**.gradle.kts']
+    excludes: ['**.gradle.kts', '**MR.kt' ]
     ignoreAnnotated: ['Composable']
   UseAnyOrNoneInsteadOfFind:
     active: true

@@ -19,6 +19,8 @@ kotlin {
                 implementation(compose.material3)
                 implementation(compose.ui)
                 implementation(compose.materialIconsExtended)
+
+                implementation(Deps.JetBrains.resources)
             }
         }
 

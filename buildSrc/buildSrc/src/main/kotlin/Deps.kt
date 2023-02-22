@@ -40,6 +40,8 @@ object Deps {
             const val gradlePlugin = "org.jetbrains.kotlin:kotlin-serialization:${JetBrains.Kotlin.VERSION}"
             const val core = "org.jetbrains.kotlinx:kotlinx-serialization-json:$VERSION"
         }
+
+        const val resources = "org.jetbrains.compose.components:components-resources:1.4.0-alpha01-dev942"
     }
 
     object Android {

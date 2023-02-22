@@ -2,6 +2,12 @@
 
 package com.sedsoftware.nxmods.ui
 
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,6 +29,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
@@ -32,6 +39,7 @@ import com.sedsoftware.nxmods.component.auth.NxModsAuth
 import com.sedsoftware.nxmods.component.auth.model.ApiKeyStatus
 import com.sedsoftware.nxmods.ui.component.ButtonMain
 import com.sedsoftware.nxmods.ui.component.ShapedSurface
+import com.sedsoftware.nxmods.ui.component.SplashLogo
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
@@ -57,116 +65,139 @@ internal fun NxModsAuthScreen(
 
     val keyboardController = LocalSoftwareKeyboardController.current
 
-    Scaffold(
-        modifier = modifier,
-        containerColor = MaterialTheme.colorScheme.surfaceVariant,
-        topBar = {
-            Text(
-                text = stringResource(MR.strings.auth_header),
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                style = MaterialTheme.typography.headlineSmall,
-                modifier = modifier.padding(vertical = 16.dp, horizontal = 32.dp)
-            )
+    val infiniteTransition = rememberInfiniteTransition()
+    val scale by infiniteTransition.animateFloat(
+        initialValue = 1f,
+        targetValue = 1.2f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(1000),
+            repeatMode = RepeatMode.Reverse
+        )
+    )
+
+    if (model.progressVisible) {
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = modifier
+                .fillMaxSize()
+                .background(color = MaterialTheme.colorScheme.surfaceVariant)
+        ) {
+            SplashLogo(modifier = modifier.scale(scale))
         }
-    ) { paddingValues ->
-        ShapedSurface(paddingValues = paddingValues) {
-            Column(modifier = modifier.fillMaxWidth()) {
-                Box(modifier = modifier.weight(1f)) {
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Bottom,
-                        modifier = modifier.fillMaxSize(),
-                    ) {
-                        Text(
-                            text = stringResource(MR.strings.auth_api_key),
-                            style = MaterialTheme.typography.titleMedium,
-                            color = MaterialTheme.colorScheme.primary,
-                            modifier = modifier.padding(horizontal = 32.dp)
-                        )
-
-                        OutlinedTextField(
-                            value = model.currentInput,
-                            modifier = modifier
-                                .fillMaxWidth()
-                                .height(160.dp)
-                                .padding(start = 32.dp, end = 32.dp, bottom = 16.dp, top = 16.dp),
-                            onValueChange = onTextChanged,
-                            readOnly = model.progressVisible,
-                            isError = model.status == ApiKeyStatus.INVALID,
-                            keyboardOptions = KeyboardOptions(
-                                imeAction = ImeAction.Done,
-                                autoCorrect = false
-                            ),
-                            keyboardActions = KeyboardActions(
-                                onDone = { keyboardController?.hide() }
-                            ),
-                            shape = MaterialTheme.shapes.medium
-                        )
-                    }
-                }
-                Box(modifier = modifier.weight(1f)) {
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center,
-                        modifier = modifier.fillMaxSize(),
-                    ) {
-                        Text(
-                            text = stringResource(MR.strings.auth_api_key_desc),
-                            style = MaterialTheme.typography.bodyMedium,
-                            textAlign = TextAlign.Center,
-                            color = MaterialTheme.colorScheme.primary,
-                            modifier = modifier.padding(horizontal = 64.dp),
-                        )
-
-
-                        Spacer(modifier = modifier.weight(1f))
-
-                        when {
-                            model.progressVisible -> {
-                                Text(
-                                    text = stringResource(MR.strings.auth_api_key_validation),
-                                    color = MaterialTheme.colorScheme.primary
-                                )
-                            }
-
-                            model.status == ApiKeyStatus.VALID -> {
-                                Text(
-                                    text = stringResource(MR.strings.auth_api_key_valid),
-                                    color = MaterialTheme.colorScheme.tertiary
-                                )
-                            }
-
-                            model.status == ApiKeyStatus.INVALID -> {
-                                Text(
-                                    text = stringResource(MR.strings.auth_api_key_invalid),
-                                    color = MaterialTheme.colorScheme.error
-                                )
-                            }
-                        }
-
-                        Row(
-                            modifier = modifier.padding(all = 16.dp)
+    } else {
+        Scaffold(
+            modifier = modifier,
+            containerColor = MaterialTheme.colorScheme.surfaceVariant,
+            topBar = {
+                Text(
+                    text = stringResource(MR.strings.auth_header),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = MaterialTheme.typography.headlineSmall,
+                    modifier = modifier.padding(vertical = 16.dp, horizontal = 32.dp)
+                )
+            }
+        ) { paddingValues ->
+            ShapedSurface(paddingValues = paddingValues) {
+                Column(modifier = modifier.fillMaxWidth()) {
+                    Box(modifier = modifier.weight(1f)) {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Bottom,
+                            modifier = modifier.fillMaxSize(),
                         ) {
-                            ButtonMain(
-                                onClick = onValidateClicked,
-                                enabled = model.validateButtonAvailable,
-                                modifier = modifier.padding(all = 8.dp)
-                            ) {
-                                Text(
-                                    text = stringResource(MR.strings.auth_button_validate),
-                                    color = MaterialTheme.colorScheme.onPrimary
-                                )
+                            Text(
+                                text = stringResource(MR.strings.auth_api_key),
+                                style = MaterialTheme.typography.titleMedium,
+                                color = MaterialTheme.colorScheme.primary,
+                                modifier = modifier.padding(horizontal = 32.dp)
+                            )
+
+                            OutlinedTextField(
+                                value = model.currentInput,
+                                modifier = modifier
+                                    .fillMaxWidth()
+                                    .height(160.dp)
+                                    .padding(start = 32.dp, end = 32.dp, bottom = 16.dp, top = 16.dp),
+                                onValueChange = onTextChanged,
+                                readOnly = model.status == ApiKeyStatus.VALIDATION,
+                                isError = model.status == ApiKeyStatus.INVALID,
+                                keyboardOptions = KeyboardOptions(
+                                    imeAction = ImeAction.Done,
+                                    autoCorrect = false
+                                ),
+                                keyboardActions = KeyboardActions(
+                                    onDone = { keyboardController?.hide() }
+                                ),
+                                shape = MaterialTheme.shapes.medium
+                            )
+                        }
+                    }
+                    Box(modifier = modifier.weight(1f)) {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center,
+                            modifier = modifier.fillMaxSize(),
+                        ) {
+                            Text(
+                                text = stringResource(MR.strings.auth_api_key_desc),
+                                style = MaterialTheme.typography.bodyMedium,
+                                textAlign = TextAlign.Center,
+                                color = MaterialTheme.colorScheme.primary,
+                                modifier = modifier.padding(horizontal = 64.dp),
+                            )
+
+
+                            Spacer(modifier = modifier.weight(1f))
+
+                            when (model.status) {
+                                ApiKeyStatus.VALIDATION -> {
+                                    Text(
+                                        text = stringResource(MR.strings.auth_api_key_validation),
+                                        color = MaterialTheme.colorScheme.primary
+                                    )
+                                }
+
+                                ApiKeyStatus.VALID -> {
+                                    Text(
+                                        text = stringResource(MR.strings.auth_api_key_valid),
+                                        color = MaterialTheme.colorScheme.tertiary
+                                    )
+                                }
+
+                                ApiKeyStatus.INVALID -> {
+                                    Text(
+                                        text = stringResource(MR.strings.auth_api_key_invalid),
+                                        color = MaterialTheme.colorScheme.error
+                                    )
+                                }
+
+                                else -> Unit
                             }
 
-                            ButtonMain(
-                                onClick = onNextClicked,
-                                enabled = model.nextButtonAvailable,
-                                modifier = modifier.padding(all = 8.dp)
+                            Row(
+                                modifier = modifier.padding(all = 16.dp)
                             ) {
-                                Text(
-                                    text = stringResource(MR.strings.auth_button_next),
-                                    color = MaterialTheme.colorScheme.onPrimary
-                                )
+                                ButtonMain(
+                                    onClick = onValidateClicked,
+                                    enabled = model.validateButtonAvailable,
+                                    modifier = modifier.padding(all = 8.dp)
+                                ) {
+                                    Text(
+                                        text = stringResource(MR.strings.auth_button_validate),
+                                        color = MaterialTheme.colorScheme.onPrimary
+                                    )
+                                }
+
+                                ButtonMain(
+                                    onClick = onNextClicked,
+                                    enabled = model.nextButtonAvailable,
+                                    modifier = modifier.padding(all = 8.dp)
+                                ) {
+                                    Text(
+                                        text = stringResource(MR.strings.auth_button_next),
+                                        color = MaterialTheme.colorScheme.onPrimary
+                                    )
+                                }
                             }
                         }
                     }

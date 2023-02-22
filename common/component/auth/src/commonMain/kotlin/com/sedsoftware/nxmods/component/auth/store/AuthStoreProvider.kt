@@ -10,7 +10,9 @@ import com.arkivanov.mvikotlin.extensions.reaktive.reaktiveExecutorFactory
 import com.badoo.reaktive.observable.doOnBeforeSubscribe
 import com.badoo.reaktive.observable.observeOn
 import com.badoo.reaktive.scheduler.Scheduler
+import com.badoo.reaktive.scheduler.ioScheduler
 import com.badoo.reaktive.scheduler.mainScheduler
+import com.badoo.reaktive.single.delay
 import com.badoo.reaktive.single.observeOn
 import com.badoo.reaktive.single.zip
 import com.sedsoftware.nxmods.component.auth.domain.NxModsAuthManager
@@ -76,7 +78,7 @@ internal class AuthStoreProvider(
                 }
 
                 onIntent<Intent.ClickValidateButton> {
-                    manager.validateApiKey(key = state.textInput)
+                    manager.validateApiKey(key = state.textInput.trim())
                         .observeOn(observeScheduler)
                         .doOnBeforeSubscribe { dispatch(Msg.ValidationRequested) }
                         .subscribeScoped(
@@ -106,11 +108,10 @@ internal class AuthStoreProvider(
                     )
 
                     is Msg.ValidationRequested -> copy(
-                        progressVisible = true
+                        apiKeyStatus = ApiKeyStatus.VALIDATION,
                     )
 
                     is Msg.ValidationRequestCompleted -> copy(
-                        progressVisible = false,
                         apiKeyStatus = if (msg.key.isNotEmpty()) {
                             ApiKeyStatus.VALID
                         } else {

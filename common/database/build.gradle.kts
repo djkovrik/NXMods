@@ -27,14 +27,12 @@ kotlin {
         androidMain {
             dependencies {
                 implementation(Deps.Squareup.SQLDelight.androidDriver)
-                implementation(Deps.Squareup.SQLDelight.sqliteDriver)
             }
         }
 
         iosMain {
             dependencies {
                 implementation(Deps.Squareup.SQLDelight.nativeDriver)
-                implementation(Deps.Squareup.SQLDelight.sqliteDriver)
             }
         }
 

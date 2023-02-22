@@ -13,7 +13,7 @@ android {
 
     defaultConfig {
         applicationId = "com.sedsoftware.nxmods"
-        minSdk = 23
+        minSdk = 24
         targetSdk = 33
         versionCode = 100000
         versionName = "1.0.0"

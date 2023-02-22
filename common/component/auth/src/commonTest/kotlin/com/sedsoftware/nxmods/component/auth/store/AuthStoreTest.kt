@@ -159,7 +159,7 @@ class AuthStoreTest {
         )
 
         with(store.state) {
-            assertFalse(progressVisible, "Progress is not visible")
+            assertTrue(progressVisible, "Progress is not visible")
             assertEquals(apiKeyStatus, ApiKeyStatus.VALID, "Key status equals to valid")
         }
 
@@ -208,7 +208,7 @@ class AuthStoreTest {
         store.accept(AuthStore.Intent.ClickValidateButton)
 
         // Validation started
-        assertTrue(store.state.progressVisible, "Progress is visible")
+        assertEquals(store.state.apiKeyStatus, ApiKeyStatus.VALIDATION)
 
         // Validation response
         validateSubject.onNext(
