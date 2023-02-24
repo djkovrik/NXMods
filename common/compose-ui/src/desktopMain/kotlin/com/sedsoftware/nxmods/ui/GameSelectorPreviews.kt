@@ -44,3 +44,43 @@ fun PreviewGamesLoadedDark() {
         )
     }
 }
+
+@Preview
+@Composable
+fun PreviewGamesEmpty() {
+    NxModsTheme {
+        NxModsGameSelectorScreen(
+            model = GameSelectorStates.empty
+        )
+    }
+}
+
+@Preview
+@Composable
+fun PreviewGamesEmptyDark() {
+    NxModsTheme(useDarkTheme = true) {
+        NxModsGameSelectorScreen(
+            model = GameSelectorStates.empty
+        )
+    }
+}
+
+@Preview
+@Composable
+fun PreviewGamesSearch() {
+    NxModsTheme {
+        NxModsGameSelectorScreen(
+            model = GameSelectorStates.search
+        )
+    }
+}
+
+@Preview
+@Composable
+fun PreviewGamesSearchDark() {
+    NxModsTheme(useDarkTheme = true) {
+        NxModsGameSelectorScreen(
+            model = GameSelectorStates.search
+        )
+    }
+}

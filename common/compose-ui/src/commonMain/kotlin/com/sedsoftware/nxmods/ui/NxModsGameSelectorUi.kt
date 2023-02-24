@@ -1,9 +1,8 @@
-@file:OptIn(ExperimentalAnimationApi::class, ExperimentalMaterial3Api::class)
+@file:OptIn(ExperimentalAnimationApi::class, ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 
 package com.sedsoftware.nxmods.ui
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.Crossfade
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -19,21 +18,31 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FileCopy
 import androidx.compose.material.icons.filled.FileDownload
+import androidx.compose.material.icons.outlined.Close
+import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 import com.sedsoftware.nxmods.component.gameselector.NxModsGameSelector
@@ -49,7 +58,10 @@ fun NxModsGameSelectorContent(component: NxModsGameSelector) {
     NxModsGameSelectorScreen(
         model = model,
         onNextClicked = component::onNextButtonClicked,
-        onBookmarkClicked = component::onBookmarkClicked
+        onBookmarkClicked = component::onBookmarkClicked,
+        onSearchClicked = component::onSearchButtonClicked,
+        onSearchCloseClicked = component::onSearchCloseButtonClicked,
+        onSearchInput = component::onSearchTextInput
     )
 }
 
@@ -60,32 +72,120 @@ internal fun NxModsGameSelectorScreen(
     modifier: Modifier = Modifier,
     onNextClicked: () -> Unit = {},
     onBookmarkClicked: (String) -> Unit = {},
+    onSearchClicked: () -> Unit = {},
+    onSearchCloseClicked: () -> Unit = {},
+    onSearchInput: (String) -> Unit = {},
 ) {
+
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     Scaffold(
         modifier = modifier,
         containerColor = MaterialTheme.colorScheme.surfaceVariant,
         topBar = {
-            Column {
-                Text(
-                    text = stringResource(MR.strings.game_selector_header),
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    style = MaterialTheme.typography.headlineSmall,
-                    modifier = modifier.padding(start = 32.dp, end = 32.dp, top = 16.dp)
-                )
-                Text(
-                    text = "${stringResource(MR.strings.game_selector_sub_header)} ${model.bookmarkedCounter}",
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    style = MaterialTheme.typography.titleMedium,
-                    modifier = modifier.padding(start = 32.dp, end = 32.dp, bottom = 16.dp)
-                )
+            if (model.searchVisible) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = modifier
+                        .fillMaxWidth()
+                        .padding(start = 32.dp, top = 5.dp, bottom = 4.dp)
+                ) {
+                    OutlinedTextField(
+                        value = model.searchQuery,
+                        modifier = modifier.weight(1f),
+                        onValueChange = onSearchInput,
+                        maxLines = 1,
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Done,
+                            autoCorrect = false
+                        ),
+                        keyboardActions = KeyboardActions(
+                            onDone = { keyboardController?.hide() }
+                        ),
+                        shape = MaterialTheme.shapes.medium
+                    )
+                    IconButton(
+                        onClick = {
+                            onSearchCloseClicked.invoke()
+                            keyboardController?.hide()
+                        },
+                        modifier = modifier.padding(all = 16.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Outlined.Close,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                }
+            } else {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = modifier.fillMaxWidth()
+                ) {
+                    Column(modifier = modifier.weight(1f)) {
+                        Text(
+                            text = stringResource(MR.strings.game_selector_header),
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            style = MaterialTheme.typography.headlineSmall,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                            modifier = modifier.padding(start = 32.dp, end = 32.dp, top = 16.dp)
+                        )
+                        Text(
+                            text = "${stringResource(MR.strings.game_selector_sub_header)} ${model.bookmarkedCounter}",
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            style = MaterialTheme.typography.titleMedium,
+                            modifier = modifier.padding(start = 32.dp, end = 32.dp, bottom = 16.dp)
+                        )
+                    }
+
+                    IconButton(
+                        onClick = {
+                            onSearchClicked.invoke()
+                            keyboardController?.show()
+                        },
+                        modifier = modifier.padding(all = 16.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Outlined.Search,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                }
             }
         }
     ) { paddingValues ->
         ShapedSurface(paddingValues = paddingValues) {
             Box {
-                Crossfade(targetState = !model.progressVisible) { contentVisible ->
-                    if (contentVisible) {
+                when {
+                    model.progressVisible -> {
+                        Box(
+                            contentAlignment = Alignment.Center,
+                            modifier = modifier.fillMaxSize()
+                        ) {
+                            CircularProgressIndicator(
+                                color = MaterialTheme.colorScheme.primary,
+                                modifier = modifier
+                            )
+                        }
+                    }
+
+                    model.emptyPlaceholderVisible -> {
+                        Box(
+                            contentAlignment = Alignment.Center,
+                            modifier = modifier.fillMaxSize()
+                        ) {
+                            Text(
+                                text = stringResource(MR.strings.game_selector_empty),
+                                style = MaterialTheme.typography.titleMedium,
+                                color = MaterialTheme.colorScheme.primary,
+                            )
+                        }
+                    }
+
+                    else -> {
                         LazyColumn(
                             modifier = modifier
                                 .padding(top = 8.dp, bottom = 8.dp)
@@ -107,16 +207,6 @@ internal fun NxModsGameSelectorScreen(
                                     )
                                 }
                             }
-                        }
-                    } else {
-                        Box(
-                            contentAlignment = Alignment.Center,
-                            modifier = modifier.fillMaxSize()
-                        ) {
-                            CircularProgressIndicator(
-                                color = MaterialTheme.colorScheme.primary,
-                                modifier = modifier
-                            )
                         }
                     }
                 }

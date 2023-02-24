@@ -20,10 +20,10 @@ Compose and Kotlin Multiplatform playground
 - [x] Basic screens design
 - [x] Localization support
 - [x] Hide loading with splash
-- [ ] Game selector screen search
+- [x] Game selector screen search
+- [ ] Compose animations
 - [ ] Navigation drawer: active game switcher
 - [ ] Navigation drawer: game list management
-- [ ] Compose animations
 - [ ] Github Actions for Google Play
 - [ ] Mod details screen
 - [ ] Endorse/track

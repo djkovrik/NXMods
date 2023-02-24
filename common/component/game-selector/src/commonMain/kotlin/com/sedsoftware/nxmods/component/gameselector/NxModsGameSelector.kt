@@ -11,6 +11,12 @@ interface NxModsGameSelector {
 
     fun onNextButtonClicked()
 
+    fun onSearchButtonClicked()
+
+    fun onSearchCloseButtonClicked()
+
+    fun onSearchTextInput(text: String)
+
     data class Model(
         val games: List<GameInfoModel>,
         val bookmarkedCounter: Int,

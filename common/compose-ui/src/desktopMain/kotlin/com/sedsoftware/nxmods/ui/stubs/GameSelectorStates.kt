@@ -9,7 +9,10 @@ internal object GameSelectorStates {
         games = emptyList(),
         bookmarkedCounter = 0,
         progressVisible = false,
-        nextButtonAvailable = false
+        nextButtonAvailable = false,
+        searchQuery = "",
+        searchVisible = false,
+        emptyPlaceholderVisible = false
     )
 
     private val defaultGame = GameInfoModel(
@@ -56,5 +59,15 @@ internal object GameSelectorStates {
         games = dummyList + dummyList + dummyList + dummyList + dummyList + dummyList,
         nextButtonAvailable = true,
         bookmarkedCounter = 5
+    )
+
+    val empty = default.copy(
+        progressVisible = false,
+        emptyPlaceholderVisible = true
+    )
+
+    val search = loaded.copy(
+        searchVisible = true,
+        searchQuery = "Search text"
     )
 }

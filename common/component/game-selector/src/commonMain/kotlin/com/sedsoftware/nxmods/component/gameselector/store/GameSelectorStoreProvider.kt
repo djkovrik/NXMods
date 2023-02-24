@@ -87,7 +87,11 @@ internal class GameSelectorStoreProvider(
 
                     is Msg.GamesFetched -> copy(
                         loadedGames = msg.games,
-                        displayedGames = msg.games,
+                        displayedGames = if (searchQueryInput.isNotEmpty()) {
+                            msg.games.filter { it.name.lowercase().contains(searchQueryInput.lowercase()) || it.isBookmarked }
+                        } else {
+                            msg.games
+                        },
                         progressVisible = msg.games.isEmpty(),
                         bookmarkedGamesCounter = msg.games.count { it.isBookmarked }
                     )

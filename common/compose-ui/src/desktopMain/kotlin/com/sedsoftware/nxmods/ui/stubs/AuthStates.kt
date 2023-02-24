@@ -26,8 +26,9 @@ internal object AuthStates {
     )
 
     val newUserKeyValidating = newUserKeyEntered.copy(
-        progressVisible = true,
+        progressVisible = false,
         validateButtonAvailable = false,
+        status = ApiKeyStatus.VALIDATION
     )
 
     val newUserKeyValid = newUserKeyEntered.copy(
