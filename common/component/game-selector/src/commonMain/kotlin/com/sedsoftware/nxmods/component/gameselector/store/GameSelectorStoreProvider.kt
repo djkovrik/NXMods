@@ -71,7 +71,11 @@ internal class GameSelectorStoreProvider(
                         )
                 }
 
-                onIntent<Intent.ClickNextButton> {
+                onIntent<Intent.SearchQueryInput> { dispatch(Msg.TextEntered(it.query)) }
+                onIntent<Intent.OpenSearchClick> { dispatch(Msg.SearchOpened) }
+                onIntent<Intent.CloseSearchClick> { dispatch(Msg.SearchClosed) }
+
+                onIntent<Intent.NextButtonClick> {
                     publish(Label.NextScreenRequested)
                 }
             },
@@ -82,13 +86,37 @@ internal class GameSelectorStoreProvider(
                     )
 
                     is Msg.GamesFetched -> copy(
-                        games = msg.games,
+                        loadedGames = msg.games,
+                        displayedGames = if (searchQueryInput.isNotEmpty()) {
+                            msg.games.filter { it.name.lowercase().contains(searchQueryInput.lowercase()) || it.isBookmarked }
+                        } else {
+                            msg.games
+                        },
                         progressVisible = msg.games.isEmpty(),
                         bookmarkedGamesCounter = msg.games.count { it.isBookmarked }
                     )
 
                     is Msg.GamesLoadingFailed -> copy(
                         progressVisible = false
+                    )
+
+                    is Msg.TextEntered -> copy(
+                        displayedGames = if (msg.query.isNotEmpty()) {
+                            loadedGames.filter { it.name.lowercase().contains(msg.query.lowercase()) || it.isBookmarked }
+                        } else {
+                            loadedGames
+                        },
+                        searchQueryInput = msg.query
+                    )
+
+                    is Msg.SearchOpened -> copy(
+                        searchFieldVisible = true
+                    )
+
+                    is Msg.SearchClosed -> copy(
+                        searchFieldVisible = false,
+                        displayedGames = loadedGames,
+                        searchQueryInput = ""
                     )
                 }
             }
@@ -103,5 +131,8 @@ internal class GameSelectorStoreProvider(
         object GamesLoadingStarted : Msg
         data class GamesFetched(val games: List<GameInfo>) : Msg
         object GamesLoadingFailed : Msg
+        data class TextEntered(val query: String) : Msg
+        object SearchOpened : Msg
+        object SearchClosed : Msg
     }
 }

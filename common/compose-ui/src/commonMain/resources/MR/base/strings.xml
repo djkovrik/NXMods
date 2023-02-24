@@ -13,6 +13,7 @@
     <string name="game_selector_header">Games to track</string>
     <string name="game_selector_sub_header">Selected:</string>
     <string name="game_selector_next">Next</string>
+    <string name="game_selector_empty">Nothing found</string>
     // Mods list
     <string name="mods_list_empty_placeholder">No mods available for this category</string>
     // Home screen

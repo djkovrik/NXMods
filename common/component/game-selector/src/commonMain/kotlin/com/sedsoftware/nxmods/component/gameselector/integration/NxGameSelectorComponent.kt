@@ -87,4 +87,16 @@ class NxGameSelectorComponent(
     override fun onNextButtonClicked() {
         output(Output.NavigateToHomeScreen)
     }
+
+    override fun onSearchButtonClicked() {
+        store.accept(GameSelectorStore.Intent.OpenSearchClick)
+    }
+
+    override fun onSearchCloseButtonClicked() {
+        store.accept(GameSelectorStore.Intent.CloseSearchClick)
+    }
+
+    override fun onSearchTextInput(text: String) {
+        store.accept(GameSelectorStore.Intent.SearchQueryInput(text))
+    }
 }

@@ -10,12 +10,18 @@ internal interface GameSelectorStore : Store<Intent, State, Label> {
 
     sealed class Intent {
         data class BookmarkGame(val domain: String) : Intent()
-        object ClickNextButton : Intent()
+        data class SearchQueryInput(val query: String) : Intent()
+        object OpenSearchClick : Intent()
+        object CloseSearchClick : Intent()
+        object NextButtonClick : Intent()
     }
 
     data class State(
-        val games: List<GameInfo> = emptyList(),
+        val loadedGames: List<GameInfo> = emptyList(),
+        val displayedGames: List<GameInfo> = emptyList(),
+        val searchFieldVisible: Boolean = false,
         val progressVisible: Boolean = true,
+        val searchQueryInput: String = "",
         val bookmarkedGamesCounter: Int = 0,
         val nextButtonAvailable: Boolean = false
     )
