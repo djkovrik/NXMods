@@ -14,8 +14,11 @@ interface NxModsGameSelector {
     data class Model(
         val games: List<GameInfoModel>,
         val bookmarkedCounter: Int,
+        val searchQuery: String,
+        val searchVisible: Boolean,
         val progressVisible: Boolean,
-        val nextButtonAvailable: Boolean
+        val nextButtonAvailable: Boolean,
+        val emptyPlaceholderVisible: Boolean
     )
 
     sealed class Output {

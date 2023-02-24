@@ -8,10 +8,13 @@ import com.sedsoftware.nxmods.utils.prettify
 
 internal val stateToModel: (State) -> Model = {
     Model(
-        games = it.games.toModelList(),
+        games = it.displayedGames.toModelList(),
         bookmarkedCounter = it.bookmarkedGamesCounter,
+        searchQuery = it.searchQueryInput,
+        searchVisible = it.searchFieldVisible,
         progressVisible = it.progressVisible,
-        nextButtonAvailable = it.bookmarkedGamesCounter > 0
+        nextButtonAvailable = it.bookmarkedGamesCounter > 0,
+        emptyPlaceholderVisible = it.searchQueryInput.isNotEmpty() && it.displayedGames.isEmpty()
     )
 }
 
