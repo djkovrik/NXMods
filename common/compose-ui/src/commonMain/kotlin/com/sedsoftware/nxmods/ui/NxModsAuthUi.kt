@@ -38,6 +38,7 @@ import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 import com.sedsoftware.nxmods.component.auth.NxModsAuth
 import com.sedsoftware.nxmods.component.auth.model.ApiKeyStatus
 import com.sedsoftware.nxmods.ui.component.ButtonMain
+import com.sedsoftware.nxmods.ui.component.NxAppBar
 import com.sedsoftware.nxmods.ui.component.ShapedSurface
 import com.sedsoftware.nxmods.ui.component.SplashLogo
 import dev.icerock.moko.resources.compose.stringResource
@@ -89,12 +90,14 @@ internal fun NxModsAuthScreen(
             modifier = modifier,
             containerColor = MaterialTheme.colorScheme.surfaceVariant,
             topBar = {
-                Text(
-                    text = stringResource(MR.strings.auth_header),
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    style = MaterialTheme.typography.headlineSmall,
-                    modifier = modifier.padding(vertical = 16.dp, horizontal = 32.dp)
-                )
+                NxAppBar {
+                    Text(
+                        text = stringResource(MR.strings.auth_header),
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        style = MaterialTheme.typography.headlineSmall,
+                        modifier = modifier.padding(start = 32.dp, end = 32.dp, top = 16.dp)
+                    )
+                }
             }
         ) { paddingValues ->
             ShapedSurface(paddingValues = paddingValues) {

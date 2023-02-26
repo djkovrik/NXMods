@@ -2,10 +2,14 @@
 
 package com.sedsoftware.nxmods.ui
 
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -18,8 +22,10 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.Children
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
@@ -43,6 +49,9 @@ fun NxModsHomeContent(component: NxModsHome, modifier: Modifier = Modifier) {
         drawerState = drawerState,
         modifier = modifier
     ) {
+
+        val animatedRotation = remember { Animatable(0f) }
+
         Scaffold(
             modifier = modifier,
             containerColor = MaterialTheme.colorScheme.surfaceVariant,
@@ -68,6 +77,30 @@ fun NxModsHomeContent(component: NxModsHome, modifier: Modifier = Modifier) {
                             Icon(
                                 imageVector = Icons.Default.Menu,
                                 contentDescription = ""
+                            )
+                        }
+                    },
+                    actions = {
+                        IconButton(
+                            onClick = {
+                                when (val child = childStack.active.instance) {
+                                    is NxModsHome.Child.LatestAdded -> child.component.onRefreshRequest()
+                                    is NxModsHome.Child.LatestUpdated -> child.component.onRefreshRequest()
+                                    is NxModsHome.Child.Trending -> child.component.onRefreshRequest()
+                                }
+
+                                scope.launch {
+                                    animatedRotation.animateTo(
+                                        targetValue = animatedRotation.value + 360f,
+                                        animationSpec = tween(durationMillis = 300, easing = LinearEasing)
+                                    )
+                                }
+                            },
+                            modifier = modifier.rotate(animatedRotation.value)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Refresh,
+                                contentDescription = "",
                             )
                         }
                     },

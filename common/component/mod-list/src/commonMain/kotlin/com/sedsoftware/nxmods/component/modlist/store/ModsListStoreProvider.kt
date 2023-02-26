@@ -64,6 +64,21 @@ internal class ModsListStoreProvider(
                             }
                         )
                 }
+
+                onIntent<Intent.Refresh> {
+                    manager.getModsList(listType)
+                        .observeOn(observeScheduler)
+                        .doOnBeforeSubscribe { dispatch(Msg.ModsLoadingStarted) }
+                        .subscribeScoped(
+                            onNext = { mods ->
+                                dispatch(Msg.ModsLoadingCompleted(mods))
+                            },
+                            onError = { throwable ->
+                                dispatch(Msg.ModsLoadingFailed)
+                                publish(Label.ErrorCaught(LoadModsListException(throwable)))
+                            }
+                        )
+                }
             },
             reducer = { msg ->
                 when (msg) {
