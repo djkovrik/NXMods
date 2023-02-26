@@ -4,10 +4,15 @@ package com.sedsoftware.nxmods.ui
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.FastOutLinearInEasing
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -48,6 +53,7 @@ import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 import com.sedsoftware.nxmods.component.gameselector.NxModsGameSelector
 import com.sedsoftware.nxmods.component.gameselector.model.GameInfoModel
 import com.sedsoftware.nxmods.ui.component.ButtonMain
+import com.sedsoftware.nxmods.ui.component.NxAppBar
 import com.sedsoftware.nxmods.ui.component.RoundCheckbox
 import com.sedsoftware.nxmods.ui.component.ShapedSurface
 import dev.icerock.moko.resources.compose.stringResource
@@ -77,83 +83,19 @@ internal fun NxModsGameSelectorScreen(
     onSearchInput: (String) -> Unit = {},
 ) {
 
-    val keyboardController = LocalSoftwareKeyboardController.current
 
     Scaffold(
         modifier = modifier,
         containerColor = MaterialTheme.colorScheme.surfaceVariant,
         topBar = {
-            if (model.searchVisible) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
+            NxAppBar {
+                GameSelectorAppBar(
+                    model = model,
+                    onSearchClicked = onSearchClicked,
+                    onSearchCloseClicked = onSearchCloseClicked,
+                    onSearchInput = onSearchInput,
                     modifier = modifier
-                        .fillMaxWidth()
-                        .padding(start = 32.dp, top = 5.dp, bottom = 4.dp)
-                ) {
-                    OutlinedTextField(
-                        value = model.searchQuery,
-                        modifier = modifier.weight(1f),
-                        onValueChange = onSearchInput,
-                        maxLines = 1,
-                        keyboardOptions = KeyboardOptions(
-                            imeAction = ImeAction.Done,
-                            autoCorrect = false
-                        ),
-                        keyboardActions = KeyboardActions(
-                            onDone = { keyboardController?.hide() }
-                        ),
-                        shape = MaterialTheme.shapes.medium
-                    )
-                    IconButton(
-                        onClick = {
-                            onSearchCloseClicked.invoke()
-                            keyboardController?.hide()
-                        },
-                        modifier = modifier.padding(all = 16.dp)
-                    ) {
-                        Icon(
-                            imageVector = Icons.Outlined.Close,
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                    }
-                }
-            } else {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = modifier.fillMaxWidth()
-                ) {
-                    Column(modifier = modifier.weight(1f)) {
-                        Text(
-                            text = stringResource(MR.strings.game_selector_header),
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            style = MaterialTheme.typography.headlineSmall,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                            modifier = modifier.padding(start = 32.dp, end = 32.dp, top = 16.dp)
-                        )
-                        Text(
-                            text = "${stringResource(MR.strings.game_selector_sub_header)} ${model.bookmarkedCounter}",
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            style = MaterialTheme.typography.titleMedium,
-                            modifier = modifier.padding(start = 32.dp, end = 32.dp, bottom = 16.dp)
-                        )
-                    }
-
-                    IconButton(
-                        onClick = {
-                            onSearchClicked.invoke()
-                            keyboardController?.show()
-                        },
-                        modifier = modifier.padding(all = 16.dp)
-                    ) {
-                        Icon(
-                            imageVector = Icons.Outlined.Search,
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                    }
-                }
+                )
             }
         }
     ) { paddingValues ->
@@ -228,6 +170,106 @@ internal fun NxModsGameSelectorScreen(
                         )
                     }
                 }
+            }
+        }
+    }
+}
+
+@Composable
+fun GameSelectorAppBar(
+    model: NxModsGameSelector.Model,
+    onSearchClicked: () -> Unit,
+    onSearchCloseClicked: () -> Unit,
+    onSearchInput: (String) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+
+    val keyboardController = LocalSoftwareKeyboardController.current
+
+    AnimatedVisibility(
+        visible = model.searchVisible,
+        enter = slideInHorizontally(
+            initialOffsetX = { fullWidth -> fullWidth },
+            animationSpec = tween(durationMillis = 150, easing = LinearOutSlowInEasing)
+        ),
+        exit = slideOutHorizontally(
+            targetOffsetX = { fullWidth -> fullWidth },
+            animationSpec = tween(durationMillis = 150, easing = FastOutLinearInEasing)
+        ),
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(start = 32.dp)
+        ) {
+            OutlinedTextField(
+                value = model.searchQuery,
+                modifier = modifier.weight(1f),
+                onValueChange = onSearchInput,
+                singleLine = true,
+                keyboardOptions = KeyboardOptions(
+                    imeAction = ImeAction.Done,
+                    autoCorrect = false
+                ),
+                keyboardActions = KeyboardActions(
+                    onDone = { keyboardController?.hide() }
+                ),
+                shape = MaterialTheme.shapes.small
+            )
+            IconButton(
+                onClick = {
+                    onSearchCloseClicked.invoke()
+                    keyboardController?.hide()
+                },
+                modifier = modifier.padding(all = 16.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Outlined.Close,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+        }
+    }
+
+    AnimatedVisibility(
+        visible = !model.searchVisible,
+        enter = fadeIn(),
+        exit = fadeOut(),
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = modifier.fillMaxWidth()
+        ) {
+            Column(modifier = modifier.weight(1f)) {
+                Text(
+                    text = stringResource(MR.strings.game_selector_header),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = MaterialTheme.typography.headlineSmall,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = modifier.padding(horizontal = 32.dp)
+                )
+                Text(
+                    text = "${stringResource(MR.strings.game_selector_sub_header)} ${model.bookmarkedCounter}",
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = MaterialTheme.typography.titleMedium,
+                    modifier = modifier.padding(horizontal = 32.dp)
+                )
+            }
+
+            IconButton(
+                onClick = {
+                    onSearchClicked.invoke()
+                },
+                modifier = modifier.padding(all = 16.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Outlined.Search,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
+                )
             }
         }
     }
