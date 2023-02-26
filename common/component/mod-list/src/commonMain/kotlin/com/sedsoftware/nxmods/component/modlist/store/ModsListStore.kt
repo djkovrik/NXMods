@@ -9,7 +9,9 @@ import com.sedsoftware.nxmods.domain.entity.ModInfo
 
 internal interface ModsListStore : Store<Intent, State, Label> {
 
-    sealed class Intent
+    sealed class Intent {
+        object Refresh : Intent()
+    }
 
     data class State(
         val progress: Boolean = true,

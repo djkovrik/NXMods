@@ -86,4 +86,8 @@ class NxModsListComponent(
     override fun onModInfoClick(domain: String, id: Long) {
         output(Output.OpenModInfo(domain, id))
     }
+
+    override fun onRefreshRequest() {
+        store.accept(ModsListStore.Intent.Refresh)
+    }
 }
