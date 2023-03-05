@@ -2,6 +2,7 @@ package com.sedsoftware.nxmods.ui
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.runtime.Composable
+import com.sedsoftware.nxmods.ui.component.DrawerGameListItem
 import com.sedsoftware.nxmods.ui.stubs.HomeStates
 import com.sedsoftware.nxmods.ui.theme.NxModsTheme
 
@@ -26,5 +27,37 @@ fun ModListPreview() {
 fun ModListPreviewDark() {
     NxModsTheme(useDarkTheme = true) {
         NxModsListScreen(HomeStates.modList)
+    }
+}
+
+@Composable
+@Preview
+fun NavDrawerGame() {
+    NxModsTheme {
+        DrawerGameListItem(HomeStates.drawerGame)
+    }
+}
+
+@Composable
+@Preview
+fun NavDrawerGameDark() {
+    NxModsTheme(useDarkTheme = true) {
+        DrawerGameListItem(HomeStates.drawerGame)
+    }
+}
+
+@Composable
+@Preview
+fun NavDrawerGameSelected() {
+    NxModsTheme {
+        DrawerGameListItem(HomeStates.drawerGameSelected)
+    }
+}
+
+@Composable
+@Preview
+fun NavDrawerGameSelectedDark() {
+    NxModsTheme(useDarkTheme = true) {
+        DrawerGameListItem(HomeStates.drawerGameSelected)
     }
 }

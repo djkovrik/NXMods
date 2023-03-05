@@ -3,6 +3,7 @@ package com.sedsoftware.nxmods.component.home
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.value.Value
 import com.sedsoftware.nxmods.component.home.model.CurrentUser
+import com.sedsoftware.nxmods.component.home.model.NavDrawerGame
 import com.sedsoftware.nxmods.component.modlist.NxModsList
 import com.sedsoftware.nxmods.domain.type.ModListType
 
@@ -15,11 +16,13 @@ interface NxModsHome {
     fun onLatestAddedTabClicked()
     fun onLatestUpdatedTabClicked()
     fun onTrendingTabClicked()
+    fun onDrawerGameClicked(game: NavDrawerGame)
 
     data class Model(
         val user: CurrentUser?,
         val currentGame: String,
         val currentDomain: String,
+        val games: List<NavDrawerGame>
     )
 
     sealed class Child(val type: ModListType, val index: Int) {

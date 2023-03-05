@@ -38,9 +38,18 @@ fun NxModsRootContent(component: NxModsRoot) {
             animation = stackAnimation(fade() + scale()),
         ) {
             when (val child = it.instance) {
-                is NxModsRoot.Child.Auth -> NxModsAuthContent(child.component)
-                is NxModsRoot.Child.GameSelector -> NxModsGameSelectorContent(child.component)
-                is NxModsRoot.Child.Home -> NxModsHomeContent(child.component)
+                is NxModsRoot.Child.Auth -> NxModsAuthContent(
+                    component = child.component
+                )
+
+                is NxModsRoot.Child.GameSelector -> NxModsGameSelectorContent(
+                    component = child.component
+                )
+
+                is NxModsRoot.Child.Home -> NxModsHomeContent(
+                    component = child.component,
+                    onGameSwitched = child.component::onDrawerGameClicked
+                )
             }
         }
     }

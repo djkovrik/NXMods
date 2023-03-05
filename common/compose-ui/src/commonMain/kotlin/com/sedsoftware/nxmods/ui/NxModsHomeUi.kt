@@ -31,13 +31,18 @@ import com.arkivanov.decompose.extensions.compose.jetbrains.stack.Children
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.sedsoftware.nxmods.component.home.NxModsHome
+import com.sedsoftware.nxmods.component.home.model.NavDrawerGame
 import com.sedsoftware.nxmods.domain.type.ModListType
 import com.sedsoftware.nxmods.ui.component.HomeNavigationDrawer
 import com.sedsoftware.nxmods.ui.component.ShapedSurface
 import kotlinx.coroutines.launch
 
 @Composable
-fun NxModsHomeContent(component: NxModsHome, modifier: Modifier = Modifier) {
+fun NxModsHomeContent(
+    component: NxModsHome,
+    modifier: Modifier = Modifier,
+    onGameSwitched: (NavDrawerGame) -> Unit = {}
+) {
     val model: NxModsHome.Model by component.models.subscribeAsState()
     val childStack: ChildStack<*, NxModsHome.Child> by component.childStack.subscribeAsState()
     val currentTab: ModListType = childStack.active.instance.type
@@ -47,7 +52,8 @@ fun NxModsHomeContent(component: NxModsHome, modifier: Modifier = Modifier) {
     HomeNavigationDrawer(
         model = model,
         drawerState = drawerState,
-        modifier = modifier
+        onGameSwitched = onGameSwitched,
+        modifier = modifier,
     ) {
 
         val animatedRotation = remember { Animatable(0f) }

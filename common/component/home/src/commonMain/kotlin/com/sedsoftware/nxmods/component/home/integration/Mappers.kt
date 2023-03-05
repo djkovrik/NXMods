@@ -1,12 +1,20 @@
 package com.sedsoftware.nxmods.component.home.integration
 
 import com.sedsoftware.nxmods.component.home.NxModsHome.Model
+import com.sedsoftware.nxmods.component.home.model.NavDrawerGame
 import com.sedsoftware.nxmods.component.home.store.HomeScreenStore.State
 
-internal val stateToModel: (State) -> Model = {
+internal val stateToModel: (State) -> Model = { state ->
     Model(
-        user = it.user,
-        currentGame = it.currentGame,
-        currentDomain = it.currentDomain,
+        user = state.user,
+        currentGame = state.currentGame,
+        currentDomain = state.currentDomain,
+        games = state.availableGames.map { item ->
+            NavDrawerGame(
+                name = item.name,
+                domain = item.domain,
+                selected = state.currentDomain == item.domain
+            )
+        }
     )
 }
