@@ -5,6 +5,7 @@ import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.bringToFront
 import com.arkivanov.decompose.router.stack.childStack
+import com.arkivanov.decompose.router.stack.items
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.decompose.value.operator.map
 import com.arkivanov.essenty.lifecycle.doOnDestroy
@@ -27,6 +28,7 @@ import com.sedsoftware.nxmods.component.home.NxModsHome.Output
 import com.sedsoftware.nxmods.component.home.domain.NxModsGameSwitcherDb
 import com.sedsoftware.nxmods.component.home.domain.NxModsGameSwitcherManager
 import com.sedsoftware.nxmods.component.home.domain.NxModsGameSwitcherSettings
+import com.sedsoftware.nxmods.component.home.model.NavDrawerGame
 import com.sedsoftware.nxmods.component.home.store.HomeScreenStore
 import com.sedsoftware.nxmods.component.home.store.HomeScreenStore.Label
 import com.sedsoftware.nxmods.component.home.store.HomeScreenStoreProvider
@@ -59,21 +61,22 @@ class NxHomeComponent(
                             db.observeGamesList()
                     },
                     settings = object : NxModsGameSwitcherSettings {
-                        override var selectedGameName: String =
-                            settings.currentGameName
-
-                        override var selectedGameDomain: String =
-                            settings.currentGameDomain
-
+                        override var selectedGameName: String
+                            get() = settings.currentGameName
+                            set(value) {
+                                settings.currentGameName = value
+                            }
+                        override var selectedGameDomain: String
+                            get() = settings.currentGameDomain
+                            set(value) {
+                                settings.currentGameDomain = value
+                            }
                         override val userName: String
                             get() = settings.name
-
                         override val userAvatar: String
                             get() = settings.avatar
-
                         override val isPremium: Boolean
                             get() = settings.isPremium
-
                         override val isSupporter: Boolean
                             get() = settings.isSupporter
                     }
@@ -87,6 +90,16 @@ class NxHomeComponent(
             .subscribe { label ->
                 when (label) {
                     is Label.ErrorCaught -> output(Output.ErrorCaught(label.throwable))
+                    is Label.GameSwitched -> {
+                        childStack.items.forEach {
+                            when (val child = it.instance) {
+                                is Child.LatestAdded -> child.component.onRefreshRequest()
+                                is Child.LatestUpdated -> child.component.onRefreshRequest()
+                                is Child.Trending -> child.component.onRefreshRequest()
+                                else -> Unit
+                            }
+                        }
+                    }
                 }
             }
 
@@ -161,6 +174,10 @@ class NxHomeComponent(
 
     override fun onTrendingTabClicked() {
         navigation.bringToFront(Config.Trending)
+    }
+
+    override fun onDrawerGameClicked(game: NavDrawerGame) {
+        store.accept(HomeScreenStore.Intent.SelectGame(game.name, game.domain))
     }
 
     private fun onModsListOutput(childOutput: NxModsList.Output): Unit =

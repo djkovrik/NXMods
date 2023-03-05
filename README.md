@@ -22,7 +22,7 @@ Compose and Kotlin Multiplatform playground
 - [x] Hide loading with splash
 - [x] Game selector screen search
 - [x] Compose animations
-- [ ] Navigation drawer: active game switcher
+- [x] Navigation drawer: active game switcher
 - [ ] Navigation drawer: game list management
 - [ ] Mod details screen
 - [ ] Endorse/track

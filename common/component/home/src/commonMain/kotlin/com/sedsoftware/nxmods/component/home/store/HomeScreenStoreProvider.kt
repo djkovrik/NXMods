@@ -28,7 +28,8 @@ internal class HomeScreenStoreProvider(
 ) {
 
     fun create(autoInit: Boolean = true): HomeScreenStore = object : HomeScreenStore,
-        Store<Intent, State, Label> by storeFactory.create<Intent, Action, Msg, State, Label>(name = "HomeScreenStore",
+        Store<Intent, State, Label> by storeFactory.create<Intent, Action, Msg, State, Label>(
+            name = "HomeScreenStore",
             initialState = State(),
             autoInit = autoInit,
             bootstrapper = reaktiveBootstrapper {
@@ -64,8 +65,8 @@ internal class HomeScreenStoreProvider(
                         .observeOn(observeScheduler)
                         .subscribeScoped(
                             onComplete = {
-                                dispatch(Msg.GameSelected(intent.name))
-                                dispatch(Msg.DomainSelected(intent.domain))
+                                dispatch(Msg.GameSelected(intent.name, intent.domain))
+                                publish(Label.GameSwitched)
                             },
                             onError = { throwable ->
                                 publish(Label.ErrorCaught(SwitchSelectedGameException(throwable)))
@@ -81,15 +82,14 @@ internal class HomeScreenStoreProvider(
                     )
 
                     is Msg.GameSelected -> copy(
-                        currentGame = msg.name
-                    )
-
-                    is Msg.DomainSelected -> copy(
+                        currentGame = msg.name,
                         currentDomain = msg.domain
                     )
 
                     is Msg.GamesFetched -> copy(
                         availableGames = msg.games
+                            .sortedBy { it.name }
+                            .sortedBy { it.domain == currentDomain }
                     )
 
                 }
@@ -102,8 +102,7 @@ internal class HomeScreenStoreProvider(
 
     private sealed interface Msg {
         data class UserDataLoaded(val info: HomeScreenData) : Msg
-        data class GameSelected(val name: String) : Msg
-        data class DomainSelected(val domain: String) : Msg
+        data class GameSelected(val name: String, val domain: String) : Msg
         data class GamesFetched(val games: List<GameInfo>) : Msg
     }
 }

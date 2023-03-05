@@ -1,5 +1,6 @@
 package com.sedsoftware.nxmods.ui.stubs
 
+import com.sedsoftware.nxmods.component.home.model.NavDrawerGame
 import com.sedsoftware.nxmods.component.modlist.NxModsList
 import com.sedsoftware.nxmods.component.modlist.model.ModInfoModel
 
@@ -29,5 +30,15 @@ internal object HomeStates {
             mod.copy(name = "Mod name 5"),
         ),
         emptyListPlaceholderVisible = false
+    )
+
+    val drawerGame = NavDrawerGame(
+        name = "Cyberpunk 2077",
+        domain = "cyberpunk2077",
+        selected = false
+    )
+
+    val drawerGameSelected = drawerGame.copy(
+        selected = true
     )
 }

@@ -22,5 +22,6 @@ internal interface HomeScreenStore : Store<Intent, State, Label> {
 
     sealed class Label {
         data class ErrorCaught(val throwable: Throwable) : Label()
+        object GameSwitched : Label()
     }
 }
