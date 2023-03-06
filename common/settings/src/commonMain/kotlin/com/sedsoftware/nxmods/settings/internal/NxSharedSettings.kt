@@ -55,6 +55,12 @@ internal class NxSharedSettings(
             settings.setValue(PREF_KEY_GAME_DOMAIN, value)
         }
 
+    override var allowNsfw: Boolean
+        get() = settings.getValue(PREF_KEY_NSFW, false)
+        set(value) {
+            settings.setValue(PREF_KEY_NSFW, value)
+        }
+
     private fun Settings.setValue(key: String, value: Any) {
         when (value) {
             is String -> this.putString(key, value)
@@ -85,5 +91,6 @@ internal class NxSharedSettings(
         const val PREF_KEY_VALID = "pref_key_valid"
         const val PREF_KEY_GAME_NAME = "pref_key_game_name"
         const val PREF_KEY_GAME_DOMAIN = "pref_key_game_domain"
+        const val PREF_KEY_NSFW = "pref_key_nsfw"
     }
 }

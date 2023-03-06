@@ -35,6 +35,7 @@ class AuthStoreTest {
     private var isProfileValidatedStub: Boolean = false
     private var currentDomainStub: String = ""
     private var currentNameStub: String = ""
+    private var allowNsfwStub: Boolean = false
 
     private var label: AuthStore.Label? = null
 
@@ -86,7 +87,11 @@ class AuthStoreTest {
                     set(value) {
                         currentDomainStub = value
                     }
-
+                override var allowNsfw: Boolean
+                    get() = allowNsfwStub
+                    set(value) {
+                        allowNsfwStub = value
+                    }
             },
             scheduler = testScheduler
         )
