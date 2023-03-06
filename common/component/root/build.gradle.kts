@@ -25,6 +25,7 @@ kotlin {
                     export(project(Deps.Module.Component.gameSelector))
                     export(project(Deps.Module.Component.modList))
                     export(project(Deps.Module.Component.home))
+                    export(project(Deps.Module.Component.preferences))
                     export(Deps.ArkIvanov.Decompose.decompose)
                     export(Deps.ArkIvanov.MVIKotlin.mvikotlinMain)
                     export(Deps.ArkIvanov.Essenty.lifecycle)
@@ -44,6 +45,7 @@ kotlin {
                 implementation(project(Deps.Module.Component.gameSelector))
                 implementation(project(Deps.Module.Component.modList))
                 implementation(project(Deps.Module.Component.home))
+                implementation(project(Deps.Module.Component.preferences))
                 implementation(Deps.ArkIvanov.MVIKotlin.mvikotlin)
                 implementation(Deps.ArkIvanov.Decompose.decompose)
             }
@@ -62,6 +64,7 @@ kotlin {
                 api(project(Deps.Module.Component.gameSelector))
                 api(project(Deps.Module.Component.modList))
                 api(project(Deps.Module.Component.home))
+                api(project(Deps.Module.Component.preferences))
                 api(Deps.ArkIvanov.Decompose.decompose)
                 api(Deps.ArkIvanov.MVIKotlin.mvikotlinMain)
                 api(Deps.ArkIvanov.Essenty.lifecycle)

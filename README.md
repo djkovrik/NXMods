@@ -23,7 +23,7 @@ Compose and Kotlin Multiplatform playground
 - [x] Game selector screen search
 - [x] Compose animations
 - [x] Navigation drawer: active game switcher
-- [ ] Navigation drawer: game list management
+- [x] Prefs screen with game list management
 - [ ] Mod details screen
 - [ ] Endorse/track
 - [ ] Github Actions for Google Play
