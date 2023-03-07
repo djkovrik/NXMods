@@ -1,6 +1,7 @@
 package com.sedsoftware.nxmods.component.modlist.domain
 
 import com.badoo.reaktive.observable.Observable
+import com.badoo.reaktive.observable.map
 import com.badoo.reaktive.observable.subscribeOn
 import com.badoo.reaktive.scheduler.Scheduler
 import com.badoo.reaktive.scheduler.ioScheduler
@@ -25,6 +26,13 @@ internal class NxModsListsManager(
             ModListType.LATEST_UPDATED -> api.getLatestUpdated(settings.currentGameDomain)
             ModListType.TRENDING -> api.getTrending(settings.currentGameDomain)
         }
+            .map { mods ->
+                if (settings.allowNsfw) {
+                    mods
+                } else {
+                    mods.filter { !it.containsAdultContent }
+                }
+            }
             .subscribeOn(scheduler)
 
 }
