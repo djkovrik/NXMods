@@ -11,6 +11,7 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
+                implementation(project(Deps.Module.domain))
                 implementation(project(Deps.Module.settings))
 
                 implementation(Deps.ArkIvanov.MVIKotlin.rx)
