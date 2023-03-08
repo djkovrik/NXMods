@@ -13,5 +13,6 @@ include(
     ":common:component:game-selector",
     ":common:component:mod-list",
     ":common:component:home",
+    ":common:component:preferences",
     ":common:compose-ui",
 )

@@ -17,11 +17,15 @@ interface NxModsHome {
     fun onLatestUpdatedTabClicked()
     fun onTrendingTabClicked()
     fun onDrawerGameClicked(game: NavDrawerGame)
+    fun onPreferenceIconClicked()
+    fun onPreferencesChanged()
+    fun onNavDrawerRequested(show: Boolean)
 
     data class Model(
         val user: CurrentUser?,
         val currentGame: String,
         val currentDomain: String,
+        val navDrawerVisible: Boolean,
         val games: List<NavDrawerGame>
     )
 
@@ -33,5 +37,6 @@ interface NxModsHome {
 
     sealed class Output {
         data class ErrorCaught(val throwable: Throwable) : Output()
+        object PreferenceScreenRequested : Output()
     }
 }

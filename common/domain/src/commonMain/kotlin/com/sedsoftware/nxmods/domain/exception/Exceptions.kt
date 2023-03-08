@@ -12,3 +12,6 @@ class SwitchSelectedGameException(cause: Throwable) : Exception(cause)
 
 // User
 class ValidateApiKeyException(cause: Throwable) : Exception(cause)
+
+// Settings
+class PreferencesChangeException(cause: Throwable) : Exception(cause)

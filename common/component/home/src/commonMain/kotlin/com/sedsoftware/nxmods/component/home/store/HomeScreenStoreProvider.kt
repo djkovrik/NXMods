@@ -72,6 +72,8 @@ internal class HomeScreenStoreProvider(
                                 publish(Label.ErrorCaught(SwitchSelectedGameException(throwable)))
                             })
                 }
+
+                onIntent<Intent.ShowNavDrawer> { dispatch(Msg.NavDrawerVisibilityChanged(it.visible)) }
             },
             reducer = { msg ->
                 when (msg) {
@@ -92,6 +94,9 @@ internal class HomeScreenStoreProvider(
                             .sortedBy { it.domain == currentDomain }
                     )
 
+                    is Msg.NavDrawerVisibilityChanged -> copy(
+                        navDrawerVisible = msg.visible
+                    )
                 }
             }) {}
 
@@ -104,5 +109,6 @@ internal class HomeScreenStoreProvider(
         data class UserDataLoaded(val info: HomeScreenData) : Msg
         data class GameSelected(val name: String, val domain: String) : Msg
         data class GamesFetched(val games: List<GameInfo>) : Msg
+        data class NavDrawerVisibilityChanged(val visible: Boolean) : Msg
     }
 }

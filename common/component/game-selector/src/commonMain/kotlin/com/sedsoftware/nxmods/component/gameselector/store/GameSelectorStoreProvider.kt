@@ -24,6 +24,7 @@ import com.sedsoftware.nxmods.domain.exception.FetchRemoteGameListException
 internal class GameSelectorStoreProvider(
     private val storeFactory: StoreFactory,
     private val manager: NxModsGamesManager,
+    private val fromPreferences: Boolean,
     private val observeScheduler: Scheduler = mainScheduler
 ) {
 
@@ -76,7 +77,11 @@ internal class GameSelectorStoreProvider(
                 onIntent<Intent.CloseSearchClick> { dispatch(Msg.SearchClosed) }
 
                 onIntent<Intent.NextButtonClick> {
-                    publish(Label.NextScreenRequested)
+                    if (fromPreferences) {
+                        publish(Label.ScreenCloseRequested)
+                    } else {
+                        publish(Label.NextScreenRequested)
+                    }
                 }
             },
             reducer = { msg ->

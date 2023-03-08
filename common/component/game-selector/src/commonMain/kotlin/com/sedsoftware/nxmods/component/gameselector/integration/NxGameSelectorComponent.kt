@@ -36,6 +36,7 @@ class NxGameSelectorComponent(
     private val api: NxModsApi,
     private val db: NxModsDatabase,
     private val settings: NxModsSettings,
+    private val fromPreferences: Boolean,
     private val output: Consumer<Output>
 ) : NxModsGameSelector, ComponentContext by componentContext {
 
@@ -59,7 +60,8 @@ class NxGameSelectorComponent(
                             db.toggleBookmark(domain)
                     },
                     settings = settings
-                )
+                ),
+                fromPreferences = fromPreferences
             ).create()
         }
 
@@ -69,6 +71,7 @@ class NxGameSelectorComponent(
             .subscribe { label ->
                 when (label) {
                     is Label.NextScreenRequested -> output(Output.NavigateToHomeScreen)
+                    is Label.ScreenCloseRequested -> output(Output.CloseGameSelector)
                     is Label.ErrorCaught -> output(Output.ErrorCaught(label.throwable))
                 }
             }
@@ -85,7 +88,7 @@ class NxGameSelectorComponent(
     }
 
     override fun onNextButtonClicked() {
-        output(Output.NavigateToHomeScreen)
+        store.accept(GameSelectorStore.Intent.NextButtonClick)
     }
 
     override fun onSearchButtonClicked() {

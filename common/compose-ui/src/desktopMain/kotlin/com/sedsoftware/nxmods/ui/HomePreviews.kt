@@ -1,9 +1,13 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package com.sedsoftware.nxmods.ui
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import com.sedsoftware.nxmods.ui.component.DrawerGameListItem
 import com.sedsoftware.nxmods.ui.stubs.HomeStates
+import com.sedsoftware.nxmods.ui.stubs.HomeStates.drawer
 import com.sedsoftware.nxmods.ui.theme.NxModsTheme
 
 @Composable
@@ -34,7 +38,7 @@ fun ModListPreviewDark() {
 @Preview
 fun NavDrawerGame() {
     NxModsTheme {
-        DrawerGameListItem(HomeStates.drawerGame)
+        DrawerGameListItem(HomeStates.drawerGame, drawer)
     }
 }
 
@@ -42,7 +46,7 @@ fun NavDrawerGame() {
 @Preview
 fun NavDrawerGameDark() {
     NxModsTheme(useDarkTheme = true) {
-        DrawerGameListItem(HomeStates.drawerGame)
+        DrawerGameListItem(HomeStates.drawerGame, drawer)
     }
 }
 
@@ -50,7 +54,7 @@ fun NavDrawerGameDark() {
 @Preview
 fun NavDrawerGameSelected() {
     NxModsTheme {
-        DrawerGameListItem(HomeStates.drawerGameSelected)
+        DrawerGameListItem(HomeStates.drawerGameSelected, drawer)
     }
 }
 
@@ -58,6 +62,6 @@ fun NavDrawerGameSelected() {
 @Preview
 fun NavDrawerGameSelectedDark() {
     NxModsTheme(useDarkTheme = true) {
-        DrawerGameListItem(HomeStates.drawerGameSelected)
+        DrawerGameListItem(HomeStates.drawerGameSelected, drawer)
     }
 }

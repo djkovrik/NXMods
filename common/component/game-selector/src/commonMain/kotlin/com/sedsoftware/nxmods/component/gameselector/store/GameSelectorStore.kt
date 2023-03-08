@@ -28,6 +28,7 @@ internal interface GameSelectorStore : Store<Intent, State, Label> {
 
     sealed class Label {
         object NextScreenRequested : Label()
+        object ScreenCloseRequested : Label()
         data class ErrorCaught(val throwable: Throwable) : Label()
     }
 }

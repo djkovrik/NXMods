@@ -19,6 +19,7 @@ kotlin {
                 implementation(project(Deps.Module.Component.gameSelector))
                 implementation(project(Deps.Module.Component.modList))
                 implementation(project(Deps.Module.Component.home))
+                implementation(project(Deps.Module.Component.preferences))
 
                 implementation(Deps.ArkIvanov.Decompose.decompose)
                 implementation(Deps.ArkIvanov.Decompose.extensions)

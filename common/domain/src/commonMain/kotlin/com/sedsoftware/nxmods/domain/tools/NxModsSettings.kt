@@ -9,4 +9,5 @@ interface NxModsSettings {
     var isProfileValidated: Boolean
     var currentGameName: String
     var currentGameDomain: String
+    var allowNsfw: Boolean
 }

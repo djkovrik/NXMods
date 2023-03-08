@@ -20,7 +20,9 @@ import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 internal fun HomeNavigationBar(
-    component: NxModsHome,
+    onLatestAddedClicked: () -> Unit,
+    onLatestUpdatedClicked: () -> Unit,
+    onTrendingClicked: () -> Unit,
     currentTab: ModListType,
     modifier: Modifier = Modifier
 ) {
@@ -32,7 +34,7 @@ internal fun HomeNavigationBar(
 
         NavigationBarItem(
             selected = currentTab == ModListType.LATEST_ADDED,
-            onClick = component::onLatestAddedTabClicked,
+            onClick = onLatestAddedClicked,
             icon = {
                 Icon(
                     imageVector = Icons.Default.RocketLaunch,
@@ -49,7 +51,7 @@ internal fun HomeNavigationBar(
 
         NavigationBarItem(
             selected = currentTab == ModListType.LATEST_UPDATED,
-            onClick = component::onLatestUpdatedTabClicked,
+            onClick = onLatestUpdatedClicked,
             icon = {
                 Icon(
                     imageVector = Icons.Default.Whatshot,
@@ -66,7 +68,7 @@ internal fun HomeNavigationBar(
 
         NavigationBarItem(
             selected = currentTab == ModListType.TRENDING,
-            onClick = component::onTrendingTabClicked,
+            onClick = onTrendingClicked,
             icon = {
                 Icon(
                     imageVector = Icons.Default.TrendingUp,

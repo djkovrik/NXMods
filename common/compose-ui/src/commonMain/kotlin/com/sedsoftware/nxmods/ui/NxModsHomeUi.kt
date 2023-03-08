@@ -21,6 +21,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -38,21 +39,58 @@ import com.sedsoftware.nxmods.ui.component.ShapedSurface
 import kotlinx.coroutines.launch
 
 @Composable
-fun NxModsHomeContent(
-    component: NxModsHome,
-    modifier: Modifier = Modifier,
-    onGameSwitched: (NavDrawerGame) -> Unit = {}
-) {
+fun NxModsHomeContent(component: NxModsHome) {
     val model: NxModsHome.Model by component.models.subscribeAsState()
     val childStack: ChildStack<*, NxModsHome.Child> by component.childStack.subscribeAsState()
+    NxModsHomeScreen(
+        model = model,
+        childStack = childStack,
+        onGameSwitched = component::onDrawerGameClicked,
+        onLatestAddedClicked = component::onLatestAddedTabClicked,
+        onLatestUpdatedClicked = component::onLatestUpdatedTabClicked,
+        onTrendingClicked = component::onTrendingTabClicked,
+        onPreferencesRequested = component::onPreferenceIconClicked,
+        onNavDrawerRequested = component::onNavDrawerRequested
+    )
+}
+
+@Composable
+fun NxModsHomeScreen(
+    model: NxModsHome.Model,
+    childStack: ChildStack<*, NxModsHome.Child>,
+    modifier: Modifier = Modifier,
+    onGameSwitched: (NavDrawerGame) -> Unit = {},
+    onLatestAddedClicked: () -> Unit,
+    onLatestUpdatedClicked: () -> Unit,
+    onTrendingClicked: () -> Unit,
+    onPreferencesRequested: () -> Unit = {},
+    onNavDrawerRequested: (Boolean) -> Unit = {}
+) {
+
     val currentTab: ModListType = childStack.active.instance.type
-    val drawerState = rememberDrawerState(DrawerValue.Closed)
     val scope = rememberCoroutineScope()
+    val drawerState = rememberDrawerState(
+        initialValue = DrawerValue.Closed,
+        confirmStateChange = { drawerValue ->
+            onNavDrawerRequested.invoke(drawerValue == DrawerValue.Open)
+            true
+        }
+    )
+
+    LaunchedEffect(model.navDrawerVisible) {
+        if (model.navDrawerVisible && drawerState.isClosed) {
+            drawerState.open()
+        }
+        if (!model.navDrawerVisible && drawerState.isOpen) {
+            drawerState.close()
+        }
+    }
 
     HomeNavigationDrawer(
         model = model,
         drawerState = drawerState,
         onGameSwitched = onGameSwitched,
+        onPreferencesRequested = onPreferencesRequested,
         modifier = modifier,
     ) {
 
@@ -74,11 +112,7 @@ fun NxModsHomeContent(
                     modifier = modifier,
                     navigationIcon = {
                         IconButton(
-                            onClick = {
-                                scope.launch {
-                                    drawerState.open()
-                                }
-                            }
+                            onClick = { onNavDrawerRequested.invoke(true) }
                         ) {
                             Icon(
                                 imageVector = Icons.Default.Menu,
@@ -130,7 +164,13 @@ fun NxModsHomeContent(
                         }
                     }
 
-                    HomeNavigationBar(component, currentTab, modifier)
+                    HomeNavigationBar(
+                        onLatestAddedClicked = onLatestAddedClicked,
+                        onLatestUpdatedClicked = onLatestUpdatedClicked,
+                        onTrendingClicked = onTrendingClicked,
+                        currentTab = currentTab,
+                        modifier = modifier
+                    )
                 }
             }
         }
