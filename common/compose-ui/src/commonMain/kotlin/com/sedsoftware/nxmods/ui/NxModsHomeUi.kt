@@ -38,13 +38,32 @@ import com.sedsoftware.nxmods.ui.component.ShapedSurface
 import kotlinx.coroutines.launch
 
 @Composable
-fun NxModsHomeContent(
-    component: NxModsHome,
-    modifier: Modifier = Modifier,
-    onGameSwitched: (NavDrawerGame) -> Unit = {}
-) {
+fun NxModsHomeContent(component: NxModsHome) {
     val model: NxModsHome.Model by component.models.subscribeAsState()
     val childStack: ChildStack<*, NxModsHome.Child> by component.childStack.subscribeAsState()
+    NxModsHomeScreen(
+        model = model,
+        childStack = childStack,
+        onGameSwitched = component::onDrawerGameClicked,
+        onLatestAddedClicked = component::onLatestAddedTabClicked,
+        onLatestUpdatedClicked = component::onLatestAddedTabClicked,
+        onTrendingClicked = component::onTrendingTabClicked,
+        onPreferencesRequested = component::onPreferenceIconClicked
+    )
+}
+
+@Composable
+fun NxModsHomeScreen(
+    model: NxModsHome.Model,
+    childStack: ChildStack<*, NxModsHome.Child>,
+    modifier: Modifier = Modifier,
+    onGameSwitched: (NavDrawerGame) -> Unit = {},
+    onLatestAddedClicked: () -> Unit,
+    onLatestUpdatedClicked: () -> Unit,
+    onTrendingClicked: () -> Unit,
+    onPreferencesRequested: () -> Unit = {}
+) {
+
     val currentTab: ModListType = childStack.active.instance.type
     val drawerState = rememberDrawerState(DrawerValue.Closed)
     val scope = rememberCoroutineScope()
@@ -53,6 +72,7 @@ fun NxModsHomeContent(
         model = model,
         drawerState = drawerState,
         onGameSwitched = onGameSwitched,
+        onPreferencesRequested = onPreferencesRequested,
         modifier = modifier,
     ) {
 
@@ -130,7 +150,13 @@ fun NxModsHomeContent(
                         }
                     }
 
-                    HomeNavigationBar(component, currentTab, modifier)
+                    HomeNavigationBar(
+                        onLatestAddedClicked = onLatestAddedClicked,
+                        onLatestUpdatedClicked = onLatestUpdatedClicked,
+                        onTrendingClicked = onTrendingClicked,
+                        currentTab = currentTab,
+                        modifier = modifier
+                    )
                 }
             }
         }

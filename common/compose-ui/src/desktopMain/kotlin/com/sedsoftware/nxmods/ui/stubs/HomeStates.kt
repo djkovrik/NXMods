@@ -1,10 +1,17 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package com.sedsoftware.nxmods.ui.stubs
 
+import androidx.compose.material3.DrawerState
+import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.ExperimentalMaterial3Api
 import com.sedsoftware.nxmods.component.home.model.NavDrawerGame
 import com.sedsoftware.nxmods.component.modlist.NxModsList
 import com.sedsoftware.nxmods.component.modlist.model.ModInfoModel
 
 internal object HomeStates {
+
+    val drawer = DrawerState(DrawerValue.Closed)
 
     val mod = ModInfoModel(
         modId = 123L,

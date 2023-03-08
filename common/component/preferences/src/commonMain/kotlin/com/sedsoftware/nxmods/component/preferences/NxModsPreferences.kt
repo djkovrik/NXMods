@@ -12,6 +12,8 @@ interface NxModsPreferences {
 
     fun onSwitchChanged(key: NxPreferenceKeyUnique, value: Boolean)
 
+    fun onCloseButtonClicked()
+
     data class Model(
         val preferences: NxPreferences
     )

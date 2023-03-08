@@ -47,7 +47,6 @@ class NxModsPreferencesComponent(
                     is Label.ErrorCaught -> output(Output.ErrorCaught(label.throwable))
                     is Label.GameSelectorRequested -> output(Output.GamesSelectorRequested)
                     is Label.PreferencesChanged -> output(Output.PreferencesChanged)
-                    is Label.ScreenClosed -> output(Output.ScreenClosed)
                 }
             }
 
@@ -64,5 +63,9 @@ class NxModsPreferencesComponent(
 
     override fun onSwitchChanged(key: NxPreferenceKeyUnique, value: Boolean) {
         store.accept(PreferencesStore.Intent.ChangeSwitch(key, value))
+    }
+
+    override fun onCloseButtonClicked() {
+        output(Output.ScreenClosed)
     }
 }

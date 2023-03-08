@@ -12,7 +12,7 @@
     // Game selector
     <string name="game_selector_header">Games to track</string>
     <string name="game_selector_sub_header">Selected:</string>
-    <string name="game_selector_next">Next</string>
+    <string name="game_selector_next">Done</string>
     <string name="game_selector_empty">Nothing found</string>
     // Mods list
     <string name="mods_list_empty_placeholder">No mods available for this category</string>
@@ -20,4 +20,8 @@
     <string name="home_tab_latest_added">Latest added</string>
     <string name="home_tab_latest_updated">Latest updated</string>
     <string name="home_tab_trending">Trending</string>
+    // Preferences
+    <string name="preferences_category_content">Content</string>
+    <string name="preferences_option_nsfw">Allow NSFW content</string>
+    <string name="preferences_option_game_selector">Manage tracked games</string>
 </resources>

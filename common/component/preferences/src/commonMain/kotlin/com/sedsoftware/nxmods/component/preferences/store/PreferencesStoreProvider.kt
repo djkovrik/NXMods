@@ -66,8 +66,6 @@ internal class PreferencesStoreProvider(
                         else -> Unit
                     }
                 }
-
-                onIntent<Intent.CloseScreen> { publish(Label.ScreenClosed) }
             },
             reducer = { msg ->
                 when (msg) {

@@ -32,6 +32,7 @@ internal fun HomeNavigationDrawer(
     model: NxModsHome.Model,
     drawerState: DrawerState,
     onGameSwitched: (NavDrawerGame) -> Unit,
+    onPreferencesRequested: () -> Unit,
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit = {}
 ) {
@@ -41,7 +42,13 @@ internal fun HomeNavigationDrawer(
         modifier = modifier,
         drawerContent = {
             ModalDrawerSheet {
-                model.user?.let { HomeUserProfile(it, modifier) }
+                model.user?.let { user ->
+                    HomeUserProfile(
+                        user = user,
+                        modifier = modifier,
+                        onPreferenceClick = onPreferencesRequested,
+                    )
+                }
                 Spacer(
                     modifier = modifier
                         .fillMaxWidth()

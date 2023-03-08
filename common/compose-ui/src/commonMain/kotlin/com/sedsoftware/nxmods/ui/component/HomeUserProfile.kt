@@ -9,9 +9,14 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
@@ -22,6 +27,7 @@ import com.seiko.imageloader.rememberAsyncImagePainter
 internal fun HomeUserProfile(
     user: CurrentUser,
     modifier: Modifier = Modifier,
+    onPreferenceClick: () -> Unit = {},
 ) {
     Row(modifier = modifier.padding(all = 16.dp)) {
         Box(
@@ -40,7 +46,10 @@ internal fun HomeUserProfile(
                 contentDescription = null
             )
         }
-        Column(modifier = modifier.padding(horizontal = 16.dp)) {
+        Column(modifier = modifier
+            .padding(horizontal = 16.dp)
+            .weight(1f)
+        ) {
             Text(
                 text = user.name,
                 style = MaterialTheme.typography.titleMedium,
@@ -59,6 +68,21 @@ internal fun HomeUserProfile(
                     color = MaterialTheme.colorScheme.tertiary
                 )
             }
+        }
+
+        IconButton(
+            onClick = onPreferenceClick,
+            modifier = modifier
+                .clip(CircleShape)
+                .background(color = MaterialTheme.colorScheme.surfaceVariant)
+                .size(40.dp)
+                .align(Alignment.Top)
+        ) {
+            Icon(
+                imageVector = Icons.Default.Settings,
+                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                contentDescription = null
+            )
         }
     }
 }

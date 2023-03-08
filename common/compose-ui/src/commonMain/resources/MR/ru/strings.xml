@@ -12,7 +12,7 @@
     // Game selector
     <string name="game_selector_header">Выберите игры</string>
     <string name="game_selector_sub_header">Выбрано:</string>
-    <string name="game_selector_next">Дальше</string>
+    <string name="game_selector_next">Готово</string>
     <string name="game_selector_empty">Ничего не найдено</string>
     // Mods list
     <string name="mods_list_empty_placeholder">Нет доступных модов для данной категории</string>
@@ -20,4 +20,8 @@
     <string name="home_tab_latest_added">Новые</string>
     <string name="home_tab_latest_updated">Обновленные</string>
     <string name="home_tab_trending">Популярные</string>
+    // Preferences
+    <string name="preferences_category_content">Контент</string>
+    <string name="preferences_option_nsfw">Включить контент для взрослых</string>
+    <string name="preferences_option_game_selector">Настроить отслеживаемые игры</string>
 </resources>
