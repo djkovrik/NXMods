@@ -6,7 +6,6 @@ import com.sedsoftware.nxmods.component.preferences.dsl.NxPreferenceCategory
 import com.sedsoftware.nxmods.component.preferences.dsl.NxPreferenceKeyUnique
 import com.sedsoftware.nxmods.ui.component.preference.PreferenceCategory
 import com.sedsoftware.nxmods.ui.component.preference.PreferenceSwitcher
-import com.sedsoftware.nxmods.ui.stubs.PrefsStubs
 import com.sedsoftware.nxmods.ui.theme.NxModsTheme
 
 @Preview

@@ -29,6 +29,7 @@ interface NxModsGameSelector {
 
     sealed class Output {
         object NavigateToHomeScreen : Output()
+        object CloseGameSelector : Output()
         data class ErrorCaught(val throwable: Throwable) : Output()
     }
 }
