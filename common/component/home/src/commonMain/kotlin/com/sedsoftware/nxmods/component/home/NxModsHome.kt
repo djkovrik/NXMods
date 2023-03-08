@@ -18,6 +18,7 @@ interface NxModsHome {
     fun onTrendingTabClicked()
     fun onDrawerGameClicked(game: NavDrawerGame)
     fun onPreferenceIconClicked()
+    fun onPreferencesChanged()
 
     data class Model(
         val user: CurrentUser?,

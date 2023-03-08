@@ -90,16 +90,7 @@ class NxHomeComponent(
             .subscribe { label ->
                 when (label) {
                     is Label.ErrorCaught -> output(Output.ErrorCaught(label.throwable))
-                    is Label.GameSwitched -> {
-                        childStack.items.forEach {
-                            when (val child = it.instance) {
-                                is Child.LatestAdded -> child.component.onRefreshRequest()
-                                is Child.LatestUpdated -> child.component.onRefreshRequest()
-                                is Child.Trending -> child.component.onRefreshRequest()
-                                else -> Unit
-                            }
-                        }
-                    }
+                    is Label.GameSwitched -> refreshContent()
                 }
             }
 
@@ -184,11 +175,26 @@ class NxHomeComponent(
         output(Output.PreferenceScreenRequested)
     }
 
+    override fun onPreferencesChanged() {
+        refreshContent()
+    }
+
     private fun onModsListOutput(childOutput: NxModsList.Output): Unit =
         when (childOutput) {
             is NxModsList.Output.OpenModInfo -> Unit // TODO
             is NxModsList.Output.ErrorCaught -> output(Output.ErrorCaught(childOutput.throwable))
         }
+
+    private fun refreshContent() {
+        childStack.items.forEach {
+            when (val child = it.instance) {
+                is Child.LatestAdded -> child.component.onRefreshRequest()
+                is Child.LatestUpdated -> child.component.onRefreshRequest()
+                is Child.Trending -> child.component.onRefreshRequest()
+                else -> Unit
+            }
+        }
+    }
 
     private sealed interface Config : Parcelable {
         @Parcelize

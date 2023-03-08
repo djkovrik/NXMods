@@ -3,7 +3,9 @@ package com.sedsoftware.nxmods.root.integration
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation
+import com.arkivanov.decompose.router.stack.active
 import com.arkivanov.decompose.router.stack.childStack
+import com.arkivanov.decompose.router.stack.items
 import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.router.stack.replaceCurrent
@@ -130,9 +132,15 @@ class NxModsRootComponent internal constructor(
         when (output) {
             is NxModsPreferences.Output.ErrorCaught -> errorHandler.consume(output.throwable, messages)
             is NxModsPreferences.Output.GamesSelectorRequested -> navigation.push(Configuration.GameSelector)
-            is NxModsPreferences.Output.PreferencesChanged -> Unit // TODO
             is NxModsPreferences.Output.ScreenClosed -> navigation.pop()
+            is NxModsPreferences.Output.PreferencesChanged -> onPreferenceChangedEvent()
         }
+
+    private fun onPreferenceChangedEvent() {
+        childStack.items.forEach { child ->
+            (child.instance as? Child.Home)?.component?.onPreferencesChanged()
+        }
+    }
 
     private sealed interface Configuration : Parcelable {
         @Parcelize
