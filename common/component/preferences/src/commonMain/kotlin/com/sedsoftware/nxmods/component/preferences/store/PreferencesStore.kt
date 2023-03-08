@@ -11,7 +11,7 @@ internal interface PreferencesStore : Store<Intent, State, Label> {
 
     sealed class Intent {
         class ClickButton(val key: NxPreferenceKeyUnique) : Intent()
-        class ChangeSwitcher(val key: NxPreferenceKeyUnique, val value: Boolean) : Intent()
+        class ChangeSwitch(val key: NxPreferenceKeyUnique, val value: Boolean) : Intent()
         object CloseScreen : Intent()
     }
 

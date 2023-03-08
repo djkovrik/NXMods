@@ -46,7 +46,7 @@ internal class PreferencesStoreProvider(
                         )
                 }
 
-                onIntent<Intent.ChangeSwitcher> {
+                onIntent<Intent.ChangeSwitch> {
                     manager.changePreference(it.key, it.value)
                         .observeOn(observeScheduler)
                         .subscribeScoped(

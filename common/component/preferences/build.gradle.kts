@@ -13,6 +13,7 @@ kotlin {
             dependencies {
                 implementation(project(Deps.Module.domain))
                 implementation(project(Deps.Module.settings))
+                implementation(project(Deps.Module.utils))
 
                 implementation(Deps.ArkIvanov.MVIKotlin.rx)
                 implementation(Deps.ArkIvanov.MVIKotlin.mvikotlin)
