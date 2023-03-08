@@ -47,7 +47,7 @@ fun NxModsHomeContent(component: NxModsHome) {
         childStack = childStack,
         onGameSwitched = component::onDrawerGameClicked,
         onLatestAddedClicked = component::onLatestAddedTabClicked,
-        onLatestUpdatedClicked = component::onLatestAddedTabClicked,
+        onLatestUpdatedClicked = component::onLatestUpdatedTabClicked,
         onTrendingClicked = component::onTrendingTabClicked,
         onPreferencesRequested = component::onPreferenceIconClicked,
         onNavDrawerRequested = component::onNavDrawerRequested

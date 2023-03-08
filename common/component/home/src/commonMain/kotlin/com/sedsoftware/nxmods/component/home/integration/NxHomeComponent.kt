@@ -185,6 +185,7 @@ class NxHomeComponent(
     }
 
     override fun onDrawerGameClicked(game: NavDrawerGame) {
+        store.accept(HomeScreenStore.Intent.ShowNavDrawer(visible = false))
         store.accept(HomeScreenStore.Intent.SelectGame(game.name, game.domain))
     }
 
