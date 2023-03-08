@@ -17,6 +17,7 @@ interface NxModsHome {
     fun onLatestUpdatedTabClicked()
     fun onTrendingTabClicked()
     fun onDrawerGameClicked(game: NavDrawerGame)
+    fun onPreferenceIconClicked()
 
     data class Model(
         val user: CurrentUser?,
@@ -33,5 +34,6 @@ interface NxModsHome {
 
     sealed class Output {
         data class ErrorCaught(val throwable: Throwable) : Output()
+        object PreferenceScreenRequested : Output()
     }
 }

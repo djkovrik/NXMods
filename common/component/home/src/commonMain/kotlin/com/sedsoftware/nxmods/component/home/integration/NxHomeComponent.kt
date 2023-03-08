@@ -180,6 +180,10 @@ class NxHomeComponent(
         store.accept(HomeScreenStore.Intent.SelectGame(game.name, game.domain))
     }
 
+    override fun onPreferenceIconClicked() {
+        output(Output.PreferenceScreenRequested)
+    }
+
     private fun onModsListOutput(childOutput: NxModsList.Output): Unit =
         when (childOutput) {
             is NxModsList.Output.OpenModInfo -> Unit // TODO

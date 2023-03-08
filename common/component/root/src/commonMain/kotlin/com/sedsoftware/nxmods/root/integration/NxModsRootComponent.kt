@@ -4,6 +4,8 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
+import com.arkivanov.decompose.router.stack.pop
+import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.router.stack.replaceCurrent
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.parcelable.Parcelable
@@ -17,6 +19,8 @@ import com.sedsoftware.nxmods.component.gameselector.NxModsGameSelector
 import com.sedsoftware.nxmods.component.gameselector.integration.NxGameSelectorComponent
 import com.sedsoftware.nxmods.component.home.NxModsHome
 import com.sedsoftware.nxmods.component.home.integration.NxHomeComponent
+import com.sedsoftware.nxmods.component.preferences.NxModsPreferences
+import com.sedsoftware.nxmods.component.preferences.integration.NxModsPreferencesComponent
 import com.sedsoftware.nxmods.domain.tools.NxModsApi
 import com.sedsoftware.nxmods.domain.tools.NxModsDatabase
 import com.sedsoftware.nxmods.domain.tools.NxModsSettings
@@ -29,6 +33,7 @@ class NxModsRootComponent internal constructor(
     private val nxModsAuth: (ComponentContext, Consumer<NxModsAuth.Output>) -> NxModsAuth,
     private val nxModsGameSelector: (ComponentContext, Consumer<NxModsGameSelector.Output>) -> NxModsGameSelector,
     private val nxHome: (ComponentContext, Consumer<NxModsHome.Output>) -> NxModsHome,
+    private val nxPreferences: (ComponentContext, Consumer<NxModsPreferences.Output>) -> NxModsPreferences,
 ) : NxModsRoot, ComponentContext by componentContext {
 
     constructor(
@@ -67,6 +72,14 @@ class NxModsRootComponent internal constructor(
                 settings = nxModsSettings,
                 output = output
             )
+        },
+        nxPreferences = { childContext, output ->
+            NxModsPreferencesComponent(
+                componentContext = childContext,
+                storeFactory = storeFactory,
+                settings = nxModsSettings,
+                output = output
+            )
         }
     )
 
@@ -91,6 +104,7 @@ class NxModsRootComponent internal constructor(
             is Configuration.Auth -> Child.Auth(nxModsAuth(componentContext, Consumer(::onAuthOutput)))
             is Configuration.GameSelector -> Child.GameSelector(nxModsGameSelector(componentContext, Consumer(::onGameSelectorOutput)))
             is Configuration.Home -> Child.Home(nxHome(componentContext, Consumer(::onHomeScreenOutput)))
+            is Configuration.Preferences -> Child.Preferences(nxPreferences(componentContext, Consumer(::onPreferenceScreenOutput)))
         }
 
     private fun onAuthOutput(output: NxModsAuth.Output): Unit =
@@ -109,6 +123,15 @@ class NxModsRootComponent internal constructor(
     private fun onHomeScreenOutput(output: NxModsHome.Output): Unit =
         when (output) {
             is NxModsHome.Output.ErrorCaught -> errorHandler.consume(output.throwable, messages)
+            is NxModsHome.Output.PreferenceScreenRequested -> navigation.push(Configuration.Preferences)
+        }
+
+    private fun onPreferenceScreenOutput(output: NxModsPreferences.Output): Unit =
+        when (output) {
+            is NxModsPreferences.Output.ErrorCaught -> errorHandler.consume(output.throwable, messages)
+            is NxModsPreferences.Output.GamesSelectorRequested -> navigation.push(Configuration.GameSelector)
+            is NxModsPreferences.Output.PreferencesChanged -> TODO()
+            is NxModsPreferences.Output.ScreenClosed -> navigation.pop()
         }
 
     private sealed interface Configuration : Parcelable {
@@ -120,5 +143,8 @@ class NxModsRootComponent internal constructor(
 
         @Parcelize
         object Home : Configuration
+
+        @Parcelize
+        object Preferences : Configuration
     }
 }
