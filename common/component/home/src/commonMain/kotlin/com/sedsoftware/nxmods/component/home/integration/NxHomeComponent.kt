@@ -8,12 +8,14 @@ import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.items
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.decompose.value.operator.map
+import com.arkivanov.essenty.backhandler.BackCallback
 import com.arkivanov.essenty.lifecycle.doOnDestroy
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
 import com.arkivanov.mvikotlin.core.instancekeeper.getStore
 import com.arkivanov.mvikotlin.core.store.StoreFactory
 import com.arkivanov.mvikotlin.extensions.reaktive.labels
+import com.arkivanov.mvikotlin.extensions.reaktive.states
 import com.badoo.reaktive.base.Consumer
 import com.badoo.reaktive.base.invoke
 import com.badoo.reaktive.disposable.Disposable
@@ -84,8 +86,13 @@ class NxHomeComponent(
             ).create()
         }
 
+    private val backCallback = BackCallback {
+        store.accept(HomeScreenStore.Intent.ShowNavDrawer(visible = false))
+    }
+
+
     init {
-        val disposable: Disposable = store.labels
+        val labelsDisposable: Disposable = store.labels
             .subscribeOn(mainScheduler)
             .subscribe { label ->
                 when (label) {
@@ -94,12 +101,22 @@ class NxHomeComponent(
                 }
             }
 
+        val storeDisposable: Disposable = store.states
+            .subscribeOn(mainScheduler)
+            .subscribe { state ->
+                backCallback.isEnabled = state.navDrawerVisible
+            }
+
         lifecycle.doOnDestroy {
-            disposable.dispose()
+            labelsDisposable.dispose()
+            storeDisposable.dispose()
         }
+
+        backHandler.register(backCallback)
     }
 
     override val models: Value<Model> = store.asValue().map(stateToModel)
+
 
     private val nxModsListLatestAdded: (ComponentContext, Consumer<NxModsList.Output>) -> NxModsList = { childContext, childOutput ->
         NxModsListComponent(
@@ -177,6 +194,10 @@ class NxHomeComponent(
 
     override fun onPreferencesChanged() {
         refreshContent()
+    }
+
+    override fun onNavDrawerRequested(show: Boolean) {
+        store.accept(HomeScreenStore.Intent.ShowNavDrawer(visible = show))
     }
 
     private fun onModsListOutput(childOutput: NxModsList.Output): Unit =

@@ -9,11 +9,12 @@ internal val stateToModel: (State) -> Model = { state ->
         user = state.user,
         currentGame = state.currentGame,
         currentDomain = state.currentDomain,
+        navDrawerVisible = state.navDrawerVisible,
         games = state.availableGames.map { item ->
             NavDrawerGame(
                 name = item.name,
                 domain = item.domain,
-                selected = state.currentDomain == item.domain
+                selected = state.currentDomain == item.domain,
             )
         }
     )

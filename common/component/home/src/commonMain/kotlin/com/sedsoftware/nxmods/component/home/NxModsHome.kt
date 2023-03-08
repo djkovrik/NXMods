@@ -19,11 +19,13 @@ interface NxModsHome {
     fun onDrawerGameClicked(game: NavDrawerGame)
     fun onPreferenceIconClicked()
     fun onPreferencesChanged()
+    fun onNavDrawerRequested(show: Boolean)
 
     data class Model(
         val user: CurrentUser?,
         val currentGame: String,
         val currentDomain: String,
+        val navDrawerVisible: Boolean,
         val games: List<NavDrawerGame>
     )
 

@@ -11,13 +11,15 @@ internal interface HomeScreenStore : Store<Intent, State, Label> {
 
     sealed class Intent {
         data class SelectGame(val name: String, val domain: String) : Intent()
+        data class ShowNavDrawer(val visible: Boolean) : Intent()
     }
 
     data class State(
         val user: CurrentUser? = null,
         val currentGame: String = "",
         val currentDomain: String = "",
-        val availableGames: List<GameInfo> = emptyList()
+        val availableGames: List<GameInfo> = emptyList(),
+        val navDrawerVisible: Boolean = false
     )
 
     sealed class Label {

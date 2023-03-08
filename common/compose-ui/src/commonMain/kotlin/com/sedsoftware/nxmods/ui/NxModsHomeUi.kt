@@ -21,6 +21,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -46,9 +47,10 @@ fun NxModsHomeContent(component: NxModsHome) {
         childStack = childStack,
         onGameSwitched = component::onDrawerGameClicked,
         onLatestAddedClicked = component::onLatestAddedTabClicked,
-        onLatestUpdatedClicked = component::onLatestUpdatedTabClicked,
+        onLatestUpdatedClicked = component::onLatestAddedTabClicked,
         onTrendingClicked = component::onTrendingTabClicked,
-        onPreferencesRequested = component::onPreferenceIconClicked
+        onPreferencesRequested = component::onPreferenceIconClicked,
+        onNavDrawerRequested = component::onNavDrawerRequested
     )
 }
 
@@ -61,12 +63,28 @@ fun NxModsHomeScreen(
     onLatestAddedClicked: () -> Unit,
     onLatestUpdatedClicked: () -> Unit,
     onTrendingClicked: () -> Unit,
-    onPreferencesRequested: () -> Unit = {}
+    onPreferencesRequested: () -> Unit = {},
+    onNavDrawerRequested: (Boolean) -> Unit = {}
 ) {
 
     val currentTab: ModListType = childStack.active.instance.type
-    val drawerState = rememberDrawerState(DrawerValue.Closed)
     val scope = rememberCoroutineScope()
+    val drawerState = rememberDrawerState(
+        initialValue = DrawerValue.Closed,
+        confirmStateChange = { drawerValue ->
+            onNavDrawerRequested.invoke(drawerValue == DrawerValue.Open)
+            true
+        }
+    )
+
+    LaunchedEffect(model.navDrawerVisible) {
+        if (model.navDrawerVisible && drawerState.isClosed) {
+            drawerState.open()
+        }
+        if (!model.navDrawerVisible && drawerState.isOpen) {
+            drawerState.close()
+        }
+    }
 
     HomeNavigationDrawer(
         model = model,
@@ -94,11 +112,7 @@ fun NxModsHomeScreen(
                     modifier = modifier,
                     navigationIcon = {
                         IconButton(
-                            onClick = {
-                                scope.launch {
-                                    drawerState.open()
-                                }
-                            }
+                            onClick = { onNavDrawerRequested.invoke(true) }
                         ) {
                             Icon(
                                 imageVector = Icons.Default.Menu,
