@@ -21,6 +21,7 @@
     <string name="home_tab_latest_updated">Latest updated</string>
     <string name="home_tab_trending">Trending</string>
     // Preferences
+    <string name="preferences_title">Preferences</string>
     <string name="preferences_category_content">Content</string>
     <string name="preferences_option_nsfw">Allow NSFW content</string>
     <string name="preferences_option_game_selector">Manage tracked games</string>

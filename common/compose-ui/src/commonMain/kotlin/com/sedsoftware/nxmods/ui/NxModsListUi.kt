@@ -108,7 +108,7 @@ internal fun ModListItem(
                 shape = if (index != 0) {
                     RoundedCornerShape(size = 8.dp)
                 } else {
-                    RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp)
+                    RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp, bottomStart = 8.dp, bottomEnd = 8.dp)
                 }
             )
             .background(color = MaterialTheme.colorScheme.surfaceVariant)

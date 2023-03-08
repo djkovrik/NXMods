@@ -130,7 +130,7 @@ class NxModsRootComponent internal constructor(
         when (output) {
             is NxModsPreferences.Output.ErrorCaught -> errorHandler.consume(output.throwable, messages)
             is NxModsPreferences.Output.GamesSelectorRequested -> navigation.push(Configuration.GameSelector)
-            is NxModsPreferences.Output.PreferencesChanged -> TODO()
+            is NxModsPreferences.Output.PreferencesChanged -> Unit // TODO
             is NxModsPreferences.Output.ScreenClosed -> navigation.pop()
         }
 
