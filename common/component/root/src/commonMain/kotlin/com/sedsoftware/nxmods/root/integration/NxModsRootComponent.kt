@@ -50,6 +50,7 @@ class NxModsRootComponent internal constructor(
                 componentContext = childContext,
                 storeFactory = storeFactory,
                 api = nxModsApi,
+                db = nxModsDatabase,
                 settings = nxModsSettings,
                 output = output
             )

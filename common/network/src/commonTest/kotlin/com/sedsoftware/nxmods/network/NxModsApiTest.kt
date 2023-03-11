@@ -235,14 +235,14 @@ class NxModsApiTest {
 
     @Test
     fun getTracked_test() {
-        val trackedSub: TestSingleObserver<List<TrackingInfo>> = api.getTracked()
+        val trackedSub: TestSingleObserver<List<TrackingInfo>> = api.getTracked("key")
             .firstOrError()
             .subscribeOn(scheduler)
             .test()
 
         trackedSub.assertNotError()
 
-        val tracked: List<TrackingInfo> = api.getTracked()
+        val tracked: List<TrackingInfo> = api.getTracked("key")
             .firstOrError()
             .subscribeOn(scheduler)
             .blockingGet()
@@ -257,14 +257,14 @@ class NxModsApiTest {
 
     @Test
     fun getEndorsed() {
-        val endorsedSub: TestSingleObserver<List<EndorsementInfo>> = api.getEndorsed()
+        val endorsedSub: TestSingleObserver<List<EndorsementInfo>> = api.getEndorsed("key")
             .firstOrError()
             .subscribeOn(scheduler)
             .test()
 
         endorsedSub.assertNotError()
 
-        val endorsed: List<EndorsementInfo> = api.getEndorsed()
+        val endorsed: List<EndorsementInfo> = api.getEndorsed("key")
             .firstOrError()
             .subscribeOn(scheduler)
             .blockingGet()

@@ -90,8 +90,8 @@ internal class NxModsSharedApi(
             .observeOn(ioScheduler)
             .map(profileToDomain)
 
-    override fun getTracked(): Observable<List<TrackingInfo>> =
-        doGet<List<TrackingInfoModel>>("$BASE_URL/v1/user/tracked_mods.json")
+    override fun getTracked(key: String): Observable<List<TrackingInfo>> =
+        doGet<List<TrackingInfoModel>>("$BASE_URL/v1/user/tracked_mods.json", key)
             .observeOn(ioScheduler)
             .map(trackingInfoListToDomain)
 
@@ -103,8 +103,8 @@ internal class NxModsSharedApi(
         doDelete("$BASE_URL/v1/user/tracked_mods.json", TrackRequestBody(domain, id))
             .observeOn(ioScheduler)
 
-    override fun getEndorsed(): Observable<List<EndorsementInfo>> =
-        doGet<List<EndorsementInfoModel>>("$BASE_URL/v1/user/endorsements.json")
+    override fun getEndorsed(key: String): Observable<List<EndorsementInfo>> =
+        doGet<List<EndorsementInfoModel>>("$BASE_URL/v1/user/endorsements.json", key)
             .observeOn(ioScheduler)
             .map(endorsementInfoListToDomain)
 

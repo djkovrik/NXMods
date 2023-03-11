@@ -79,7 +79,7 @@ internal class NxModsTestApi(
             .observeOn(scheduler)
             .map(profileToDomain)
 
-    override fun getTracked(): Observable<List<TrackingInfo>> =
+    override fun getTracked(key: String): Observable<List<TrackingInfo>> =
         observableOf(GetTracked.response)
             .observeOn(scheduler)
             .map(trackingInfoListToDomain)
@@ -92,7 +92,7 @@ internal class NxModsTestApi(
         trackSubject
             .observeOn(scheduler)
 
-    override fun getEndorsed(): Observable<List<EndorsementInfo>> =
+    override fun getEndorsed(key: String): Observable<List<EndorsementInfo>> =
         observableOf(GetEndorsed.response)
             .observeOn(scheduler)
             .map(endorsementInfoListToDomain)

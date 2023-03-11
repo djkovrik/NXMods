@@ -15,11 +15,6 @@ class EndorsementsManager(
     private val scheduler: Scheduler = ioScheduler
 ) {
 
-    fun fetchAllEndorsements(): Completable =
-        api.getEndorsed()
-            .flatMapCompletable(db::saveEndorsed)
-            .subscribeOn(scheduler)
-
     fun endorse(domain: String, id: Long, version: String): Completable =
         api.endorse(domain, id, version)
             .doOnAfterComplete { db.endorse(domain, id, true) }

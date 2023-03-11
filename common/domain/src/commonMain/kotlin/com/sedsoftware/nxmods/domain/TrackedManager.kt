@@ -3,7 +3,6 @@ package com.sedsoftware.nxmods.domain
 import com.badoo.reaktive.completable.Completable
 import com.badoo.reaktive.completable.doOnAfterComplete
 import com.badoo.reaktive.completable.subscribeOn
-import com.badoo.reaktive.observable.flatMapCompletable
 import com.badoo.reaktive.scheduler.Scheduler
 import com.badoo.reaktive.scheduler.ioScheduler
 import com.sedsoftware.nxmods.domain.tools.NxModsApi
@@ -14,11 +13,6 @@ class TrackedManager(
     private val db: NxModsDatabase,
     private val scheduler: Scheduler = ioScheduler
 ) {
-
-    fun fetchAllTracked(): Completable =
-        api.getTracked()
-            .flatMapCompletable(db::saveTracked)
-            .subscribeOn(scheduler)
 
     fun track(domain: String, id: Long): Completable =
         api.track(domain, id)
