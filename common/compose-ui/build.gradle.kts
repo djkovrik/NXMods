@@ -20,6 +20,7 @@ kotlin {
                 implementation(project(Deps.Module.Component.modList))
                 implementation(project(Deps.Module.Component.home))
                 implementation(project(Deps.Module.Component.preferences))
+                implementation(project(Deps.Module.Component.modInfo))
 
                 implementation(Deps.ArkIvanov.Decompose.decompose)
                 implementation(Deps.ArkIvanov.Decompose.extensions)

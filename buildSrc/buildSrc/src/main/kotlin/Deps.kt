@@ -152,6 +152,7 @@ object Deps {
             const val modList = ":common:component:mod-list"
             const val home = ":common:component:home"
             const val preferences = ":common:component:preferences"
+            const val modInfo = ":common:component:mod-info"
         }
     }
 

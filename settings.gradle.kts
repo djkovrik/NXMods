@@ -14,5 +14,6 @@ include(
     ":common:component:mod-list",
     ":common:component:home",
     ":common:component:preferences",
+    ":common:component:mod-info",
     ":common:compose-ui",
 )
