@@ -1,5 +1,8 @@
-package com.sedsoftware.nxmods.domain
+package com.sedsoftware.nxmods.component.modinfo.domain
 
+import com.badoo.reaktive.completable.Completable
+import com.badoo.reaktive.completable.doOnAfterComplete
+import com.badoo.reaktive.completable.subscribeOn
 import com.badoo.reaktive.observable.Observable
 import com.badoo.reaktive.observable.flatMap
 import com.badoo.reaktive.observable.map
@@ -9,14 +12,11 @@ import com.badoo.reaktive.scheduler.ioScheduler
 import com.sedsoftware.nxmods.domain.entity.CachedModData
 import com.sedsoftware.nxmods.domain.entity.ChangelogItem
 import com.sedsoftware.nxmods.domain.entity.ModInfo
-import com.sedsoftware.nxmods.domain.tools.NxModsApi
-import com.sedsoftware.nxmods.domain.tools.NxModsDatabase
-import com.sedsoftware.nxmods.domain.tools.NxModsSettings
 
-class ModInfoManager(
-    private val api: NxModsApi,
-    private val db: NxModsDatabase,
-    private val settings: NxModsSettings,
+internal class NxModsInfoManager(
+    private val api: NxModsInfoApi,
+    private val db: NxModsInfoDb,
+    private val settings: NxModsInfoSettings,
     private val scheduler: Scheduler = ioScheduler
 ) {
 
@@ -30,6 +30,26 @@ class ModInfoManager(
 
     fun getModChangelog(domain: String, id: Long): Observable<List<ChangelogItem>> =
         api.getChangelog(domain, id)
+            .subscribeOn(scheduler)
+
+    fun endorse(domain: String, id: Long, version: String): Completable =
+        api.endorse(domain, id, version)
+            .doOnAfterComplete { db.endorse(domain, id, true) }
+            .subscribeOn(scheduler)
+
+    fun unendorse(domain: String, id: Long, version: String): Completable =
+        api.unendorse(domain, id, version)
+            .doOnAfterComplete { db.endorse(domain, id, false) }
+            .subscribeOn(scheduler)
+
+    fun track(domain: String, id: Long): Completable =
+        api.track(domain, id)
+            .doOnAfterComplete { db.track(domain, id, true) }
+            .subscribeOn(scheduler)
+
+    fun untrack(domain: String, id: Long): Completable =
+        api.untrack(domain, id)
+            .doOnAfterComplete { db.track(domain, id, false) }
             .subscribeOn(scheduler)
 
     private fun mapWithCached(domain: String, id: Long, data: CachedModData): Observable<ModInfo> =

@@ -5,6 +5,9 @@ import com.sedsoftware.nxmods.domain.exception.BookmarkGameException
 import com.sedsoftware.nxmods.domain.exception.FetchLocalGameListException
 import com.sedsoftware.nxmods.domain.exception.FetchRemoteGameListException
 import com.sedsoftware.nxmods.domain.exception.LoadModsListException
+import com.sedsoftware.nxmods.domain.exception.ModEndorseException
+import com.sedsoftware.nxmods.domain.exception.ModInfoLoadingException
+import com.sedsoftware.nxmods.domain.exception.ModTrackException
 import com.sedsoftware.nxmods.domain.exception.PreferencesChangeException
 import com.sedsoftware.nxmods.domain.exception.SwitchSelectedGameException
 import com.sedsoftware.nxmods.domain.exception.ValidateApiKeyException
@@ -22,6 +25,9 @@ internal class NxModsErrorHandler {
                 is LoadModsListException -> "Failed to load mods list"
                 is SwitchSelectedGameException -> "Failed to change tracked game"
                 is PreferencesChangeException -> "Failed to change preferences"
+                is ModInfoLoadingException -> "Failed to load mod info"
+                is ModEndorseException -> "Failed to endorse mod"
+                is ModTrackException -> "Failed to track mod"
                 else -> "Unknown error"
             }
         )
