@@ -23,8 +23,8 @@ class ModInfoManager(
     private val domain: String
         get() = settings.currentGameDomain
 
-    fun getModInfo(domain: String, id: Long): Observable<ModInfo> =
-        db.getCachedModData(domain, id)
+    fun getModInfo(domain: String, id: Long, categoryId: Long): Observable<ModInfo> =
+        db.getCachedModData(domain, id, categoryId)
             .flatMap { mapWithCached(domain, id, it) }
             .subscribeOn(scheduler)
 
@@ -32,7 +32,9 @@ class ModInfoManager(
         api.getChangelog(domain, id)
             .subscribeOn(scheduler)
 
-    private fun mapWithCached(domain: String, id: Long, data: CachedModData) =
+    private fun mapWithCached(domain: String, id: Long, data: CachedModData): Observable<ModInfo> =
         api.getMod(domain, id)
-            .map { item -> item.copy(isTracked = data.tracked, isEndorsed = data.endorsed) }
+            .map { item ->
+                item.copy(isTracked = data.tracked, isEndorsed = data.endorsed, categoryName = data.category.name)
+            }
 }

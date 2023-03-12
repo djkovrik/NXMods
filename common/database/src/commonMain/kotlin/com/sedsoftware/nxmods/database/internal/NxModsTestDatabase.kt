@@ -20,6 +20,7 @@ import com.sedsoftware.nxmods.database.serializer.ModCategorySerializable.Compan
 import com.sedsoftware.nxmods.domain.entity.CachedModData
 import com.sedsoftware.nxmods.domain.entity.EndorsementInfo
 import com.sedsoftware.nxmods.domain.entity.GameInfo
+import com.sedsoftware.nxmods.domain.entity.ModCategory
 import com.sedsoftware.nxmods.domain.entity.TrackingInfo
 import com.sedsoftware.nxmods.domain.tools.NxModsDatabase
 import com.sedsoftware.nxmods.domain.type.EndorseStatus
@@ -84,7 +85,7 @@ internal class NxModsTestDatabase(
     override fun endorse(domain: String, modId: Long, endorse: Boolean): Completable =
         execute { testing.endorseItem(domain, modId, endorse) }
 
-    override fun getCachedModData(domain: String, modId: Long): Observable<CachedModData> =
+    override fun getCachedModData(domain: String, modId: Long, categoryId: Long): Observable<CachedModData> =
         singleFromFunction { testing.getGameUserState(domain, modId) }
             .asObservable()
             .observeOn(scheduler)
@@ -187,7 +188,8 @@ internal class NxModsTestDatabase(
 
             return CachedModData(
                 endorsed = endorsedEntry != null,
-                tracked = trackedEntry != null
+                tracked = trackedEntry != null,
+                category = ModCategory.empty()
             )
         }
 

@@ -26,6 +26,7 @@ internal object ModInfoModelMapper {
             uid = uid,
             allowRating = allowRating,
             categoryId = categoryId,
+            categoryName = categoryId.toString(),
             endorsementCount = endorsementCount,
             createdTimestamp = createdTimestamp,
             createdTime = Instant.fromEpochSeconds(createdTimestamp).toLocalDateTime(timeZone = TimeZone.currentSystemDefault()),

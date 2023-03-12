@@ -16,6 +16,7 @@ data class ModInfo(
     val uid: Long,
     val allowRating: Boolean,
     val categoryId: Long,
+    val categoryName: String,
     val endorsementCount: Long,
     val createdTimestamp: Long,
     val createdTime: LocalDateTime,

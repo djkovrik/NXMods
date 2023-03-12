@@ -18,5 +18,5 @@ interface NxModsDatabase {
     fun track(domain: String, modId: Long, track: Boolean): Completable
     fun saveEndorsed(items: List<EndorsementInfo>): Completable
     fun endorse(domain: String, modId: Long, endorse: Boolean): Completable
-    fun getCachedModData(domain: String, modId: Long): Observable<CachedModData>
+    fun getCachedModData(domain: String, modId: Long, categoryId: Long): Observable<CachedModData>
 }
