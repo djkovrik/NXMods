@@ -1,8 +1,12 @@
 package com.sedsoftware.nxmods.component.modinfo.store
 
+import com.arkivanov.mvikotlin.core.store.Store
+import com.sedsoftware.nxmods.component.modinfo.store.ModInfoStore.Intent
+import com.sedsoftware.nxmods.component.modinfo.store.ModInfoStore.Label
+import com.sedsoftware.nxmods.component.modinfo.store.ModInfoStore.State
 import kotlinx.datetime.LocalDateTime
 
-internal interface ModInfoStore {
+internal interface ModInfoStore : Store<Intent, State, Label> {
 
     sealed class Intent {
         object Endorse : Intent()

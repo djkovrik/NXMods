@@ -16,12 +16,8 @@ import com.sedsoftware.nxmods.domain.entity.ModInfo
 internal class NxModsInfoManager(
     private val api: NxModsInfoApi,
     private val db: NxModsInfoDb,
-    private val settings: NxModsInfoSettings,
     private val scheduler: Scheduler = ioScheduler
 ) {
-
-    private val domain: String
-        get() = settings.currentGameDomain
 
     fun getModInfo(domain: String, id: Long, categoryId: Long): Observable<ModInfo> =
         db.getCachedModData(domain, id, categoryId)
