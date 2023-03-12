@@ -1,6 +1,6 @@
 package com.sedsoftware.nxmods.component.modinfo.integration
 
-import com.sedsoftware.nxmods.component.modinfo.NxModInfo.Model
+import com.sedsoftware.nxmods.component.modinfo.NxModsInfo.Model
 import com.sedsoftware.nxmods.component.modinfo.store.ModInfoStore.State
 import com.sedsoftware.nxmods.domain.entity.ModInfo
 import com.sedsoftware.nxmods.utils.format

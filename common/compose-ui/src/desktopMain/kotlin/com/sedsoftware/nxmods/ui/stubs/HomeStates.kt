@@ -23,6 +23,7 @@ internal object HomeStates {
         author = "DJ_Kovrik",
         domain = "cyberpunk2077",
         category = "Gameplay",
+        categoryId = 123L,
         downloads = "1.2k",
         endorsements = "2.3k"
     )

@@ -9,6 +9,7 @@ data class ModInfoModel(
     val summary: String,
     val author: String,
     val category: String,
+    val categoryId: Long,
     val downloads: String,
     val endorsements: String,
 )

@@ -42,6 +42,7 @@ fun NxModsRootContent(component: NxModsRoot) {
                 is NxModsRoot.Child.GameSelector -> NxModsGameSelectorContent(component = child.component)
                 is NxModsRoot.Child.Home -> NxModsHomeContent(component = child.component)
                 is NxModsRoot.Child.Preferences -> NxModsPreferencesContent(component = child.component)
+                is NxModsRoot.Child.ModInfo -> NxModsInfoContent(component = child.component)
             }
         }
     }

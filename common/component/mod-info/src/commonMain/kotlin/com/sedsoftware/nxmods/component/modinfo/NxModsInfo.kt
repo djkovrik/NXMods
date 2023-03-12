@@ -2,17 +2,17 @@ package com.sedsoftware.nxmods.component.modinfo
 
 import com.arkivanov.decompose.value.Value
 
-interface NxModInfo {
+interface NxModsInfo {
 
     val models: Value<Model>
 
-    fun onEndorseButtonClicked()
+    fun onEndorseClicked()
 
-    fun onUnendorseButtonClicked()
+    fun onUnendorseClicked()
 
-    fun onTrackButtonClicked()
+    fun onTrackClicked()
 
-    fun onUntrackButtonClicked()
+    fun onUntrackClicked()
 
     data class Model(
         val name: String,

@@ -15,9 +15,9 @@ import com.badoo.reaktive.observable.Observable
 import com.badoo.reaktive.observable.subscribe
 import com.badoo.reaktive.observable.subscribeOn
 import com.badoo.reaktive.scheduler.mainScheduler
-import com.sedsoftware.nxmods.component.modinfo.NxModInfo
-import com.sedsoftware.nxmods.component.modinfo.NxModInfo.Model
-import com.sedsoftware.nxmods.component.modinfo.NxModInfo.Output
+import com.sedsoftware.nxmods.component.modinfo.NxModsInfo
+import com.sedsoftware.nxmods.component.modinfo.NxModsInfo.Model
+import com.sedsoftware.nxmods.component.modinfo.NxModsInfo.Output
 import com.sedsoftware.nxmods.component.modinfo.domain.NxModsInfoApi
 import com.sedsoftware.nxmods.component.modinfo.domain.NxModsInfoDb
 import com.sedsoftware.nxmods.component.modinfo.domain.NxModsInfoManager
@@ -40,7 +40,7 @@ class NxModInfoComponent(
     private val gameDomain: String,
     private val categoryId: Long,
     private val output: Consumer<Output>
-) : NxModInfo, ComponentContext by componentContext {
+) : NxModsInfo, ComponentContext by componentContext {
 
     private val store: ModInfoStore =
         instanceKeeper.getStore {
@@ -99,19 +99,19 @@ class NxModInfoComponent(
 
     override val models: Value<Model> = store.asValue().map(stateToModel)
 
-    override fun onEndorseButtonClicked() {
+    override fun onEndorseClicked() {
         store.accept(ModInfoStore.Intent.Endorse)
     }
 
-    override fun onUnendorseButtonClicked() {
+    override fun onUnendorseClicked() {
         store.accept(ModInfoStore.Intent.Unendorse)
     }
 
-    override fun onTrackButtonClicked() {
+    override fun onTrackClicked() {
         store.accept(ModInfoStore.Intent.Track)
     }
 
-    override fun onUntrackButtonClicked() {
+    override fun onUntrackClicked() {
         store.accept(ModInfoStore.Intent.Untrack)
     }
 }

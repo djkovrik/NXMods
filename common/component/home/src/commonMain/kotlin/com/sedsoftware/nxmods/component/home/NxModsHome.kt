@@ -37,6 +37,7 @@ interface NxModsHome {
 
     sealed class Output {
         data class ErrorCaught(val throwable: Throwable) : Output()
+        data class ModInfoRequested(val id: Long, val domain: String, val categoryId: Long) : Output()
         object PreferenceScreenRequested : Output()
     }
 }

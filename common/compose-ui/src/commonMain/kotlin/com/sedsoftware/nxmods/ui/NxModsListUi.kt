@@ -2,6 +2,7 @@ package com.sedsoftware.nxmods.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -40,13 +41,17 @@ import dev.icerock.moko.resources.compose.stringResource
 @Composable
 fun NxModsListContent(component: NxModsList) {
     val model: NxModsList.Model by component.models.subscribeAsState()
-    NxModsListScreen(model)
+    NxModsListScreen(
+        model = model,
+        onModClicked = component::onModInfoClick
+    )
 }
 
 @Composable
 internal fun NxModsListScreen(
     model: NxModsList.Model,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onModClicked: (String, Long, Long) -> Unit = { _, _, _ -> }
 ) {
 
     if (!model.progressVisible) {
@@ -60,6 +65,7 @@ internal fun NxModsListScreen(
                     item = item,
                     index = index,
                     modifier = modifier
+                        .clickable { onModClicked.invoke(item.domain, item.modId, item.categoryId) }
                 )
 
                 if (index != model.mods.lastIndex) {

@@ -7,7 +7,7 @@ interface NxModsList {
 
     val models: Value<Model>
 
-    fun onModInfoClick(domain: String, id: Long)
+    fun onModInfoClick(domain: String, modId: Long, categoryId: Long)
 
     fun onRefreshRequest()
 
@@ -18,7 +18,7 @@ interface NxModsList {
     )
 
     sealed class Output {
-        data class OpenModInfo(val domain: String, val id: Long) : Output()
+        data class OpenModInfo(val domain: String, val id: Long, val categoryId: Long) : Output()
         data class ErrorCaught(val throwable: Throwable) : Output()
     }
 }
