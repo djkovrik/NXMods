@@ -42,6 +42,7 @@ object Deps {
         }
 
         const val resources = "org.jetbrains.compose.components:components-resources:1.4.0-alpha01-dev942"
+        const val markdown = "org.jetbrains:markdown:0.3.1"
     }
 
     object Android {

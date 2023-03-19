@@ -5,11 +5,16 @@ import com.sedsoftware.nxmods.domain.entity.UserInfo
 import com.sedsoftware.nxmods.domain.type.EndorseStatus
 import com.sedsoftware.nxmods.network.models.ModInfoModel
 import com.sedsoftware.nxmods.network.models.UserInfoModel
+import com.sedsoftware.nxmods.utils.BBCodeConverter
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 
 internal object ModInfoModelMapper {
+
+    private val bbCodeConverter by lazy {
+        BBCodeConverter()
+    }
 
     val modInfoToDomain: ModInfoModel.() -> ModInfo = {
         ModInfo(
@@ -19,7 +24,7 @@ internal object ModInfoModelMapper {
             name = name,
             summary = summary,
             version = version,
-            description = description,
+            description = bbCodeConverter.convertToMarkdown(description),
             pictureUrl = pictureUrl,
             modDownloads = modDownloads,
             modDownloadsUnique = modDownloadsUnique,
