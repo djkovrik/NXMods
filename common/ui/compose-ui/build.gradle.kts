@@ -4,6 +4,10 @@ plugins {
     id("dev.icerock.mobile.multiplatform-resources")
 }
 
+android {
+    namespace = "com.sedsoftware.nxmods.ui"
+}
+
 multiplatformResources {
     multiplatformResourcesPackage = "com.sedsoftware.nxmods.ui"
 }
@@ -13,6 +17,7 @@ kotlin {
         commonMain {
             dependencies {
                 implementation(project(Deps.Module.domain))
+                implementation(project(Deps.Module.UI.markdownWidget))
 
                 implementation(project(Deps.Module.Component.root))
                 implementation(project(Deps.Module.Component.auth))

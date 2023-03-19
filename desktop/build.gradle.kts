@@ -20,7 +20,7 @@ kotlin {
                 implementation(project(Deps.Module.settings))
                 implementation(project(Deps.Module.network))
                 implementation(project(Deps.Module.utils))
-                implementation(project(Deps.Module.ui))
+                implementation(project(Deps.Module.UI.compose))
                 implementation(project(Deps.Module.Component.root))
 
                 implementation(Deps.JetBrains.Coroutines.swing)

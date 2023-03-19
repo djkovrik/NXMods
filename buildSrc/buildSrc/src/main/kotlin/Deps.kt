@@ -144,7 +144,6 @@ object Deps {
         const val settings = ":common:settings"
         const val domain = ":common:domain"
         const val utils = ":common:utils"
-        const val ui = ":common:compose-ui"
 
         object Component {
             const val auth = ":common:component:auth"
@@ -154,6 +153,11 @@ object Deps {
             const val home = ":common:component:home"
             const val preferences = ":common:component:preferences"
             const val modInfo = ":common:component:mod-info"
+        }
+
+        object UI {
+            const val compose = ":common:ui:compose-ui"
+            const val markdownWidget = ":common:ui:markdown-widget"
         }
     }
 
