@@ -20,6 +20,7 @@ internal interface ModInfoStore : Store<Intent, State, Label> {
         val domain: String = "",
         val name: String = "",
         val summary: String = "",
+        val description: String = "",
         val version: String = "",
         val pictureUrl: String = "",
         val categoryName: String = "",

@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 import com.sedsoftware.nxmods.component.modinfo.NxModsInfo
+import com.sedsoftware.nxmods.markdown.NxMarkdown
 
 @Composable
 internal fun NxModsInfoContent(component: NxModsInfo) {
@@ -45,6 +46,6 @@ internal fun NxModsInfoScreen(
             )
         }
     } else {
-        Text(text = model.name)
+        // TODO header + markdown
     }
 }

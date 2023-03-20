@@ -17,6 +17,7 @@ interface NxModsInfo {
     data class Model(
         val name: String,
         val summary: String,
+        val description: String,
         val version: String,
         val picture: String,
         val category: String,

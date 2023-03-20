@@ -10,6 +10,7 @@ internal val stateToModel: (State) -> Model = {
     Model(
         name = it.name,
         summary = it.summary,
+        description = it.description,
         version = it.version,
         picture = it.pictureUrl,
         category = it.categoryName,
@@ -28,6 +29,7 @@ internal fun State.applyModInfo(info: ModInfo): State =
     copy(
         name = info.name,
         summary = info.summary,
+        description = info.description,
         version = info.version,
         pictureUrl = info.pictureUrl,
         categoryName = info.categoryName,
