@@ -51,7 +51,11 @@ internal class ModInfoStoreProvider(
                 }
 
                 onIntent<Intent.Endorse> {
-                    manager.endorse(state.domain, state.id, state.version)
+                    if (state.isEndorsed) {
+                        manager.unendorse(state.domain, state.id, state.version)
+                    } else {
+                        manager.endorse(state.domain, state.id, state.version)
+                    }
                         .observeOn(observeScheduler)
                         .subscribeScoped(
                             onComplete = {
@@ -63,38 +67,16 @@ internal class ModInfoStoreProvider(
                         )
                 }
 
-                onIntent<Intent.Unendorse> {
-                    manager.unendorse(state.domain, state.id, state.version)
-                        .observeOn(observeScheduler)
-                        .subscribeScoped(
-                            onComplete = {
-                                dispatch(Msg.Unendorsed)
-                            },
-                            onError = { throwable ->
-                                publish(Label.ErrorCaught(ModEndorseException(throwable)))
-                            }
-                        )
-                }
-
                 onIntent<Intent.Track> {
-                    manager.track(state.domain, state.id)
+                    if (state.isTracked) {
+                        manager.untrack(state.domain, state.id)
+                    } else {
+                        manager.track(state.domain, state.id)
+                    }
                         .observeOn(observeScheduler)
                         .subscribeScoped(
                             onComplete = {
                                 dispatch(Msg.Tracked)
-                            },
-                            onError = { throwable ->
-                                publish(Label.ErrorCaught(ModTrackException(throwable)))
-                            }
-                        )
-                }
-
-                onIntent<Intent.Untrack> {
-                    manager.untrack(state.domain, state.id)
-                        .observeOn(observeScheduler)
-                        .subscribeScoped(
-                            onComplete = {
-                                dispatch(Msg.Untracked)
                             },
                             onError = { throwable ->
                                 publish(Label.ErrorCaught(ModTrackException(throwable)))

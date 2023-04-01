@@ -103,15 +103,7 @@ class NxModInfoComponent(
         store.accept(ModInfoStore.Intent.Endorse)
     }
 
-    override fun onUnendorseClicked() {
-        store.accept(ModInfoStore.Intent.Unendorse)
-    }
-
     override fun onTrackClicked() {
         store.accept(ModInfoStore.Intent.Track)
-    }
-
-    override fun onUntrackClicked() {
-        store.accept(ModInfoStore.Intent.Untrack)
     }
 }

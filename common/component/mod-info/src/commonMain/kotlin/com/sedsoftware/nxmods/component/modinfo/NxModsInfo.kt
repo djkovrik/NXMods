@@ -8,11 +8,7 @@ interface NxModsInfo {
 
     fun onEndorseClicked()
 
-    fun onUnendorseClicked()
-
     fun onTrackClicked()
-
-    fun onUntrackClicked()
 
     data class Model(
         val name: String,

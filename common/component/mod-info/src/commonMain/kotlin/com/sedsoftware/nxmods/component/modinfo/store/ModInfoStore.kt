@@ -10,9 +10,7 @@ internal interface ModInfoStore : Store<Intent, State, Label> {
 
     sealed class Intent {
         object Endorse : Intent()
-        object Unendorse : Intent()
         object Track : Intent()
-        object Untrack : Intent()
     }
 
     data class State(

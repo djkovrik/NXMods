@@ -19,9 +19,7 @@ internal fun NxModsInfoContent(component: NxModsInfo) {
     NxModsInfoScreen(
         model = model,
         onEndorseClicked = component::onEndorseClicked,
-        onUnendorseClicked = component::onUnendorseClicked,
         onTrackClicked = component::onTrackClicked,
-        onUntrackClicked = component::onUntrackClicked
     )
 }
 
@@ -30,9 +28,7 @@ internal fun NxModsInfoScreen(
     model: NxModsInfo.Model,
     modifier: Modifier = Modifier,
     onEndorseClicked: () -> Unit = {},
-    onUnendorseClicked: () -> Unit = {},
     onTrackClicked: () -> Unit = {},
-    onUntrackClicked: () -> Unit = {},
 ) {
 
     if (model.progressVisible) {
