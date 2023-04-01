@@ -106,4 +106,8 @@ class NxModInfoComponent(
     override fun onTrackClicked() {
         store.accept(ModInfoStore.Intent.Track)
     }
+
+    override fun onBackClicked() {
+        output(Output.ScreenCloseRequested)
+    }
 }

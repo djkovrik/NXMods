@@ -17,6 +17,7 @@ kotlin {
         commonMain {
             dependencies {
                 implementation(project(Deps.Module.domain))
+                implementation(project(Deps.Module.utils))
                 implementation(project(Deps.Module.UI.markdownWidget))
 
                 implementation(project(Deps.Module.Component.root))

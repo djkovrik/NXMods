@@ -198,6 +198,8 @@ class NxModsRootComponent internal constructor(
         when (output) {
             is NxModsInfo.Output.ErrorCaught ->
                 errorHandler.consume(output.throwable, messages)
+            is NxModsInfo.Output.ScreenCloseRequested ->
+                navigation.pop()
         }
 
     private fun onPreferenceChangedEvent() {

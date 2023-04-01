@@ -10,6 +10,8 @@ interface NxModsInfo {
 
     fun onTrackClicked()
 
+    fun onBackClicked()
+
     data class Model(
         val name: String,
         val summary: String,
@@ -29,5 +31,6 @@ interface NxModsInfo {
 
     sealed class Output {
         data class ErrorCaught(val throwable: Throwable) : Output()
+        object ScreenCloseRequested : Output()
     }
 }
