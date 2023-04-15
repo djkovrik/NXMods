@@ -11,27 +11,26 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.rounded.ThumbUp
-import androidx.compose.material.icons.rounded.TrackChanges
+import androidx.compose.material.icons.outlined.ThumbUp
+import androidx.compose.material.icons.outlined.TrackChanges
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.unit.dp
-import kotlin.math.roundToInt
-
-private val ContentPadding = 8.dp
-private val ButtonSize = 24.dp
-private const val Alpha = 0.75f
+import com.sedsoftware.nxmods.ui.component.toolbar.MinToolbarHeight
+import com.sedsoftware.nxmods.ui.component.toolbar.ToolbarButtonSize
 
 @Composable
 fun NxAppBarCollapsing(
+    title: String,
     imageUrl: String,
     progress: Float,
     modifier: Modifier = Modifier
@@ -44,68 +43,88 @@ fun NxAppBarCollapsing(
         Box(modifier = Modifier.fillMaxSize()) {
             // Background image
             Box(
-                modifier = Modifier
+                modifier = modifier
+                    .background(Color.Green)
                     .fillMaxSize()
-                    .background(Color.Yellow)
-                    .graphicsLayer { alpha = progress * Alpha }
-                    .fillMaxSize()
+                    .graphicsLayer { alpha = progress * 0.75f }
             )
+
+//            Image(
+//                painter = rememberAsyncImagePainter(url = imageUrl),
+//                contentDescription = null,
+//                contentScale = ContentScale.Crop,
+//                modifier = Modifier
+//                    .fillMaxSize()
+//                    .graphicsLayer { alpha = progress * Alpha },
+//                alignment = BiasAlignment(0f, 1f - ((1f - progress) * 0.75f))
+//            )
 
             Box(
                 modifier = Modifier
-                    .padding(horizontal = ContentPadding)
+                    .padding(horizontal = 8.dp)
                     .fillMaxSize()
             ) {
                 CollapsingToolbarLayout(progress = progress) {
-                    // Back button
+
+                    // Back arrow
                     IconButton(
-                        onClick = { },
-                        modifier = modifier
-                            .size(ButtonSize)
+                        onClick = {},
+                        modifier = Modifier
+                            .size(ToolbarButtonSize)
                             .background(
                                 color = LocalContentColor.current.copy(alpha = 0.0f),
                                 shape = CircleShape
                             )
                     ) {
                         Icon(
+                            modifier = Modifier.fillMaxSize(),
                             imageVector = Icons.Default.ArrowBack,
-                            modifier = modifier,
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
                             contentDescription = null,
                         )
                     }
 
-                    // Endorse + track buttons
+                    // Title
+                    Text(
+                        text = title,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        style = MaterialTheme.typography.titleMedium,
+                    )
+
+                    // Info buttons
                     Row(
                         modifier = Modifier.wrapContentSize(),
-                        horizontalArrangement = Arrangement.spacedBy(ContentPadding)
+                        horizontalArrangement = Arrangement.spacedBy(16.dp)
                     ) {
                         IconButton(
-                            onClick = { },
-                            modifier = modifier
-                                .size(ButtonSize)
+                            onClick = {},
+                            modifier = Modifier
+                                .size(ToolbarButtonSize)
                                 .background(
                                     color = LocalContentColor.current.copy(alpha = 0.0f),
                                     shape = CircleShape
                                 )
                         ) {
                             Icon(
-                                imageVector = Icons.Rounded.ThumbUp,
-                                modifier = modifier,
+                                modifier = Modifier.fillMaxSize(),
+                                imageVector = Icons.Outlined.TrackChanges,
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
                                 contentDescription = null,
                             )
                         }
                         IconButton(
-                            onClick = { },
-                            modifier = modifier
-                                .size(ButtonSize)
+                            onClick = {},
+                            modifier = Modifier
+                                .size(ToolbarButtonSize)
                                 .background(
                                     color = LocalContentColor.current.copy(alpha = 0.0f),
                                     shape = CircleShape
                                 )
                         ) {
                             Icon(
-                                imageVector = Icons.Rounded.TrackChanges,
-                                modifier = modifier,
+                                modifier = Modifier.fillMaxSize(),
+                                imageVector = Icons.Outlined.ThumbUp,
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
                                 contentDescription = null,
                             )
                         }
@@ -126,31 +145,44 @@ private fun CollapsingToolbarLayout(
         modifier = modifier,
         content = content
     ) { measurables, constraints ->
-        check(measurables.size == 2) // [0]: Back button, [1]: Buttons
+        check(measurables.size == 3)
 
         val placeables = measurables.map {
             it.measure(constraints)
         }
+
         layout(
             width = constraints.maxWidth,
             height = constraints.maxHeight
         ) {
 
-            val collapsedHorizontalGuideline = (constraints.maxHeight * 0.5f).roundToInt()
+            val backArrow = placeables[0]
+            val title = placeables[1]
+            val buttons = placeables[2]
 
-            val backButton = placeables[0]
-            val buttons = placeables[1]
-
-            backButton.placeRelative(
+            backArrow.placeRelative(
                 x = 0,
-                y = collapsedHorizontalGuideline - backButton.height / 2,
+                y = (MinToolbarHeight.toPx() / 2.0).toInt() - backArrow.height / 2,
+            )
+
+            title.placeRelative(
+                x = lerpInt(
+                    start = 0,
+                    stop = (backArrow.width * 1.5).toInt(),
+                    fraction = progress
+                ),
+                y = lerpInt(
+                    start = constraints.maxHeight - (title.height * 1.5).toInt(),
+                    stop = (MinToolbarHeight.toPx() / 2.0).toInt() - title.height / 2,
+                    fraction = progress
+                )
             )
 
             buttons.placeRelative(
                 x = constraints.maxWidth - buttons.width,
-                y = cLerp(
-                    start = (constraints.maxHeight - buttons.height) / 2,
-                    stop = 0,
+                y = lerpInt(
+                    start = constraints.maxHeight - (buttons.height * 1.5).toInt(),
+                    stop = (MinToolbarHeight.toPx() / 2.0).toInt() - buttons.height / 2,
                     fraction = progress
                 )
             )
@@ -158,16 +190,5 @@ private fun CollapsingToolbarLayout(
     }
 }
 
-private fun cLerp(start: Int, stop: Int, fraction: Float): Int =
+private fun lerpInt(start: Int, stop: Int, fraction: Float): Int =
     (start * fraction + stop * (1f - fraction)).toInt()
-
-
-//            Image(
-//                painter = rememberAsyncImagePainter(url = imageUrl),
-//                contentDescription = null,
-//                contentScale = ContentScale.Crop,
-//                modifier = Modifier
-//                    .fillMaxSize()
-//                    .graphicsLayer { alpha = progress * Alpha },
-//                alignment = BiasAlignment(0f, 1f - ((1f - progress) * 0.75f))
-//            )

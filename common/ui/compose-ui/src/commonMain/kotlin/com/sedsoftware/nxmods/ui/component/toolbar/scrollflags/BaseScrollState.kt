@@ -3,7 +3,7 @@ package com.sedsoftware.nxmods.ui.component.toolbar.scrollflags
 import androidx.compose.runtime.saveable.mapSaver
 import com.sedsoftware.nxmods.ui.component.toolbar.ScrollFlagState
 
-class ScrollState(
+class BaseScrollState(
     heightRange: IntRange,
     scrollValue: Int = 0
 ) : ScrollFlagState(heightRange, scrollValue) {
@@ -36,7 +36,7 @@ class ScrollState(
                     )
                 },
                 restore = {
-                    ScrollState(
+                    BaseScrollState(
                         heightRange = (it[minHeightKey] as Int)..(it[maxHeightKey] as Int),
                         scrollValue = it[scrollValueKey] as Int
                     )

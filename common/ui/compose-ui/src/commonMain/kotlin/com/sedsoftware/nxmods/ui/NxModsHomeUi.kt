@@ -154,7 +154,7 @@ fun NxModsHomeScreen(
                 Column(modifier = modifier) {
                     Children(
                         stack = childStack,
-                        modifier = Modifier.weight(weight = 1F),
+                        modifier = Modifier.weight(weight = 1f),
                         animation = tabAnimation(),
                     ) {
                         when (val child = it.instance) {
