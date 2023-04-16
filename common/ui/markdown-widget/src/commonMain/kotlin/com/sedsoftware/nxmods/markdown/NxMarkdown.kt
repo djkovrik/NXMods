@@ -2,12 +2,15 @@ package com.sedsoftware.nxmods.markdown
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.sedsoftware.nxmods.markdown.element.MarkdownBlockQuote
 import com.sedsoftware.nxmods.markdown.element.MarkdownBulletList
 import com.sedsoftware.nxmods.markdown.element.MarkdownCodeBlock
@@ -47,7 +50,7 @@ fun NxMarkdown(
 ) {
 
     val flavour: MarkdownFlavourDescriptor = remember { CommonMarkFlavourDescriptor() }
-    val markdownTree: ASTNode = remember { MarkdownParser(flavour).buildMarkdownTreeFromString(markdown) }
+    val markdownTree: ASTNode = MarkdownParser(flavour).buildMarkdownTreeFromString(markdown)
 
     CompositionLocalProvider(
         LocalReferenceLinkHandler provides ReferenceLinkHandlerImpl(),
@@ -55,7 +58,7 @@ fun NxMarkdown(
         LocalMarkdownColors provides colors,
         LocalMarkdownTypography provides typography,
     ) {
-        Column(modifier) {
+        Column(modifier = modifier) {
             markdownTree.children.forEach { node ->
                 if (!node.handleElement(markdown)) {
                     node.children.forEach { child ->

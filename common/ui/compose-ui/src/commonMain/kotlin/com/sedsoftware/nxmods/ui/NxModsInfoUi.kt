@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -12,7 +13,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -23,6 +23,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 import com.sedsoftware.nxmods.component.modinfo.NxModsInfo
+import com.sedsoftware.nxmods.markdown.NxMarkdown
 import com.sedsoftware.nxmods.ui.component.NxAppBarCollapsing
 import com.sedsoftware.nxmods.ui.component.ShapedSurface
 import com.sedsoftware.nxmods.ui.component.toolbar.MaxToolbarHeight
@@ -78,6 +79,7 @@ internal fun NxModsInfoScreen(
     ) {
         // Content
         ModInfoContent(
+            model = model,
             scrollState = scrollState,
             modifier = modifier,
             contentPadding = PaddingValues(top = MaxToolbarHeight)
@@ -101,6 +103,7 @@ internal fun NxModsInfoScreen(
 
 @Composable
 private fun ModInfoContent(
+    model: NxModsInfo.Model,
     scrollState: ScrollState,
     contentPadding: PaddingValues,
     modifier: Modifier = Modifier,
@@ -110,14 +113,11 @@ private fun ModInfoContent(
         paddingValues = contentPadding,
         modifier = Modifier.verticalScroll(scrollState)
     ) {
-        Column(modifier = Modifier.fillMaxWidth()) {
-            repeat(50) {
-                Text(
-                    text = "Item $it",
-                    style = MaterialTheme.typography.titleLarge,
-                    modifier = modifier.padding(all = 16.dp)
-                )
-            }
+        Column {
+            NxMarkdown(
+                markdown = model.description,
+                modifier = modifier.padding(start = 8.dp, top = 32.dp, end = 8.dp, bottom = 8.dp),
+            )
         }
     }
 }
