@@ -25,6 +25,7 @@ interface MarkdownTypography {
 }
 
 @Immutable
+@Suppress("LongParameterList")
 private class DefaultMarkdownTypography(
     override val h1: TextStyle,
     override val h2: TextStyle,

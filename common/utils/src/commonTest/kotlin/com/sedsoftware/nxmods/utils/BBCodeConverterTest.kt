@@ -12,6 +12,7 @@ class BBCodeConverterTest {
         assertTrue { converted.isNotEmpty() }
     }
 
+    @Suppress("MaxLineLength")
     companion object {
         private const val TEXT = "[b][u][color=#00ff00][size=4][img]https://media.giphy.com/media/aNetD4ZmOOJTnJpaki/giphy.gif[/img]\n" +
             "<br />\n<br />What it does:[/size][/color][/u][/b]\n<br />- Lets you sit down almost everywhere in Night City to soak in its " +

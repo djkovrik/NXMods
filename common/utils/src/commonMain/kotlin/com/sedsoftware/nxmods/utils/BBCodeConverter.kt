@@ -26,6 +26,7 @@ class BBCodeConverter {
         }
 
         index = 0
+        @Suppress("LoopWithTooManyJumpStatements")
         while (s.indexOf(TAG_PREFIX, index).also { index = it } != -1) {
             val closingIndex = process(s, index, false)
             if (closingIndex == -1) {
@@ -48,6 +49,7 @@ class BBCodeConverter {
         return s
     }
 
+    @Suppress("MagicNumber")
     private fun removeTrailingWhitespaces(str: String): String? {
         var s = str
         var index = 0
@@ -80,6 +82,7 @@ class BBCodeConverter {
         return if (foundTrailingSpace) s else null
     }
 
+    @Suppress("ReturnCount")
     private fun process(s: String, index: Int, deduplicate: Boolean): Int {
         val tagSuffixIndex = s.indexOf(TAG_SUFFIX, index)
         if (tagSuffixIndex == -1 || tagSuffixIndex == index + 1) {

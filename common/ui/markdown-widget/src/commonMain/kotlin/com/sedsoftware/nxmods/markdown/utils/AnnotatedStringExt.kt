@@ -40,6 +40,7 @@ internal fun AnnotatedString.Builder.buildMarkdownAnnotatedString(content: Strin
     buildMarkdownAnnotatedString(content, node.children)
 }
 
+@Suppress("ComplexMethod")
 internal fun AnnotatedString.Builder.buildMarkdownAnnotatedString(content: String, children: List<ASTNode>) {
     children.forEach { child ->
         when (child.type) {

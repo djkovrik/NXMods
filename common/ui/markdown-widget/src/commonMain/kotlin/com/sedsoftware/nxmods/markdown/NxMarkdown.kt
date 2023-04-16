@@ -71,6 +71,7 @@ fun NxMarkdown(
 }
 
 @Composable
+@Suppress("ComplexMethod")
 private fun ASTNode.handleElement(content: String): Boolean {
     val typography = LocalMarkdownTypography.current
     var handled = true

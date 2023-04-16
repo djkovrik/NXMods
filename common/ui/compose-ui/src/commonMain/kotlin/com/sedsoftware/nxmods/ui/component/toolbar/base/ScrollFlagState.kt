@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.structuralEqualityPolicy
 
+@Suppress("ObjectPropertyNaming")
 abstract class ScrollFlagState(heightRange: IntRange, scrollValue: Int) : ToolbarState {
 
     init {
@@ -17,6 +18,7 @@ abstract class ScrollFlagState(heightRange: IntRange, scrollValue: Int) : Toolba
     protected val maxHeight = heightRange.last
     protected val rangeDifference = heightRange.last - heightRange.first
 
+    @Suppress("VariableNaming")
     protected var _scrollValue by mutableStateOf(
         value = scrollValue.coerceAtLeast(0),
         policy = structuralEqualityPolicy()
