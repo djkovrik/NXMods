@@ -25,14 +25,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.BiasAlignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
 import com.sedsoftware.nxmods.ui.component.toolbar.MaxToolbarHeight
 import com.sedsoftware.nxmods.ui.component.toolbar.MinToolbarHeight
@@ -48,9 +47,15 @@ fun NxAppBarCollapsing(
     modifier: Modifier = Modifier
 ) {
 
-    val density = LocalDensity.current
-    val heightInPx = remember { with(density) { MaxToolbarHeight.toPx() } }
-    val titlePadding = remember { with(density) { ToolbarButtonSize.toPx() } * 1.1f }
+    val density: Density = LocalDensity.current
+    val heightInPx: Float = remember { with(density) { MaxToolbarHeight.toPx() } }
+
+    val currentTitlePadding: Float = with(density) {
+        val titlePaddingMin = ToolbarButtonSize.toPx() * 1.1f
+        val titlePaddingMax = ToolbarButtonSize.toPx() * 1.6f
+        val diff = titlePaddingMax - titlePaddingMin
+        titlePaddingMin + diff * (1f - progress)
+    }
 
     Surface(
         color = MaterialTheme.colorScheme.primary,
@@ -118,7 +123,7 @@ fun NxAppBarCollapsing(
                         overflow = TextOverflow.Ellipsis,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(end = titlePadding.dp)
+                            .padding(end = currentTitlePadding.dp)
                     )
 
                     // Info buttons
