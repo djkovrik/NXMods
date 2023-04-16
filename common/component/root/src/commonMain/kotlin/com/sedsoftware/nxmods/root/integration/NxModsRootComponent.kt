@@ -20,6 +20,8 @@ import com.sedsoftware.nxmods.component.gameselector.NxModsGameSelector
 import com.sedsoftware.nxmods.component.gameselector.integration.NxGameSelectorComponent
 import com.sedsoftware.nxmods.component.home.NxModsHome
 import com.sedsoftware.nxmods.component.home.integration.NxHomeComponent
+import com.sedsoftware.nxmods.component.modinfo.NxModsInfo
+import com.sedsoftware.nxmods.component.modinfo.integration.NxModInfoComponent
 import com.sedsoftware.nxmods.component.preferences.NxModsPreferences
 import com.sedsoftware.nxmods.component.preferences.integration.NxModsPreferencesComponent
 import com.sedsoftware.nxmods.domain.tools.NxModsApi
@@ -35,6 +37,7 @@ class NxModsRootComponent internal constructor(
     private val nxModsGameSelector: (ComponentContext, fromPreferences: Boolean, Consumer<NxModsGameSelector.Output>) -> NxModsGameSelector,
     private val nxHome: (ComponentContext, Consumer<NxModsHome.Output>) -> NxModsHome,
     private val nxPreferences: (ComponentContext, Consumer<NxModsPreferences.Output>) -> NxModsPreferences,
+    private val nxModInfo: (ComponentContext, domain: String, id: Long, categoryId: Long, Consumer<NxModsInfo.Output>) -> NxModsInfo
 ) : NxModsRoot, ComponentContext by componentContext {
 
     constructor(
@@ -50,6 +53,7 @@ class NxModsRootComponent internal constructor(
                 componentContext = childContext,
                 storeFactory = storeFactory,
                 api = nxModsApi,
+                db = nxModsDatabase,
                 settings = nxModsSettings,
                 output = output
             )
@@ -80,6 +84,18 @@ class NxModsRootComponent internal constructor(
                 componentContext = childContext,
                 storeFactory = storeFactory,
                 settings = nxModsSettings,
+                output = output
+            )
+        },
+        nxModInfo = { childContext, domain, id, categoryId, output ->
+            NxModInfoComponent(
+                componentContext = childContext,
+                storeFactory = storeFactory,
+                api = nxModsApi,
+                db = nxModsDatabase,
+                modId = id,
+                gameDomain = domain,
+                categoryId = categoryId,
                 output = output
             )
         }
@@ -114,6 +130,17 @@ class NxModsRootComponent internal constructor(
 
             is Configuration.Preferences ->
                 Child.Preferences(nxPreferences(componentContext, Consumer(::onPreferenceScreenOutput)))
+
+            is Configuration.ModInfo ->
+                Child.ModInfo(
+                    nxModInfo(
+                        componentContext,
+                        configuration.domain,
+                        configuration.id,
+                        configuration.categoryId,
+                        Consumer(::onModInfoScreenOutput)
+                    )
+                )
         }
 
     private fun onAuthOutput(output: NxModsAuth.Output): Unit =
@@ -147,6 +174,9 @@ class NxModsRootComponent internal constructor(
 
             is NxModsHome.Output.PreferenceScreenRequested ->
                 navigation.push(Configuration.Preferences)
+
+            is NxModsHome.Output.ModInfoRequested ->
+                navigation.push(Configuration.ModInfo(output.domain, output.id, output.categoryId))
         }
 
     private fun onPreferenceScreenOutput(output: NxModsPreferences.Output): Unit =
@@ -162,6 +192,14 @@ class NxModsRootComponent internal constructor(
 
             is NxModsPreferences.Output.PreferencesChanged ->
                 onPreferenceChangedEvent()
+        }
+
+    private fun onModInfoScreenOutput(output: NxModsInfo.Output): Unit =
+        when (output) {
+            is NxModsInfo.Output.ErrorCaught ->
+                errorHandler.consume(output.throwable, messages)
+            is NxModsInfo.Output.ScreenCloseRequested ->
+                navigation.pop()
         }
 
     private fun onPreferenceChangedEvent() {
@@ -182,5 +220,8 @@ class NxModsRootComponent internal constructor(
 
         @Parcelize
         object Preferences : Configuration
+
+        @Parcelize
+        data class ModInfo(val domain: String, val id: Long, val categoryId: Long) : Configuration
     }
 }

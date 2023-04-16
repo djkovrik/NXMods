@@ -2,7 +2,9 @@ package com.sedsoftware.nxmods.domain.exception
 
 // Mods
 class LoadModsListException(cause: Throwable) : Exception(cause)
-
+class ModInfoLoadingException(cause: Throwable) : Exception(cause)
+class ModEndorseException(cause: Throwable) : Exception(cause)
+class ModTrackException(cause: Throwable) : Exception(cause)
 
 // Games
 class FetchRemoteGameListException(cause: Throwable) : Exception(cause)

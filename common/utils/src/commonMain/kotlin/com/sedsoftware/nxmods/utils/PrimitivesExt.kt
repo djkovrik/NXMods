@@ -1,5 +1,6 @@
 package com.sedsoftware.nxmods.utils
 
+import kotlinx.datetime.LocalDateTime
 import kotlin.math.abs
 
 fun String.asThumbnail(): String =
@@ -17,6 +18,7 @@ fun Long.prettify(): String {
                 "${primary}k"
             }
         }
+
         in 1000000..999999999 -> {
             val primary = (this / 1000000).toString()
             val secondary = (this % 1000000).toString()
@@ -26,6 +28,7 @@ fun Long.prettify(): String {
                 "${primary}M"
             }
         }
+
         in 1000000000..999999999999 -> {
             val primary = (this / 1000000000).toString()
             val secondary = (this % 1000000000).toString()
@@ -35,6 +38,13 @@ fun Long.prettify(): String {
                 "${primary}bn"
             }
         }
+
         else -> this.toString()
     }
+}
+
+fun LocalDateTime?.format(): String {
+    if (this == null) return ""
+
+    return "${this.dayOfMonth}.${this.monthNumber}.${this.year}, ${this.hour}:${this.minute}"
 }

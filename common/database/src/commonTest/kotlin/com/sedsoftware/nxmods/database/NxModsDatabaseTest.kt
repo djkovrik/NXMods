@@ -119,7 +119,7 @@ class NxModsDatabaseTest {
             EndorsementInfo(2, "morrowind", EndorseStatus.ENDORSED)
         )
 
-        val empty: CachedModData = database.getCachedModData("morrowind", 1)
+        val empty: CachedModData = database.getCachedModData("morrowind", 1L, 1L)
             .firstOrError()
             .subscribeOn(scheduler)
             .blockingGet()
@@ -135,7 +135,7 @@ class NxModsDatabaseTest {
             .subscribeOn(scheduler)
             .blockingAwait()
 
-        val trackedButNotEndorsed: CachedModData = database.getCachedModData("morrowind", 1)
+        val trackedButNotEndorsed: CachedModData = database.getCachedModData("morrowind", 1L, 1L)
             .firstOrError()
             .subscribeOn(scheduler)
             .blockingGet()
@@ -147,7 +147,7 @@ class NxModsDatabaseTest {
             .subscribeOn(scheduler)
             .blockingAwait()
 
-        val trackedAndEndorsed: CachedModData = database.getCachedModData("morrowind", 1)
+        val trackedAndEndorsed: CachedModData = database.getCachedModData("morrowind", 1L, 1L)
             .firstOrError()
             .subscribeOn(scheduler)
             .blockingGet()
@@ -159,7 +159,7 @@ class NxModsDatabaseTest {
             .subscribeOn(scheduler)
             .blockingAwait()
 
-        val endorsedButNotTracked: CachedModData = database.getCachedModData("morrowind", 1)
+        val endorsedButNotTracked: CachedModData = database.getCachedModData("morrowind", 1L, 1L)
             .firstOrError()
             .subscribeOn(scheduler)
             .blockingGet()

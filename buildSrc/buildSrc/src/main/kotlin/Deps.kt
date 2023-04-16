@@ -42,6 +42,7 @@ object Deps {
         }
 
         const val resources = "org.jetbrains.compose.components:components-resources:1.4.0-alpha01-dev942"
+        const val markdown = "org.jetbrains:markdown:0.3.1"
     }
 
     object Android {
@@ -143,7 +144,6 @@ object Deps {
         const val settings = ":common:settings"
         const val domain = ":common:domain"
         const val utils = ":common:utils"
-        const val ui = ":common:compose-ui"
 
         object Component {
             const val auth = ":common:component:auth"
@@ -152,6 +152,12 @@ object Deps {
             const val modList = ":common:component:mod-list"
             const val home = ":common:component:home"
             const val preferences = ":common:component:preferences"
+            const val modInfo = ":common:component:mod-info"
+        }
+
+        object UI {
+            const val compose = ":common:ui:compose-ui"
+            const val markdownWidget = ":common:ui:markdown-widget"
         }
     }
 

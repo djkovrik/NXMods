@@ -83,8 +83,8 @@ class NxModsListComponent(
 
     override val models: Value<Model> = store.asValue().map(stateToModel)
 
-    override fun onModInfoClick(domain: String, id: Long) {
-        output(Output.OpenModInfo(domain, id))
+    override fun onModInfoClick(domain: String, modId: Long, categoryId: Long) {
+        output(Output.OpenModInfo(domain, modId, categoryId))
     }
 
     override fun onRefreshRequest() {

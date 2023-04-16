@@ -13,6 +13,7 @@ kotlin {
             dependencies {
                 implementation(project(Deps.Module.domain))
                 implementation(project(Deps.Module.settings))
+                implementation(project(Deps.Module.utils))
 
                 implementation(Deps.JetBrains.Serialization.core)
                 implementation(Deps.Badoo.Reaktive.coroutinesInterop)

@@ -14,5 +14,7 @@ include(
     ":common:component:mod-list",
     ":common:component:home",
     ":common:component:preferences",
-    ":common:compose-ui",
+    ":common:component:mod-info",
+    ":common:ui:markdown-widget",
+    ":common:ui:compose-ui",
 )

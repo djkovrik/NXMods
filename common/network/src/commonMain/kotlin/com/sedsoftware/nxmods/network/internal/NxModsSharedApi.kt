@@ -19,7 +19,7 @@ import com.sedsoftware.nxmods.network.mappers.EndorsementInfoMapper.endorsementI
 import com.sedsoftware.nxmods.network.mappers.GameInfoModelMapper.gameInfoModelListToDomain
 import com.sedsoftware.nxmods.network.mappers.GameInfoModelMapper.gameInfoModelToDomain
 import com.sedsoftware.nxmods.network.mappers.ModInfoModelMapper.modInfoListToDomain
-import com.sedsoftware.nxmods.network.mappers.ModInfoModelMapper.modInfoToDomain
+import com.sedsoftware.nxmods.network.mappers.ModInfoModelMapper.modInfoToDomainWithMarkdown
 import com.sedsoftware.nxmods.network.mappers.OwnProfileMapper.profileToDomain
 import com.sedsoftware.nxmods.network.mappers.TrackingInfoMapper.trackingInfoListToDomain
 import com.sedsoftware.nxmods.network.models.EndorsementInfoModel
@@ -78,7 +78,7 @@ internal class NxModsSharedApi(
     override fun getMod(domain: String, id: Long): Observable<ModInfo> =
         doGet<ModInfoModel>("$BASE_URL/v1/games/${domain}/mods/${id}.json")
             .observeOn(ioScheduler)
-            .map(modInfoToDomain)
+            .map(modInfoToDomainWithMarkdown)
 
     override fun getChangelog(domain: String, id: Long): Observable<List<ChangelogItem>> =
         doGet<Map<String, List<String>>>("$BASE_URL/v1/games/${domain}/mods/${id}/changelogs.json")
@@ -90,8 +90,8 @@ internal class NxModsSharedApi(
             .observeOn(ioScheduler)
             .map(profileToDomain)
 
-    override fun getTracked(): Observable<List<TrackingInfo>> =
-        doGet<List<TrackingInfoModel>>("$BASE_URL/v1/user/tracked_mods.json")
+    override fun getTracked(key: String): Observable<List<TrackingInfo>> =
+        doGet<List<TrackingInfoModel>>("$BASE_URL/v1/user/tracked_mods.json", key)
             .observeOn(ioScheduler)
             .map(trackingInfoListToDomain)
 
@@ -103,8 +103,8 @@ internal class NxModsSharedApi(
         doDelete("$BASE_URL/v1/user/tracked_mods.json", TrackRequestBody(domain, id))
             .observeOn(ioScheduler)
 
-    override fun getEndorsed(): Observable<List<EndorsementInfo>> =
-        doGet<List<EndorsementInfoModel>>("$BASE_URL/v1/user/endorsements.json")
+    override fun getEndorsed(key: String): Observable<List<EndorsementInfo>> =
+        doGet<List<EndorsementInfoModel>>("$BASE_URL/v1/user/endorsements.json", key)
             .observeOn(ioScheduler)
             .map(endorsementInfoListToDomain)
 

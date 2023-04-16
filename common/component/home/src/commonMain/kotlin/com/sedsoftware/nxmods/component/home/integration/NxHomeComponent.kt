@@ -203,7 +203,7 @@ class NxHomeComponent(
 
     private fun onModsListOutput(childOutput: NxModsList.Output): Unit =
         when (childOutput) {
-            is NxModsList.Output.OpenModInfo -> Unit // TODO
+            is NxModsList.Output.OpenModInfo -> output(Output.ModInfoRequested(childOutput.id, childOutput.domain, childOutput.categoryId))
             is NxModsList.Output.ErrorCaught -> output(Output.ErrorCaught(childOutput.throwable))
         }
 

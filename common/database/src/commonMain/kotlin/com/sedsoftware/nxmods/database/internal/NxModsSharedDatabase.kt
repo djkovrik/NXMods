@@ -11,14 +11,17 @@ import com.badoo.reaktive.single.Single
 import com.badoo.reaktive.single.asObservable
 import com.badoo.reaktive.single.map
 import com.badoo.reaktive.single.singleOf
+import com.sedsoftware.nxmods.database.GameInfoEntity
 import com.sedsoftware.nxmods.database.NexusDatabase
 import com.sedsoftware.nxmods.database.NexusDatabaseQueries
 import com.sedsoftware.nxmods.database.mappers.GameInfoEntityMappers.gameInfoListToDomain
 import com.sedsoftware.nxmods.database.mappers.GameInfoEntityMappers.gameInfoToDomain
+import com.sedsoftware.nxmods.database.serializer.ModCategorySerializable.Companion.asModCategories
 import com.sedsoftware.nxmods.database.serializer.ModCategorySerializable.Companion.asString
 import com.sedsoftware.nxmods.domain.entity.CachedModData
 import com.sedsoftware.nxmods.domain.entity.EndorsementInfo
 import com.sedsoftware.nxmods.domain.entity.GameInfo
+import com.sedsoftware.nxmods.domain.entity.ModCategory
 import com.sedsoftware.nxmods.domain.entity.TrackingInfo
 import com.sedsoftware.nxmods.domain.tools.NxModsDatabase
 import com.squareup.sqldelight.db.SqlDriver
@@ -140,12 +143,15 @@ internal class NxModsSharedDatabase(driver: Single<SqlDriver>) : NxModsDatabase 
             }
         }
 
-    override fun getCachedModData(domain: String, modId: Long): Observable<CachedModData> =
+    override fun getCachedModData(domain: String, modId: Long, categoryId: Long): Observable<CachedModData> =
         combineLatest(
             query { it.endorsedExists(modId, domain) }.observe { it.executeAsOne() },
-            query { it.trackedExists(modId, domain) }.observe { it.executeAsOne() }
-        ) { endorsed: Boolean, tracked: Boolean ->
-            CachedModData(endorsed, tracked)
+            query { it.trackedExists(modId, domain) }.observe { it.executeAsOne() },
+            query { it.selectGame(domain) }.observe { it.executeAsOne() }
+        ) { endorsed: Boolean, tracked: Boolean, game: GameInfoEntity ->
+            val modCategory = game.categories?.asModCategories()?.firstOrNull { it.id == categoryId }
+                ?: ModCategory.empty()
+            CachedModData(endorsed, tracked, modCategory)
         }
 
     private fun Boolean.asLong(): Long = if (this) 1L else 0L

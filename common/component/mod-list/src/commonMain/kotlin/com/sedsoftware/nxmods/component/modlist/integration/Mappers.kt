@@ -28,6 +28,7 @@ internal fun doMapping(info: ModInfo, gameInfo: GameInfo?): ModInfoModel {
         summary = info.summary,
         author = info.author,
         category = category?.name.orEmpty(),
+        categoryId = info.categoryId,
         downloads = info.modDownloads.prettify(),
         endorsements = info.endorsementCount.prettify(),
     )

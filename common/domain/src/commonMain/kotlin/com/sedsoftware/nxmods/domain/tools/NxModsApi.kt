@@ -21,10 +21,10 @@ interface NxModsApi {
     fun getChangelog(domain: String, id: Long): Observable<List<ChangelogItem>>
     // User
     fun validateApiKey(key: String): Observable<OwnProfile>
-    fun getTracked(): Observable<List<TrackingInfo>>
+    fun getTracked(key: String): Observable<List<TrackingInfo>>
     fun track(domain: String, id: Long): Completable
     fun untrack(domain: String, id: Long): Completable
-    fun getEndorsed(): Observable<List<EndorsementInfo>>
+    fun getEndorsed(key: String): Observable<List<EndorsementInfo>>
     fun endorse(domain: String, id: Long, version: String): Completable
     fun unendorse(domain: String, id: Long, version: String): Completable
 }
