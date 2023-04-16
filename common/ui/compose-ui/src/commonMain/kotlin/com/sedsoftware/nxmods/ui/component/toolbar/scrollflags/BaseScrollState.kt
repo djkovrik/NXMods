@@ -1,7 +1,7 @@
 package com.sedsoftware.nxmods.ui.component.toolbar.scrollflags
 
 import androidx.compose.runtime.saveable.mapSaver
-import com.sedsoftware.nxmods.ui.component.toolbar.ScrollFlagState
+import com.sedsoftware.nxmods.ui.component.toolbar.base.ScrollFlagState
 
 class BaseScrollState(
     heightRange: IntRange,

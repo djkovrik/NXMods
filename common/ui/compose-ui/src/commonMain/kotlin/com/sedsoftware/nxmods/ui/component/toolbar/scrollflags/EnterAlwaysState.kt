@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.mapSaver
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.structuralEqualityPolicy
-import com.sedsoftware.nxmods.ui.component.toolbar.DynamicOffsetScrollFlagState
+import com.sedsoftware.nxmods.ui.component.toolbar.base.DynamicOffsetScrollFlagState
 
 class EnterAlwaysState(
     heightRange: IntRange,

@@ -1,10 +1,12 @@
 package com.sedsoftware.nxmods.ui.component
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
@@ -20,48 +22,70 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.BiasAlignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.Layout
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.sedsoftware.nxmods.ui.component.toolbar.MaxToolbarHeight
 import com.sedsoftware.nxmods.ui.component.toolbar.MinToolbarHeight
 import com.sedsoftware.nxmods.ui.component.toolbar.ToolbarButtonSize
+import com.seiko.imageloader.rememberAsyncImagePainter
 
 @Composable
 fun NxAppBarCollapsing(
     title: String,
     imageUrl: String,
     progress: Float,
+    currentAlpha: Float,
     modifier: Modifier = Modifier
 ) {
+
+    val density = LocalDensity.current
+    val heightInPx = remember { with(density) { MaxToolbarHeight.toPx() } }
+    val titlePadding = remember { with(density) { ToolbarButtonSize.toPx() } * 1.1f }
 
     Surface(
         color = MaterialTheme.colorScheme.primary,
         modifier = modifier
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
+
             // Background image
-            Box(
-                modifier = modifier
-                    .background(Color.Green)
-                    .fillMaxSize()
-                    .graphicsLayer { alpha = progress * 0.75f }
+            Image(
+                painter = rememberAsyncImagePainter(url = imageUrl),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.fillMaxSize(),
+                alignment = BiasAlignment(0f, 1f - ((1f - progress) * 0.75f))
             )
 
-//            Image(
-//                painter = rememberAsyncImagePainter(url = imageUrl),
-//                contentDescription = null,
-//                contentScale = ContentScale.Crop,
-//                modifier = Modifier
-//                    .fillMaxSize()
-//                    .graphicsLayer { alpha = progress * Alpha },
-//                alignment = BiasAlignment(0f, 1f - ((1f - progress) * 0.75f))
-//            )
+            // Gradient
+            Box(
+                Modifier
+                    .fillMaxSize()
+                    .background(
+                        brush = Brush.verticalGradient(
+                            colors = listOf(
+                                Color.Transparent, MaterialTheme.colorScheme.secondary.copy(
+                                    alpha = currentAlpha
+                                )
+                            ),
+                            startY = heightInPx / 3
+                        )
+                    )
+            )
 
             Box(
                 modifier = Modifier
-                    .padding(horizontal = 8.dp)
+                    .padding(horizontal = 16.dp)
                     .fillMaxSize()
             ) {
                 CollapsingToolbarLayout(progress = progress) {
@@ -79,7 +103,7 @@ fun NxAppBarCollapsing(
                         Icon(
                             modifier = Modifier.fillMaxSize(),
                             imageVector = Icons.Default.ArrowBack,
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                            tint = MaterialTheme.colorScheme.onSecondary,
                             contentDescription = null,
                         )
                     }
@@ -87,14 +111,20 @@ fun NxAppBarCollapsing(
                     // Title
                     Text(
                         text = title,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.onSecondary,
+                        style = MaterialTheme.typography.titleLarge,
+                        softWrap = true,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(end = titlePadding.dp)
                     )
 
                     // Info buttons
                     Row(
                         modifier = Modifier.wrapContentSize(),
-                        horizontalArrangement = Arrangement.spacedBy(16.dp)
+                        horizontalArrangement = Arrangement.spacedBy(24.dp)
                     ) {
                         IconButton(
                             onClick = {},
@@ -108,7 +138,7 @@ fun NxAppBarCollapsing(
                             Icon(
                                 modifier = Modifier.fillMaxSize(),
                                 imageVector = Icons.Outlined.TrackChanges,
-                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                tint = MaterialTheme.colorScheme.onSecondary,
                                 contentDescription = null,
                             )
                         }
@@ -124,7 +154,7 @@ fun NxAppBarCollapsing(
                             Icon(
                                 modifier = Modifier.fillMaxSize(),
                                 imageVector = Icons.Outlined.ThumbUp,
-                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                tint = MaterialTheme.colorScheme.onSecondary,
                                 contentDescription = null,
                             )
                         }
@@ -141,6 +171,7 @@ private fun CollapsingToolbarLayout(
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit
 ) {
+
     Layout(
         modifier = modifier,
         content = content

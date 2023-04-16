@@ -1,4 +1,4 @@
-package com.sedsoftware.nxmods.ui.component.toolbar
+package com.sedsoftware.nxmods.ui.component.toolbar.base
 
 import androidx.compose.runtime.Stable
 
