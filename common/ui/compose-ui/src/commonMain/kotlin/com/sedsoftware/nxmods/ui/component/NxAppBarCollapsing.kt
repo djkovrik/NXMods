@@ -12,7 +12,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowBackIosNew
 import androidx.compose.material.icons.outlined.ThumbUp
 import androidx.compose.material.icons.outlined.TrackChanges
 import androidx.compose.material3.Icon
@@ -33,18 +33,22 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
+import com.sedsoftware.nxmods.component.modinfo.NxModsInfo
 import com.sedsoftware.nxmods.ui.component.toolbar.MaxToolbarHeight
 import com.sedsoftware.nxmods.ui.component.toolbar.MinToolbarHeight
 import com.sedsoftware.nxmods.ui.component.toolbar.ToolbarButtonSize
+import com.sedsoftware.nxmods.utils.asThumbnail
 import com.seiko.imageloader.rememberAsyncImagePainter
 
 @Composable
 fun NxAppBarCollapsing(
-    title: String,
-    imageUrl: String,
+    model: NxModsInfo.Model,
     progress: Float,
     currentAlpha: Float,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onBackClicked: () -> Unit = {},
+    onEndorseClicked: () -> Unit = {},
+    onTrackClicked: () -> Unit = {},
 ) {
 
     val density: Density = LocalDensity.current
@@ -52,7 +56,7 @@ fun NxAppBarCollapsing(
 
     val currentTitlePadding: Float = with(density) {
         val titlePaddingMin = ToolbarButtonSize.toPx() * 1.1f
-        val titlePaddingMax = ToolbarButtonSize.toPx() * 1.6f
+        val titlePaddingMax = ToolbarButtonSize.toPx() * 1.65f
         val diff = titlePaddingMax - titlePaddingMin
         titlePaddingMin + diff * (1f - progress)
     }
@@ -65,7 +69,7 @@ fun NxAppBarCollapsing(
 
             // Background image
             Image(
-                painter = rememberAsyncImagePainter(url = imageUrl),
+                painter = rememberAsyncImagePainter(url = model.picture.asThumbnail()),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.fillMaxSize(),
@@ -97,7 +101,7 @@ fun NxAppBarCollapsing(
 
                     // Back arrow
                     IconButton(
-                        onClick = {},
+                        onClick = onBackClicked,
                         modifier = Modifier
                             .size(ToolbarButtonSize)
                             .background(
@@ -107,7 +111,7 @@ fun NxAppBarCollapsing(
                     ) {
                         Icon(
                             modifier = Modifier.fillMaxSize(),
-                            imageVector = Icons.Default.ArrowBack,
+                            imageVector = Icons.Default.ArrowBackIosNew,
                             tint = MaterialTheme.colorScheme.onSecondary,
                             contentDescription = null,
                         )
@@ -115,7 +119,7 @@ fun NxAppBarCollapsing(
 
                     // Title
                     Text(
-                        text = title,
+                        text = model.name,
                         color = MaterialTheme.colorScheme.onSecondary,
                         style = MaterialTheme.typography.titleLarge,
                         softWrap = true,

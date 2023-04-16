@@ -29,7 +29,6 @@ import com.sedsoftware.nxmods.ui.component.toolbar.MaxToolbarHeight
 import com.sedsoftware.nxmods.ui.component.toolbar.MinToolbarHeight
 import com.sedsoftware.nxmods.ui.component.toolbar.base.ToolbarState
 import com.sedsoftware.nxmods.ui.component.toolbar.scrollflags.BaseScrollState
-import com.sedsoftware.nxmods.utils.asThumbnail
 
 @Composable
 internal fun NxModsInfoContent(component: NxModsInfo) {
@@ -86,14 +85,16 @@ internal fun NxModsInfoScreen(
 
         // AppBar
         NxAppBarCollapsing(
-            title = model.name,
-            imageUrl = model.picture.asThumbnail(),
+            model = model,
             progress = toolbarState.progress,
             currentAlpha = currentAlpha,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(with(LocalDensity.current) { toolbarState.height.toDp() })
-                .graphicsLayer { translationY = toolbarState.offset }
+                .graphicsLayer { translationY = toolbarState.offset },
+            onBackClicked = onBackClicked,
+            onEndorseClicked = onEndorseClicked,
+            onTrackClicked = onTrackClicked,
         )
     }
 }
