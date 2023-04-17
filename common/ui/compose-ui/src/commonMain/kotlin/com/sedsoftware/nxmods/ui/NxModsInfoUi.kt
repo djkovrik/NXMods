@@ -3,20 +3,23 @@ package com.sedsoftware.nxmods.ui
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalDensity
@@ -96,7 +99,7 @@ internal fun NxModsInfoScreen(
                 .graphicsLayer { translationY = toolbarState.offset },
             onBackClicked = onBackClicked,
             onEndorseClicked = onEndorseClicked,
-            onTrackClicked = onTrackClicked,
+            onBookmarkClicked = onTrackClicked,
         )
     }
 }
@@ -109,15 +112,37 @@ private fun ModInfoContent(
     modifier: Modifier = Modifier,
 ) {
 
-    ShapedSurface(
-        paddingValues = contentPadding,
-        modifier = Modifier.verticalScroll(scrollState)
-    ) {
-        Column {
-            NxMarkdown(
-                markdown = model.description,
-                modifier = modifier.padding(start = 8.dp, top = 32.dp, end = 8.dp, bottom = 8.dp),
-            )
+    BoxWithConstraints {
+
+        val maxHeight = with(LocalDensity.current) { constraints.maxHeight.toDp() }
+
+        ShapedSurface(
+            paddingValues = contentPadding,
+            modifier = Modifier
+                .verticalScroll(scrollState)
+                .fillMaxSize()
+        ) {
+
+            Box(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .defaultMinSize(minHeight = maxHeight - MaxToolbarHeight)
+            ) {
+                if (model.progressVisible) {
+                    CircularProgressIndicator(
+                        color = MaterialTheme.colorScheme.primary,
+                        modifier = modifier
+                            .align(Alignment.Center)
+                    )
+                } else {
+                    Column {
+                        NxMarkdown(
+                            markdown = model.description,
+                            modifier = modifier.padding(start = 8.dp, top = 32.dp, end = 8.dp, bottom = 8.dp),
+                        )
+                    }
+                }
+            }
         }
     }
 }
