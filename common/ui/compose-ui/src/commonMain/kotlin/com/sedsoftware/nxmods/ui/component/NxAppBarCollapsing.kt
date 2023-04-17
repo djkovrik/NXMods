@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBackIosNew
+import androidx.compose.material.icons.outlined.Bookmark
+import androidx.compose.material.icons.outlined.BookmarkBorder
 import androidx.compose.material.icons.outlined.ThumbUp
 import androidx.compose.material.icons.outlined.TrackChanges
 import androidx.compose.material3.Icon
@@ -48,7 +50,7 @@ fun NxAppBarCollapsing(
     modifier: Modifier = Modifier,
     onBackClicked: () -> Unit = {},
     onEndorseClicked: () -> Unit = {},
-    onTrackClicked: () -> Unit = {},
+    onBookmarkClicked: () -> Unit = {},
 ) {
 
     val density: Density = LocalDensity.current
@@ -146,7 +148,7 @@ fun NxAppBarCollapsing(
                         ) {
                             Icon(
                                 modifier = Modifier.fillMaxSize(),
-                                imageVector = Icons.Outlined.TrackChanges,
+                                imageVector = Icons.Outlined.BookmarkBorder,
                                 tint = MaterialTheme.colorScheme.onSecondary,
                                 contentDescription = null,
                             )
