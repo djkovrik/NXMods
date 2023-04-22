@@ -7,7 +7,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.CompositionLocalProvider
 import com.arkivanov.decompose.defaultComponentContext
-import com.sedsoftware.nxmods.network.ImageLoaderFactory
+import com.sedsoftware.nxmods.utils.ImageLoaderFactory
 import com.sedsoftware.nxmods.root.NxModsRoot
 import com.sedsoftware.nxmods.root.NxModsRootFactory
 import com.sedsoftware.nxmods.ui.NxModsRootContent

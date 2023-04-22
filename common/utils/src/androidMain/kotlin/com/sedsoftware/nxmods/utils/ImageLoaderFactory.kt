@@ -1,4 +1,4 @@
-package com.sedsoftware.nxmods.network
+package com.sedsoftware.nxmods.utils
 
 import android.content.Context
 import com.seiko.imageloader.ImageLoader

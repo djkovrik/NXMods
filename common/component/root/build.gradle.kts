@@ -27,29 +27,6 @@ kotlin {
             }
         }
     }
-
-    sourceSets {
-        named("iosMain") {
-            dependencies {
-                api(project(Deps.Module.database))
-                api(project(Deps.Module.network))
-                api(project(Deps.Module.settings))
-                api(project(Deps.Module.utils))
-                api(project(Deps.Module.domain))
-                api(project(Deps.Module.Component.auth))
-                api(project(Deps.Module.Component.gameSelector))
-                api(project(Deps.Module.Component.modList))
-                api(project(Deps.Module.Component.home))
-                api(project(Deps.Module.Component.preferences))
-                api(project(Deps.Module.Component.modInfo))
-                api(Deps.ArkIvanov.Decompose.decompose)
-                api(Deps.ArkIvanov.MVIKotlin.mvikotlin)
-                api(Deps.ArkIvanov.MVIKotlin.mvikotlinMain)
-                api(Deps.ArkIvanov.Essenty.lifecycle)
-                api(Deps.KMM.Settings.settings)
-            }
-        }
-    }
 }
 
 android {

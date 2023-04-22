@@ -17,7 +17,7 @@ import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import com.arkivanov.mvikotlin.core.utils.setMainThreadId
 import com.badoo.reaktive.coroutinesinterop.asScheduler
 import com.badoo.reaktive.scheduler.overrideSchedulers
-import com.sedsoftware.nxmods.network.ImageLoaderFactory
+import com.sedsoftware.nxmods.utils.ImageLoaderFactory
 import com.sedsoftware.nxmods.root.NxModsRoot
 import com.sedsoftware.nxmods.root.NxModsRootFactory
 import com.sedsoftware.nxmods.ui.NxModsRootContent

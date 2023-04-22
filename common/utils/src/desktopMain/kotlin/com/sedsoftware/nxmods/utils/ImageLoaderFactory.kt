@@ -1,4 +1,4 @@
-package com.sedsoftware.nxmods.network
+package com.sedsoftware.nxmods.utils
 
 import com.seiko.imageloader.ImageLoader
 import com.seiko.imageloader.cache.memory.maxSizePercent
