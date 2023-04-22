@@ -10,21 +10,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
-import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.arkivanov.decompose.extensions.compose.jetbrains.lifecycle.LifecycleController
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import com.arkivanov.mvikotlin.core.utils.setMainThreadId
-import com.arkivanov.mvikotlin.main.store.DefaultStoreFactory
 import com.badoo.reaktive.coroutinesinterop.asScheduler
 import com.badoo.reaktive.scheduler.overrideSchedulers
-import com.sedsoftware.nxmods.database.DatabaseFeatureComponent
 import com.sedsoftware.nxmods.network.ImageLoaderFactory
-import com.sedsoftware.nxmods.network.NetworkFeatureComponent
 import com.sedsoftware.nxmods.root.NxModsRoot
-import com.sedsoftware.nxmods.root.integration.NxModsRootComponent
-import com.sedsoftware.nxmods.settings.SettingsFeatureComponent
+import com.sedsoftware.nxmods.root.NxModsRootFactory
 import com.sedsoftware.nxmods.ui.NxModsRootContent
 import com.seiko.imageloader.LocalImageLoader
 import kotlinx.coroutines.Dispatchers
@@ -39,7 +34,7 @@ fun main() {
 
     SwingUtilities.invokeAndWait {
         setMainThreadId(Thread.currentThread().id)
-        root = nxModsRoot(DefaultComponentContext(lifecycle = lifecycle))
+        root = NxModsRootFactory(DefaultComponentContext(lifecycle = lifecycle))
     }
 
     application {
@@ -62,18 +57,4 @@ fun main() {
             }
         }
     }
-}
-
-private fun nxModsRoot(componentContext: ComponentContext): NxModsRoot {
-    val databaseFeature: DatabaseFeatureComponent = DatabaseScopedComponent.get()
-    val settingsFeature: SettingsFeatureComponent = SettingsScopedComponent.get()
-    val networkFeature: NetworkFeatureComponent = NetworkScopedComponent.get(settingsFeature)
-
-    return NxModsRootComponent(
-        componentContext = componentContext,
-        storeFactory = DefaultStoreFactory(),
-        nxModsApi = networkFeature.api,
-        nxModsDatabase = databaseFeature.database,
-        nxModsSettings = settingsFeature.settings
-    )
 }

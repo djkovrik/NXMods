@@ -31,10 +31,6 @@ android {
 
 dependencies {
     implementation(project(Deps.Module.Component.root))
-    implementation(project(Deps.Module.domain))
-    implementation(project(Deps.Module.database))
-    implementation(project(Deps.Module.network))
-    implementation(project(Deps.Module.settings))
     implementation(project(Deps.Module.utils))
     implementation(project(Deps.Module.UI.compose))
 
@@ -45,7 +41,5 @@ dependencies {
     implementation(Deps.ArkIvanov.Decompose.decompose)
     implementation(Deps.ArkIvanov.Decompose.extensions)
     implementation(Deps.ArkIvanov.MVIKotlin.mvikotlin)
-    implementation(Deps.ArkIvanov.MVIKotlin.mvikotlinMain)
-    implementation(Deps.KMM.Settings.settings)
     implementation(Deps.KMM.ImageLoader.main)
 }
