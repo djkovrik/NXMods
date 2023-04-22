@@ -1,5 +1,5 @@
 plugins {
-    id("multiplatform-setup-compose")
+    id("multiplatform-setup")
     id("android-setup")
     id("dev.icerock.mobile.multiplatform-resources")
 }
