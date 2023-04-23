@@ -25,6 +25,6 @@ Compose and Kotlin Multiplatform playground
 - [x] Navigation drawer: active game switcher
 - [x] Prefs screen with game list management
 - [x] Mod details screen
-- [ ] Try with iOS target
+- [ ] shared module + iOS target
 - [ ] Bookmark and endorse
 - [ ] Github Actions for releases

@@ -20,7 +20,9 @@ kotlin {
 
         androidMain {
             dependencies {
-                implementation(Deps.AndroidX.Preferences.preferences)
+                implementation(Deps.AndroidX.Preferences.preferences) {
+                    exclude("org.jetbrains.kotlinx", "kotlinx-coroutines-core")
+                }
             }
         }
 

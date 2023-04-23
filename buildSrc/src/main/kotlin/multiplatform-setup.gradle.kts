@@ -2,11 +2,12 @@ plugins {
     id("kotlin-multiplatform")
     id("kotlinx-serialization")
     id("com.android.library")
+    id("org.jetbrains.compose")
 }
 
 kotlin {
-    jvm("desktop")
     android()
+    jvm("desktop")
     iosX64()
     iosArm64()
     iosSimulatorArm64()
@@ -16,6 +17,16 @@ kotlin {
             dependencies {
                 implementation(Deps.Badoo.Reaktive.reaktive)
                 implementation(Deps.JetBrains.DateTime.dateTime)
+
+                implementation(compose.runtime)
+                implementation(compose.foundation)
+                implementation(compose.material)
+                implementation(compose.material3)
+                implementation(compose.ui)
+                implementation(compose.materialIconsExtended)
+
+                @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
+                implementation(compose.components.resources)
             }
         }
         val commonTest by getting {
@@ -27,7 +38,12 @@ kotlin {
                 implementation(Deps.JetBrains.Kotlin.testAnnotationsCommon)
             }
         }
-        val androidMain by getting
+        val androidMain by getting {
+            dependencies {
+                implementation(Deps.AndroidX.AppCompat.appCompat)
+                implementation(Deps.AndroidX.Ktx.ktx)
+            }
+        }
         val androidTest by getting {
             dependencies {
                 implementation(Deps.JetBrains.Kotlin.testJunit)
@@ -50,6 +66,12 @@ kotlin {
             iosX64Test.dependsOn(this)
             iosArm64Test.dependsOn(this)
             iosSimulatorArm64Test.dependsOn(this)
+        }
+
+        val desktopMain by getting {
+            dependencies {
+                implementation(compose.desktop.common)
+            }
         }
 
         val desktopTest by getting {

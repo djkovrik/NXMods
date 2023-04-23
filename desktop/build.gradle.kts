@@ -15,13 +15,9 @@ kotlin {
             dependencies {
                 implementation(compose.desktop.currentOs)
 
-                implementation(project(Deps.Module.database))
-                implementation(project(Deps.Module.domain))
-                implementation(project(Deps.Module.settings))
-                implementation(project(Deps.Module.network))
+                implementation(project(Deps.Module.Component.root))
                 implementation(project(Deps.Module.utils))
                 implementation(project(Deps.Module.UI.compose))
-                implementation(project(Deps.Module.Component.root))
 
                 implementation(Deps.JetBrains.Coroutines.swing)
                 implementation(Deps.ArkIvanov.Decompose.decompose)
@@ -30,7 +26,6 @@ kotlin {
                 implementation(Deps.ArkIvanov.MVIKotlin.mvikotlinMain)
                 implementation(Deps.Badoo.Reaktive.reaktive)
                 implementation(Deps.Badoo.Reaktive.coroutinesInterop)
-                implementation(Deps.KMM.Settings.settings)
                 implementation(Deps.KMM.ImageLoader.main)
             }
         }

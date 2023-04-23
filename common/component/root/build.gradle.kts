@@ -1,6 +1,3 @@
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
-import org.jetbrains.kotlin.konan.target.Family
-
 plugins {
     id("multiplatform-setup")
     id("android-setup")
@@ -8,31 +5,6 @@ plugins {
 }
 
 kotlin {
-    targets
-        .filterIsInstance<KotlinNativeTarget>()
-        .filter { it.konanTarget.family == Family.IOS }
-        .forEach { target ->
-            target.binaries {
-                framework {
-                    baseName = "shared"
-                    linkerOpts.add("-lsqlite3")
-                    export(project(Deps.Module.database))
-                    export(project(Deps.Module.network))
-                    export(project(Deps.Module.settings))
-                    export(project(Deps.Module.utils))
-                    export(project(Deps.Module.domain))
-                    export(project(Deps.Module.Component.auth))
-                    export(project(Deps.Module.Component.gameSelector))
-                    export(project(Deps.Module.Component.modList))
-                    export(project(Deps.Module.Component.home))
-                    export(project(Deps.Module.Component.preferences))
-                    export(project(Deps.Module.Component.modInfo))
-                    export(Deps.ArkIvanov.Decompose.decompose)
-                    export(Deps.ArkIvanov.MVIKotlin.mvikotlinMain)
-                    export(Deps.ArkIvanov.Essenty.lifecycle)
-                }
-            }
-        }
 
     sourceSets {
         named("commonMain") {
@@ -49,28 +21,9 @@ kotlin {
                 implementation(project(Deps.Module.Component.preferences))
                 implementation(project(Deps.Module.Component.modInfo))
                 implementation(Deps.ArkIvanov.MVIKotlin.mvikotlin)
+                implementation(Deps.ArkIvanov.MVIKotlin.mvikotlinMain)
                 implementation(Deps.ArkIvanov.Decompose.decompose)
-            }
-        }
-    }
-
-    sourceSets {
-        named("iosMain") {
-            dependencies {
-                api(project(Deps.Module.database))
-                api(project(Deps.Module.network))
-                api(project(Deps.Module.settings))
-                api(project(Deps.Module.utils))
-                api(project(Deps.Module.domain))
-                api(project(Deps.Module.Component.auth))
-                api(project(Deps.Module.Component.gameSelector))
-                api(project(Deps.Module.Component.modList))
-                api(project(Deps.Module.Component.home))
-                api(project(Deps.Module.Component.preferences))
-                api(project(Deps.Module.Component.modInfo))
-                api(Deps.ArkIvanov.Decompose.decompose)
-                api(Deps.ArkIvanov.MVIKotlin.mvikotlinMain)
-                api(Deps.ArkIvanov.Essenty.lifecycle)
+                implementation(Deps.KMM.Settings.settings)
             }
         }
     }

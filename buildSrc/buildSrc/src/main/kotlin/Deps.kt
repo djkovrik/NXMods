@@ -3,7 +3,7 @@
 object Deps {
     object JetBrains {
         object Kotlin {
-            const val VERSION = "1.7.20"
+            const val VERSION = "1.8.20"
             const val gradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$VERSION"
             const val testCommon = "org.jetbrains.kotlin:kotlin-test-common:$VERSION"
             const val testJunit = "org.jetbrains.kotlin:kotlin-test-junit:$VERSION"
@@ -11,17 +11,17 @@ object Deps {
         }
 
         object Coroutines {
-            private val VERSION get() = "1.6.4"
+            private val VERSION get() = "1.7.0-RC"
             val swing get() = "org.jetbrains.kotlinx:kotlinx-coroutines-swing:$VERSION"
         }
 
         object Compose {
-            private const val VERSION = "1.3.0"
+            private const val VERSION = "1.4.0"
             const val gradlePlugin = "org.jetbrains.compose:compose-gradle-plugin:$VERSION"
         }
 
         object Ktor {
-            private const val VERSION = "2.2.3"
+            private const val VERSION = "2.3.0"
             const val clientCore = "io.ktor:ktor-client-core:$VERSION"
             const val clientNegotiation = "io.ktor:ktor-client-content-negotiation:$VERSION"
             const val serialization = "io.ktor:ktor-serialization-kotlinx-json:$VERSION"
@@ -36,19 +36,18 @@ object Deps {
         }
 
         object Serialization {
-            private const val VERSION = "1.4.1"
+            private const val VERSION = "1.5.0"
             const val gradlePlugin = "org.jetbrains.kotlin:kotlin-serialization:${JetBrains.Kotlin.VERSION}"
             const val core = "org.jetbrains.kotlinx:kotlinx-serialization-json:$VERSION"
         }
 
-        const val resources = "org.jetbrains.compose.components:components-resources:1.4.0-alpha01-dev942"
         const val markdown = "org.jetbrains:markdown:0.3.1"
     }
 
     object Android {
         object Tools {
             object Build {
-                const val gradlePlugin = "com.android.tools.build:gradle:7.4.0"
+                const val gradlePlugin = "com.android.tools.build:gradle:7.4.2"
             }
         }
     }
@@ -73,7 +72,7 @@ object Deps {
 
     object ArkIvanov {
         object MVIKotlin {
-            private const val VERSION = "3.1.0"
+            private const val VERSION = "3.2.0"
             const val rx = "com.arkivanov.mvikotlin:rx:$VERSION"
             const val mvikotlin = "com.arkivanov.mvikotlin:mvikotlin:$VERSION"
             const val mvikotlinMain = "com.arkivanov.mvikotlin:mvikotlin-main:$VERSION"
@@ -83,13 +82,13 @@ object Deps {
         }
 
         object Decompose {
-            private const val VERSION = "1.0.0"
+            private const val VERSION = "2.0.0-compose-experimental-alpha-02"
             const val decompose = "com.arkivanov.decompose:decompose:$VERSION"
             const val extensions = "com.arkivanov.decompose:extensions-compose-jetbrains:$VERSION"
         }
 
         object Essenty {
-            private const val VERSION = "1.0.0"
+            private const val VERSION = "1.1.0"
             const val lifecycle = "com.arkivanov.essenty:lifecycle:$VERSION"
         }
     }
