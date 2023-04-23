@@ -3,7 +3,6 @@ rootProject.name = "NXMods"
 include(
     ":android",
     ":desktop",
-    ":ios",
     ":common:database",
     ":common:network",
     ":common:settings",
