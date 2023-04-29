@@ -15,7 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.sedsoftware.nxmods.domain.type.ModListType
-import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 internal fun HomeNavigationBar(
@@ -42,7 +41,7 @@ internal fun HomeNavigationBar(
             },
             label = {
                 Text(
-                    text = stringResource(MR.strings.home_tab_latest_added),
+                    text = MR.string.home_tab_latest_added,
                     softWrap = true
                 )
             },
@@ -59,7 +58,7 @@ internal fun HomeNavigationBar(
             },
             label = {
                 Text(
-                    text = stringResource(MR.strings.home_tab_latest_updated),
+                    text = MR.string.home_tab_latest_updated,
                     softWrap = true
                 )
             },
@@ -76,7 +75,7 @@ internal fun HomeNavigationBar(
             },
             label = {
                 Text(
-                    text = stringResource(MR.strings.home_tab_trending),
+                    text = MR.string.home_tab_trending,
                     softWrap = true
                 )
             },

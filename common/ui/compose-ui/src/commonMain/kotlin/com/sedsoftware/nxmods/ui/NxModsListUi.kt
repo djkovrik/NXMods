@@ -36,7 +36,6 @@ import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 import com.sedsoftware.nxmods.component.modlist.NxModsList
 import com.sedsoftware.nxmods.component.modlist.model.ModInfoModel
 import com.seiko.imageloader.rememberAsyncImagePainter
-import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 fun NxModsListContent(component: NxModsList) {
@@ -91,7 +90,7 @@ internal fun NxModsListScreen(
             modifier = modifier.fillMaxSize()
         ) {
             Text(
-                text = stringResource(MR.strings.mods_list_empty_placeholder),
+                text = MR.string.mods_list_empty_placeholder,
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.primary,
             )

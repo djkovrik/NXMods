@@ -11,8 +11,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import com.sedsoftware.nxmods.ui.MR
+import io.github.skeptick.libres.compose.painterResource
 import org.jetbrains.compose.resources.ExperimentalResourceApi
-import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun SplashLogo(modifier: Modifier = Modifier) {
@@ -22,7 +23,7 @@ fun SplashLogo(modifier: Modifier = Modifier) {
             .size(128.dp)
     ) {
         Image(
-            painter = painterResource("nexus_logo.png"),
+            painter = MR.image.nexus_logo.painterResource(),
             contentScale = ContentScale.Fit,
             contentDescription = null,
             modifier = modifier.padding(all = 32.dp)

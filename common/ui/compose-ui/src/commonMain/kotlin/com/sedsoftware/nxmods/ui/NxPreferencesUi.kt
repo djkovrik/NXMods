@@ -32,7 +32,6 @@ import com.sedsoftware.nxmods.component.preferences.dsl.NxPreferenceSwitch
 import com.sedsoftware.nxmods.ui.component.preference.PreferenceButton
 import com.sedsoftware.nxmods.ui.component.preference.PreferenceCategory
 import com.sedsoftware.nxmods.ui.component.preference.PreferenceSwitcher
-import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 fun NxModsPreferencesContent(component: NxModsPreferences) {
@@ -60,7 +59,7 @@ internal fun NxModsPreferencesScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = stringResource(MR.strings.preferences_title),
+                        text = MR.string.preferences_title,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         style = MaterialTheme.typography.headlineSmall,
                         modifier = modifier.padding(vertical = 16.dp, horizontal = 32.dp)

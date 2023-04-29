@@ -128,12 +128,10 @@ object Deps {
             const val extensionImageIo = "io.github.qdsfdhvh:image-loader-extension-imageio:$VERSION"
         }
 
-        object Mokko {
-            private const val VERSION = "0.20.1"
-            const val resources = "dev.icerock.moko:resources:$VERSION"
-            const val resourcesCompose = "dev.icerock.moko:resources-compose:$VERSION"
-            const val resourcesTest = "dev.icerock.moko:resources-test:$VERSION"
-            const val generator = "dev.icerock.moko:resources-generator:$VERSION"
+        object LibRes {
+            private const val VERSION = "1.1.8"
+            const val gradlePlugin = "io.github.skeptick.libres:gradle-plugin:$VERSION"
+            const val compose = "io.github.skeptick.libres:libres-compose:$VERSION"
         }
     }
 

@@ -16,7 +16,7 @@ dependencies {
     implementation(Deps.JetBrains.Serialization.gradlePlugin)
     implementation(Deps.Android.Tools.Build.gradlePlugin)
     implementation(Deps.Squareup.SQLDelight.gradlePlugin)
-    implementation(Deps.KMM.Mokko.generator)
+    implementation(Deps.KMM.LibRes.gradlePlugin)
 }
 
 kotlin {

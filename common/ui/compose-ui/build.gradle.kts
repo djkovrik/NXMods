@@ -1,15 +1,15 @@
 plugins {
     id("multiplatform-setup")
     id("android-setup")
-    id("dev.icerock.mobile.multiplatform-resources")
+    id("io.github.skeptick.libres")
 }
 
 android {
     namespace = "com.sedsoftware.nxmods.ui"
 }
 
-multiplatformResources {
-    multiplatformResourcesPackage = "com.sedsoftware.nxmods.ui"
+libres {
+    generatedClassName = "MR"
 }
 
 kotlin {
@@ -33,14 +33,13 @@ kotlin {
                 implementation(Deps.Badoo.Reaktive.reaktive)
 
                 implementation(Deps.KMM.ImageLoader.main)
-
-                api(Deps.KMM.Mokko.resources)
+                implementation(Deps.KMM.LibRes.compose)
             }
         }
 
         androidMain {
             dependencies {
-                api(Deps.KMM.Mokko.resourcesCompose)
+
             }
         }
 
@@ -49,8 +48,6 @@ kotlin {
                 implementation(compose.preview)
 
                 implementation(Deps.JetBrains.DateTime.dateTime)
-
-                api(Deps.KMM.Mokko.resourcesCompose)
             }
         }
     }
