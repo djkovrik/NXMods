@@ -41,7 +41,6 @@ import com.sedsoftware.nxmods.ui.component.ButtonMain
 import com.sedsoftware.nxmods.ui.component.NxAppBar
 import com.sedsoftware.nxmods.ui.component.ShapedSurface
 import com.sedsoftware.nxmods.ui.component.SplashLogo
-import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 fun NxModsAuthContent(component: NxModsAuth) {
@@ -92,7 +91,7 @@ internal fun NxModsAuthScreen(
             topBar = {
                 NxAppBar {
                     Text(
-                        text = stringResource(MR.strings.auth_header),
+                        text = MR.string.auth_header,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         style = MaterialTheme.typography.headlineSmall,
                         modifier = modifier.padding(start = 32.dp, end = 32.dp, top = 16.dp)
@@ -109,7 +108,7 @@ internal fun NxModsAuthScreen(
                             modifier = modifier.fillMaxSize(),
                         ) {
                             Text(
-                                text = stringResource(MR.strings.auth_api_key),
+                                text = MR.string.auth_api_key,
                                 style = MaterialTheme.typography.titleMedium,
                                 color = MaterialTheme.colorScheme.primary,
                                 modifier = modifier.padding(horizontal = 32.dp)
@@ -142,7 +141,7 @@ internal fun NxModsAuthScreen(
                             modifier = modifier.fillMaxSize(),
                         ) {
                             Text(
-                                text = stringResource(MR.strings.auth_api_key_desc),
+                                text = MR.string.auth_api_key_desc,
                                 style = MaterialTheme.typography.bodyMedium,
                                 textAlign = TextAlign.Center,
                                 color = MaterialTheme.colorScheme.primary,
@@ -155,21 +154,21 @@ internal fun NxModsAuthScreen(
                             when (model.status) {
                                 ApiKeyStatus.VALIDATION -> {
                                     Text(
-                                        text = stringResource(MR.strings.auth_api_key_validation),
+                                        text = MR.string.auth_api_key_validation,
                                         color = MaterialTheme.colorScheme.primary
                                     )
                                 }
 
                                 ApiKeyStatus.VALID -> {
                                     Text(
-                                        text = stringResource(MR.strings.auth_api_key_valid),
+                                        text = MR.string.auth_api_key_valid,
                                         color = MaterialTheme.colorScheme.tertiary
                                     )
                                 }
 
                                 ApiKeyStatus.INVALID -> {
                                     Text(
-                                        text = stringResource(MR.strings.auth_api_key_invalid),
+                                        text = MR.string.auth_api_key_invalid,
                                         color = MaterialTheme.colorScheme.error
                                     )
                                 }
@@ -186,7 +185,7 @@ internal fun NxModsAuthScreen(
                                     modifier = modifier.padding(all = 8.dp)
                                 ) {
                                     Text(
-                                        text = stringResource(MR.strings.auth_button_validate),
+                                        text = MR.string.auth_button_validate,
                                         color = MaterialTheme.colorScheme.onPrimary
                                     )
                                 }
@@ -197,7 +196,7 @@ internal fun NxModsAuthScreen(
                                     modifier = modifier.padding(all = 8.dp)
                                 ) {
                                     Text(
-                                        text = stringResource(MR.strings.auth_button_next),
+                                        text = MR.string.auth_button_next,
                                         color = MaterialTheme.colorScheme.onPrimary
                                     )
                                 }

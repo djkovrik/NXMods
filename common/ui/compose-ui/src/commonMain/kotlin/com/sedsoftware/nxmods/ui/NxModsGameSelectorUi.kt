@@ -56,7 +56,6 @@ import com.sedsoftware.nxmods.ui.component.ButtonMain
 import com.sedsoftware.nxmods.ui.component.NxAppBar
 import com.sedsoftware.nxmods.ui.component.RoundCheckbox
 import com.sedsoftware.nxmods.ui.component.ShapedSurface
-import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 fun NxModsGameSelectorContent(component: NxModsGameSelector) {
@@ -120,7 +119,7 @@ internal fun NxModsGameSelectorScreen(
                             modifier = modifier.fillMaxSize()
                         ) {
                             Text(
-                                text = stringResource(MR.strings.game_selector_empty),
+                                text = MR.string.game_selector_empty,
                                 style = MaterialTheme.typography.titleMedium,
                                 color = MaterialTheme.colorScheme.primary,
                             )
@@ -165,7 +164,7 @@ internal fun NxModsGameSelectorScreen(
                         modifier = modifier.padding(all = 16.dp)
                     ) {
                         Text(
-                            text = stringResource(MR.strings.game_selector_next),
+                            text = MR.string.game_selector_next,
                             color = MaterialTheme.colorScheme.onPrimary
                         )
                     }
@@ -244,7 +243,7 @@ fun GameSelectorAppBar(
         ) {
             Column(modifier = modifier.weight(1f)) {
                 Text(
-                    text = stringResource(MR.strings.game_selector_header),
+                    text = MR.string.game_selector_header,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     style = MaterialTheme.typography.headlineSmall,
                     maxLines = 1,
@@ -252,7 +251,7 @@ fun GameSelectorAppBar(
                     modifier = modifier.padding(horizontal = 32.dp)
                 )
                 Text(
-                    text = "${stringResource(MR.strings.game_selector_sub_header)} ${model.bookmarkedCounter}",
+                    text = "${MR.string.game_selector_sub_header} ${model.bookmarkedCounter}",
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     style = MaterialTheme.typography.titleMedium,
                     modifier = modifier.padding(horizontal = 32.dp)
