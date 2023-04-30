@@ -1,0 +1,46 @@
+import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+
+plugins {
+    kotlin("multiplatform")
+    id("org.jetbrains.compose")
+}
+
+kotlin {
+    jvm()
+    sourceSets {
+        val jvmMain by getting  {
+            dependencies {
+                implementation(compose.desktop.currentOs)
+                implementation(project(":shared"))
+
+                implementation(Deps.JetBrains.Coroutines.swing)
+                implementation(Deps.ArkIvanov.Decompose.decompose)
+                implementation(Deps.ArkIvanov.Decompose.extensions)
+                implementation(Deps.ArkIvanov.MVIKotlin.mvikotlin)
+                implementation(Deps.ArkIvanov.MVIKotlin.mvikotlinMain)
+                implementation(Deps.Badoo.Reaktive.reaktive)
+                implementation(Deps.Badoo.Reaktive.coroutinesInterop)
+                implementation(Deps.KMM.ImageLoader.main)
+            }
+        }
+    }
+}
+
+compose.desktop {
+    application {
+        mainClass = "com.sedsoftware.nxmods.desktop.MainKt"
+
+        nativeDistributions {
+            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
+            packageName = "NxModsDesktop"
+            packageVersion = "1.0.0"
+
+            modules("java.sql")
+
+            windows {
+                menuGroup = "NxMods"
+                upgradeUuid = "C3C0011B-3414-40D2-A9DE-AB0E0BE3F8F0"
+            }
+        }
+    }
+}

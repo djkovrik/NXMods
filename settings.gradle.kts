@@ -1,20 +1,40 @@
-rootProject.name = "NXMods"
+rootProject.name = "NxMods"
 
-include(
-    ":android",
-    ":desktop",
-    ":common:database",
-    ":common:network",
-    ":common:settings",
-    ":common:domain",
-    ":common:utils",
-    ":common:component:root",
-    ":common:component:auth",
-    ":common:component:game-selector",
-    ":common:component:mod-list",
-    ":common:component:home",
-    ":common:component:preferences",
-    ":common:component:mod-info",
-    ":common:ui:markdown-widget",
-    ":common:ui:compose-ui",
-)
+include(":androidApp")
+include(":shared")
+include(":desktopApp")
+
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+        google()
+    }
+
+    plugins {
+        val kotlinVersion = extra["kotlin.version"] as String
+        val agpVersion = extra["agp.version"] as String
+        val composeVersion = extra["compose.version"] as String
+        val sqlDelightVersion = extra["sqlDelight.version"] as String
+        val libResVersion = extra["libres.version"] as String
+
+        kotlin("jvm").version(kotlinVersion)
+        kotlin("multiplatform").version(kotlinVersion)
+        kotlin("android").version(kotlinVersion)
+
+        id("com.android.application").version(agpVersion)
+        id("com.android.library").version(agpVersion)
+        id("org.jetbrains.compose").version(composeVersion)
+        id("org.jetbrains.kotlin.plugin.serialization").version(kotlinVersion)
+        id("com.squareup.sqldelight").version(sqlDelightVersion)
+        id("io.github.skeptick.libres").version(libResVersion)
+    }
+}
+
+dependencyResolutionManagement {
+    repositories {
+        google()
+        mavenCentral()
+        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+    }
+}
