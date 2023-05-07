@@ -1,12 +1,12 @@
 plugins {
-    kotlin("multiplatform")
-    kotlin("native.cocoapods")
-    id("com.android.library")
-    id("org.jetbrains.compose")
-    id("com.squareup.sqldelight")
-    id("kotlinx-serialization")
-    id("kotlin-parcelize")
-    id("io.github.skeptick.libres")
+    id("com.android.library") // TODO new syntax for dis?
+    alias(libs.plugins.multiplatform)
+    alias(libs.plugins.compose)
+    alias(libs.plugins.cocoapods)
+    alias(libs.plugins.kotlinx.parcelize)
+    alias(libs.plugins.kotlinx.serialization)
+    alias(libs.plugins.libres)
+    alias(libs.plugins.sqlDelight)
 }
 
 sqldelight {
@@ -53,40 +53,38 @@ kotlin {
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
 
-                implementation(Deps.JetBrains.DateTime.dateTime)
-                implementation(Deps.JetBrains.Serialization.core)
-                implementation(Deps.JetBrains.Ktor.clientCore)
-                implementation(Deps.JetBrains.Ktor.clientNegotiation)
-                implementation(Deps.JetBrains.Ktor.serialization)
-                implementation(Deps.JetBrains.markdown)
+                implementation(libs.jb.kotlin.datetime)
+                implementation(libs.jb.kotlin.serialization)
+                implementation(libs.jb.ktor.core)
+                implementation(libs.jb.ktor.serialization)
+                implementation(libs.jb.ktor.client.negotiation)
+                implementation(libs.jb.markdown)
 
-                implementation(Deps.Badoo.Reaktive.reaktive)
-                implementation(Deps.Badoo.Reaktive.utils)
-                implementation(Deps.Badoo.Reaktive.coroutinesInterop)
+                implementation(libs.lib.reaktive.core)
+                implementation(libs.lib.reaktive.interop)
+                implementation(libs.lib.reaktive.utils)
 
-                implementation(Deps.ArkIvanov.MVIKotlin.rx)
-                implementation(Deps.ArkIvanov.MVIKotlin.mvikotlin)
-                implementation(Deps.ArkIvanov.MVIKotlin.mvikotlinMain)
-                implementation(Deps.ArkIvanov.MVIKotlin.mvikotlinExtensionsReaktive)
-                implementation(Deps.ArkIvanov.Decompose.decompose)
-                implementation(Deps.ArkIvanov.Decompose.extensions)
-                implementation(Deps.ArkIvanov.Essenty.lifecycle)
+                implementation(libs.ark.mvikotlin.core)
+                implementation(libs.ark.mvikotlin.main)
+                implementation(libs.ark.mvikotlin.rx)
+                implementation(libs.ark.mvikotlin.extensions.reaktive)
+                implementation(libs.ark.decompose.core)
+                implementation(libs.ark.decompose.extensions)
+                implementation(libs.ark.essenty)
 
-                implementation(Deps.KMM.ImageLoader.main)
-                implementation(Deps.KMM.LibRes.compose)
-                implementation(Deps.KMM.Settings.settings)
-                implementation(Deps.KMM.Settings.settingsTest)
+                implementation(libs.lib.imageloader.core)
+                implementation(libs.lib.libres.compose)
+                implementation(libs.lib.settings.core)
+                implementation(libs.lib.settings.test)
             }
         }
         val androidMain by getting {
             dependencies {
-                implementation(Deps.AndroidX.AppCompat.appCompat)
-                implementation(Deps.AndroidX.Preferences.preferences) {
-                    exclude("org.jetbrains.kotlinx", "kotlinx-coroutines-core")
-                }
-                implementation(Deps.AndroidX.Ktx.ktx)
-                implementation(Deps.JetBrains.Ktor.engineAndroid)
-                implementation(Deps.Squareup.SQLDelight.androidDriver)
+                implementation(libs.android.appcompat)
+                implementation(libs.android.preferences)
+                implementation(libs.android.ktx)
+                implementation(libs.jb.ktor.client.android)
+                implementation(libs.lib.sqldelight.driver.android)
             }
         }
         val iosX64Main by getting
@@ -99,8 +97,8 @@ kotlin {
             iosSimulatorArm64Main.dependsOn(this)
 
             dependencies {
-                implementation(Deps.JetBrains.Ktor.engineIos)
-                implementation(Deps.Squareup.SQLDelight.nativeDriver)
+                implementation(libs.jb.ktor.client.ios)
+                implementation(libs.lib.sqldelight.driver.native)
             }
         }
         val desktopMain by getting {
@@ -108,10 +106,11 @@ kotlin {
                 implementation(compose.desktop.common)
                 implementation(compose.preview)
 
-                implementation(Deps.JetBrains.Ktor.engineDesktop)
-                implementation(Deps.Desktop.log4jcore)
-                implementation(Deps.Desktop.log4jimpl)
-                implementation(Deps.Squareup.SQLDelight.sqliteDriver)
+                implementation(libs.jb.ktor.client.desktop)
+                implementation(libs.lib.sqldelight.driver.sqlite)
+                implementation(libs.desktop.logback)
+                implementation(libs.desktop.log4jcore)
+                implementation(libs.desktop.log4jimpl)
             }
         }
     }

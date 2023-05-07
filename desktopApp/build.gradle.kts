@@ -1,8 +1,8 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
-    kotlin("multiplatform")
-    id("org.jetbrains.compose")
+    alias(libs.plugins.multiplatform)
+    alias(libs.plugins.compose)
 }
 
 kotlin {
@@ -13,14 +13,14 @@ kotlin {
                 implementation(compose.desktop.currentOs)
                 implementation(project(":shared"))
 
-                implementation(Deps.JetBrains.Coroutines.swing)
-                implementation(Deps.ArkIvanov.Decompose.decompose)
-                implementation(Deps.ArkIvanov.Decompose.extensions)
-                implementation(Deps.ArkIvanov.MVIKotlin.mvikotlin)
-                implementation(Deps.ArkIvanov.MVIKotlin.mvikotlinMain)
-                implementation(Deps.Badoo.Reaktive.reaktive)
-                implementation(Deps.Badoo.Reaktive.coroutinesInterop)
-                implementation(Deps.KMM.ImageLoader.main)
+                implementation(libs.jb.kotlin.coroutines.swing)
+                implementation(libs.ark.decompose.core)
+                implementation(libs.ark.decompose.extensions)
+                implementation(libs.ark.mvikotlin.core)
+                implementation(libs.ark.mvikotlin.main)
+                implementation(libs.lib.reaktive.core)
+                implementation(libs.lib.reaktive.interop)
+                implementation(libs.lib.imageloader.core)
             }
         }
     }

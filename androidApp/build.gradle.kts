@@ -1,7 +1,7 @@
 plugins {
-    kotlin("multiplatform")
-    id("com.android.application")
-    id("org.jetbrains.compose")
+    alias(libs.plugins.multiplatform)
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.compose)
 }
 
 kotlin {
@@ -11,12 +11,12 @@ kotlin {
             dependencies {
                 implementation(project(":shared"))
 
-                implementation(Deps.AndroidX.AppCompat.appCompat)
-                implementation(Deps.AndroidX.Activity.activityCompose)
-                implementation(Deps.ArkIvanov.Decompose.decompose)
-                implementation(Deps.ArkIvanov.Decompose.extensions)
-                implementation(Deps.ArkIvanov.MVIKotlin.mvikotlin)
-                implementation(Deps.KMM.ImageLoader.main)
+                implementation(libs.android.appcompat)
+                implementation(libs.android.activity.compose)
+                implementation(libs.ark.decompose.core)
+                implementation(libs.ark.decompose.extensions)
+                implementation(libs.ark.mvikotlin.core)
+                implementation(libs.lib.imageloader.core)
             }
         }
     }
