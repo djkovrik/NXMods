@@ -6,6 +6,8 @@
 
 Compose and Kotlin Multiplatform playground
 
+![Screen](https://raw.githubusercontent.com/djkovrik/NxMods/master/images/poster.png)
+
 #### Used libraries
 
 - [Jetbrains Compose](https://github.com/JetBrains/compose-jb)
@@ -25,6 +27,8 @@ Compose and Kotlin Multiplatform playground
 - [x] Navigation drawer: active game switcher
 - [x] Prefs screen with game list management
 - [x] Mod details screen
-- [ ] shared module + iOS target
+- [x] iOS target
+- [ ] Better modularization
 - [ ] Bookmark and endorse
+- [ ] Separate option for light/dark theme selection
 - [ ] Github Actions for releases
