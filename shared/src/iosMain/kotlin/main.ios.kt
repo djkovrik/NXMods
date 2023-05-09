@@ -16,6 +16,7 @@ import com.seiko.imageloader.LocalImageLoader
 val lifecycle = LifecycleRegistry()
 val root: NxModsRoot = NxModsRootFactory(DefaultComponentContext(lifecycle))
 
+@Suppress("FunctionNaming")
 fun MainViewController() = ComposeUIViewController {
     Surface(modifier = Modifier.fillMaxSize()) {
         MaterialTheme {
