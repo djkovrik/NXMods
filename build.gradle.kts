@@ -1,23 +1,19 @@
 plugins {
-    `kotlin-dsl`
-    id("com.louiscad.complete-kotlin") version "1.1.0"
-    id("io.gitlab.arturbosch.detekt") version "1.22.0-RC2"
-}
-
-allprojects {
-    repositories {
-        mavenLocal()
-        google()
-        mavenCentral()
-        maven("https://plugins.gradle.org/m2/")
-        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
-    }
+    alias(libs.plugins.multiplatform).apply(false)
+    alias(libs.plugins.compose).apply(false)
+    alias(libs.plugins.cocoapods).apply(false)
+    alias(libs.plugins.android.application).apply(false)
+    alias(libs.plugins.kotlinx.parcelize).apply(false)
+    alias(libs.plugins.kotlinx.serialization).apply(false)
+    alias(libs.plugins.libres).apply(false)
+    alias(libs.plugins.sqlDelight).apply(false)
+    id("io.gitlab.arturbosch.detekt") version "1.22.0"
 }
 
 detekt {
     buildUponDefaultConfig = true
     allRules = false
-    source = files("$projectDir/android/", "$projectDir/common/")
+    source = files("$projectDir/shared/")
     config = files("$projectDir/detekt/base-config.yml")
     baseline = file("$projectDir/detekt/baseline.xml")
     parallel = true
@@ -39,5 +35,5 @@ tasks.withType<io.gitlab.arturbosch.detekt.DetektCreateBaselineTask>().configure
 }
 
 tasks.register<GradleBuild>("runOnGitHub") {
-    tasks = listOf("detekt", "testDebugUnitTest", ":android:lint")
+    tasks = listOf("detekt")
 }

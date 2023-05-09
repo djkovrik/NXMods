@@ -1,20 +1,23 @@
-rootProject.name = "NXMods"
+rootProject.name = "NxMods"
 
-include(
-    ":android",
-    ":desktop",
-    ":common:database",
-    ":common:network",
-    ":common:settings",
-    ":common:domain",
-    ":common:utils",
-    ":common:component:root",
-    ":common:component:auth",
-    ":common:component:game-selector",
-    ":common:component:mod-list",
-    ":common:component:home",
-    ":common:component:preferences",
-    ":common:component:mod-info",
-    ":common:ui:markdown-widget",
-    ":common:ui:compose-ui",
-)
+include(":androidApp")
+include(":shared")
+include(":desktopApp")
+
+pluginManagement {
+    repositories {
+        google()
+        gradlePluginPortal()
+        mavenCentral()
+        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+    }
+}
+
+@Suppress("UnstableApiUsage")
+dependencyResolutionManagement {
+    repositories {
+        google()
+        mavenCentral()
+        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+    }
+}
