@@ -28,7 +28,6 @@ Compose and Kotlin Multiplatform playground
 - [x] Prefs screen with game list management
 - [x] Mod details screen
 - [x] iOS target
-- [ ] Better modularization
-- [ ] Bookmark and endorse
+- [ ] New tab for bookmarked mods
 - [ ] Separate option for light/dark theme selection
-- [ ] Github Actions for releases
+
